@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/board/*")
 @Log4j
 public class BoardController {
-	//hello
+
 	@Setter(onMethod_= {@Autowired})
 	private BoardService service;
 	
@@ -27,8 +27,7 @@ public class BoardController {
 		model.addAttribute("list",service.list(cri));
 		
 		int totalCount = service.getTotal(cri);
-		
-		
+				
 		PageMaker pm = new PageMaker(cri, totalCount);
 		model.addAttribute("pm",pm);		
 	
