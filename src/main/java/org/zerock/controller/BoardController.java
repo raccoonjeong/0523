@@ -27,8 +27,7 @@ public class BoardController {
 		model.addAttribute("list",service.list(cri));
 		
 		int totalCount = service.getTotal(cri);
-		
-		
+				
 		PageMaker pm = new PageMaker(cri, totalCount);
 		model.addAttribute("pm",pm);		
 	
