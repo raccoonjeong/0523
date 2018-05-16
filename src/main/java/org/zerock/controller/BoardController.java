@@ -23,7 +23,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri")Criteria cri,Model model) throws Exception{
-		log.info("list...zzz");
+		log.info("list...hhhzzz");
 		model.addAttribute("list",service.list(cri));
 		
 		int totalCount = service.getTotal(cri);
