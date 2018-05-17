@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css" />
 <style>
+
 .search1 {
 	text-align: center;
 }
@@ -49,13 +50,9 @@
 
 
 
-
- 
-
-
-
-
 a
+
+
 
 
 
@@ -73,12 +70,16 @@ a
 
 
 
+
+
 :not
 
 
 
 
+
  
+
 
 
 
@@ -89,7 +90,9 @@ a
 
 
 
+
  
+
 
 
 
@@ -104,12 +107,16 @@ background-color
 
 
 
+
+
 :
 
 
 
 
+
  
+
 
 
 
@@ -123,11 +130,16 @@ pink
 
 
 
+
+
 ;
 }
 .search {
 	width: 33%;
 	margin-left: 33%;
+}
+.bno{
+font-size:70%
 }
 
 .box {
@@ -209,7 +221,7 @@ pink
 					<tbody>
 						<c:forEach items="${list}" var="vo">
 							<tr>
-								<td><c:out value="${vo.bno}" /></td>
+								<td class="bno"><c:out value="${vo.bno}" /></td>
 
 								<td class="box"><span class="title"> <c:out
 											value="${vo.title}" />
@@ -253,7 +265,8 @@ pink
 					<div class="3u 12u$(small)">
 						<div class="select-wrapper">
 							<select name="type" id="category">
-								<option value="">- Category -</option>
+								<option value="n"
+									<c:out value="${cri.type == 'n' ? 'selected' : '' }"></c:out>>--category--</option>
 								<option value="t"
 									<c:out value="${cri.type eq 't' ? 'selected' : '' }"/>>title</option>
 								<option value="c"
@@ -267,61 +280,43 @@ pink
 							</select>
 						</div>
 					</div>
-					<div class="3u 12u$(small)">
+				
+					<div class="6u 12u$(small)">
 						<input type="text" name="keyword" id="query"
 							value="${cri.keyword}" placeholder="search" />
-					<div class="3u$ 12u$(small)">
-							<button id="search">Search</button>
+					
+				
+						<div class="3u 12u$(small)">
+							<button id="search" value="Search" class="fit">Search</button>
 						</div>
-		<!-- 			<div class="3u$ 12u$(small)">
-							<button id="new">Register</button>
-						</div> -->
 
-					</div>
-					<!-- 		<form method="post" action="#">
-						<div class="3u$ 12u$(small)">
-							<input type="submit" value="Search" class="fit" />
-						</div>
 				</div>
-				</form>
-			 -->
-				</div>
-
+</div>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			crossorigin="anonymous"></script>
-		<script>
-			$(document)
-					.ready(
-							function() {
-								$("#search")
-										.on(
-												"click",
-												function(e) {
-													console
-															.log("clicked...............................")
-													console
-															.log(encodeURIComponent($(
-																	'#keywordInput')
-																	.val()))
-													self.location = "/board/list"
-															+ '${pm.makeQuery(1)}'
-															+ "&type="
-															+ $(
-																	"select option:selected")
-																	.val()
-															+ "&keyword="
-															+ encodeURIComponent($(
-																	'#query')
-																	.val());
-												});
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function() {
+							$("#search").on("click",function(e) {
+								console.log("clicked...............................")
+								console.log(encodeURIComponent($('#keywordInput').val()))
+								var type = $("#category")[0].value;
+								if (type === 'n') {
+									return
+								}
+								self.location ="/board/list"+'${pm.makeQuery(1)}'+ "&type="
+														+ $("select option:selected").val()
+														+ "&keyword="+ encodeURIComponent($('#query').val());
+								
+								});
 
-							});
-		</script>
+						});
+	</script>
 
-		<!--@@@검색@@@ -->
+	<!--@@@검색@@@ -->
 
 
 
@@ -331,27 +326,26 @@ pink
 
 
 
-		<!-- Footer -->
-		<footer id="footer">
-			<div class="container">
-				<ul class="icons">
-					<li><a href="#" class="icon fa-twitter"><span
-							class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon fa-facebook"><span
-							class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon fa-instagram"><span
-							class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon fa-envelope-o"><span
-							class="label">Email</span></a></li>
-				</ul>
-			</div>
-			<div class="copyright">&copy; Untitled. All rights reserved.</div>
-		</footer>
-		<!-- Scripts -->
-		<script src="/resources/js/jquery.min.js"></script>
-		<script src="/resources/js/jquery.scrollex.min.js"></script>
-		<script src="/resources/js/skel.min.js"></script>
-		<script src="/resources/js/util.js"></script>
-		<script src="/resources/js/main.js"></script>
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="container">
+			<ul class="icons">
+				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon fa-facebook"><span
+						class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon fa-instagram"><span
+						class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon fa-envelope-o"><span
+						class="label">Email</span></a></li>
+			</ul>
+		</div>
+		<div class="copyright">&copy; Untitled. All rights reserved.</div>
+	</footer>
+	<!-- Scripts -->
+	<script src="/resources/js/jquery.min.js"></script>
+	<script src="/resources/js/jquery.scrollex.min.js"></script>
+	<script src="/resources/js/skel.min.js"></script>
+	<script src="/resources/js/util.js"></script>
+	<script src="/resources/js/main.js"></script>
 </body>
 </html>
