@@ -17,17 +17,18 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/board/*")
 @Log4j
 public class BoardController {
-
+	
 	@Setter(onMethod_= {@Autowired})
 	private BoardService service;
 	
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri")Criteria cri,Model model) throws Exception{
-		log.info("list...hhhhhhghhhzzz");
+		log.info("list...zzz");
 		model.addAttribute("list",service.list(cri));
 		
 		int totalCount = service.getTotal(cri);
-				
+		
+		
 		PageMaker pm = new PageMaker(cri, totalCount);
 		model.addAttribute("pm",pm);		
 	

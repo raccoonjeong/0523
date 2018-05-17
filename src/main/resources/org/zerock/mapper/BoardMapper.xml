@@ -29,6 +29,7 @@
 
 	<select id="getTotal" resultType="int">
 		select count(*) from tbl_aboard
+		<include refid="search"></include>
 	</select>
 
 </mapper>

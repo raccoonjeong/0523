@@ -28,5 +28,4 @@ public class Criteria {
 		}
 		return this.type.split("");
 	}
-
 }
