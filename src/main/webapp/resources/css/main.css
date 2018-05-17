@@ -2043,7 +2043,7 @@
 		input[type="button"].special,
 		button.special,
 		.button.special {
-			background-color: #8a4680;
+			background-color: #282828;
 			color: #ffffff !important;
 		}
 
@@ -2122,8 +2122,8 @@
 		.select-wrapper:before {
 			content: '\f078';
 			display: block;
-			height: 2.75rem;
-			line-height: 2.75rem;
+			height: 2rem;
+			line-height: 2rem;
 			pointer-events: none;
 			position: absolute;
 			right: 0;
@@ -2590,6 +2590,7 @@
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
+		margin-bottom: -5%;
 	}
 
 	table {

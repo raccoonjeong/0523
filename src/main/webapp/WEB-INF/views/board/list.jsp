@@ -9,11 +9,17 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 <style>
 
 .search1 {
-	text-align: center;
+
+text-align: center;
+    /* display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center; */
+
 }
 
 .outer {
@@ -46,94 +52,10 @@
 	color: white;
 }
 
-.pagination
-
-
-
-a
-
-
-
-
-
-
-
-
-
-
-:hover
-
-
-
-
-
-
-
-
-
-
-:not
-
-
-
-
-
- 
-
-
-
-
-
-(
-.active
-
-
-
-
-
- 
-
-
-
-
-
-){
-background-color
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
- 
-
-
-
-
-
-pink
-
-
-
-
-
-
-
-
-
-
-;
+.pagination a:hover:not(.active){
+background-color:pink;
 }
+
 .search {
 	width: 33%;
 	margin-left: 33%;
@@ -165,8 +87,9 @@ font-size:70%
 	vertical-align: middle;
 }
 
-.row uniform {
-	text-align: center;
+#selectbox{
+	display: inline-block;
+	width:80%;
 }
 </style>
 </head>
@@ -240,6 +163,12 @@ font-size:70%
 									</c:if></td>
 							</tr>
 						</c:forEach>
+						</tbody>
+						<tfoot>
+						<tr>
+						<td colspan="4" ><button class="button special fit"  style="float: right;">Register</button></td>
+						</tr>
+						</tfoot>
 				</table>
 			</div>
 			<div class="center">
@@ -252,7 +181,7 @@ font-size:70%
 							class="<c:if test="${pm.cri.page==idx}">active</c:if>">${idx}</a>
 					</c:forEach>
 					<c:if test="${pm.next}">
-						<a href="/board/list?${pm.makeSearch(pm.end+1)}">>></a>
+						<a href="/board/list${pm.makeSearch(pm.end+1)}">>></a>
 					</c:if>
 				</div>
 			</div>
@@ -261,7 +190,7 @@ font-size:70%
 
 			<!--@@@검색@@@  -->
 			<div class="search1">
-				<div class="row uniform">
+				<div class="row uniform" id="selectbox">
 					<div class="3u 12u$(small)">
 						<div class="select-wrapper">
 							<select name="type" id="category">
@@ -284,14 +213,15 @@ font-size:70%
 					<div class="6u 12u$(small)">
 						<input type="text" name="keyword" id="query"
 							value="${cri.keyword}" placeholder="search" />
-					
+					</div>
 				
-						<div class="3u 12u$(small)">
-							<button id="search" value="Search" class="fit">Search</button>
+					<div class="3u 12u$(small)">
+							<button id="search" value="Search" class="button special icon fa-search">Search</button>
 						</div>
-
-				</div>
-</div>
+					</div>
+				</div><!-- 검색end -->
+				
+				
 			</div>
 		</div>
 	</div>
