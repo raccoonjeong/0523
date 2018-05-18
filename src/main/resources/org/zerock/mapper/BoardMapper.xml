@@ -31,5 +31,9 @@
 		select count(*) from tbl_aboard
 		<include refid="search"></include>
 	</select>
+	
+	<insert id="register">
+	insert into tbl_aboard (title,content,writer) values (#{title},#{content},#{writer}); 
+	</insert>
 
 </mapper>

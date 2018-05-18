@@ -13,6 +13,8 @@ public interface BoardMapper {
 	public int getTotal(Criteria cri);
 	
 	public List<BoardVO> searchList(Criteria cri);
+	
+	public int register(BoardVO vo);
 			
 	
 }
