@@ -33,5 +33,15 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.register(vo);
 	}
 
+	@Override
+	public BoardVO read(int bno) {
+	
+		return mapper.read(bno);
+	}
+
+	
+
+	
+
 	
 }

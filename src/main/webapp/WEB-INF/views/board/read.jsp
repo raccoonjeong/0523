@@ -114,7 +114,7 @@
 		</div>
 	</div>
 	</div>
-	
+	<%-- 
 	<form id="form">
 	
 		<input type="hidden" name="page" value="${cri.page}">
@@ -123,27 +123,29 @@
 			<input type="hidden" name="type" value="${cri.type}">
 			<input type="hidden" name="keyword" value="${cri.keyword}">
 	</c:if>
-	</form>
-	
+	</form>  --%>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
-	<script>
-		var form = $("#form");
-
+	<!-- <script>
+		/* var form = $("#form");
+ 
 		$(document).ready(function(e) {
 
 					$(".actions").on("click",".list",
 							function(e) {
 								form.children(".bno").remove();
-								form.attr("action", "/board/list").attr("method", "get").submit();
-
+								form.attr("action", "/board/list").attr("method", "get").submit();  */
+								
+								
+								
+/* self.location="/board/list${cri.makeSearch(1)}"
 							});
 
-				});
-	</script>
+				}); */
+	</script> -->
 
 
 	<!-- Footer -->
@@ -159,7 +161,7 @@
 						class="label">Email</span></a></li>
 			</ul>
 		</div>
-		<div class="copyright">&copy; Untitled. All rights reserved.</div>
+		<div class="copyright"> Untitled. All rights reserved.</div>
 	</footer>
 	<!-- Scripts -->
 	<script src="/resources/js/jquery.min.js"></script>

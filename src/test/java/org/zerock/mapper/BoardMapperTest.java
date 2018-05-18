@@ -49,4 +49,8 @@ public class BoardMapperTest {
 		log.info(vo);
 		mapper.register(vo);
 	}
+	@Test
+	public void getRead() {
+		log.info(mapper.read(3));
+	}
 }

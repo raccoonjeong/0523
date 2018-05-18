@@ -121,6 +121,8 @@ font-size:70%
 	</section>
 	<!-- Main -->
 	<div id="main" class="container">
+	
+	<h1>${cri.makeSearch(cri.page)}</h1>
 		<div class="outer">
 			<!-- Table -->
 			<h3>Table</h3>
@@ -146,10 +148,9 @@ font-size:70%
 							<tr>
 								<td class="bno" ><c:out value="${vo.bno}" /></td>
 
-								<td class="box" data-bno="${vo.bno }"><span class="title"> 
-									<c:out value="${vo.title}" /></span> 
-									
-									<span class="ico"> <c:if test="${vo.checkNew()}">
+								<td class="box" id="toread" data-bno="${vo.bno}"><span class="title">
+										<c:out value="${vo.title}" />
+								</span> <span class="ico"> <c:if test="${vo.checkNew()}">
 											<img src="/resources/images/new.jpg">
 										</c:if>
 								</span></td>
@@ -168,6 +169,8 @@ font-size:70%
 						<tfoot>
 						<tr>
 						<td colspan="4" ><button class="button special fit" id="regbtn"  style="float: right;">Register</button></td>
+							<td colspan="4"><button class="button special fit"
+									style="float: right;">Register</button></td>
 						</tr>
 						</tfoot>
 				</table>
@@ -175,14 +178,14 @@ font-size:70%
 			<div class="center">
 				<div class="pagination">
 					<c:if test="${pm.prev}">
-						<a href="/board/list${pm.makeSearch(pm.start -1)}"><< </a>
+						<a href="/board/list${cri.makeSearch(pm.start -1)}"><< </a>
 					</c:if>
 					<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
-						<a href="/board/list${pm.makeSearch(idx)}"
+						<a href="/board/list${cri.makeSearch(idx)}"
 							class="<c:if test="${pm.cri.page==idx}">active</c:if>">${idx}</a>
 					</c:forEach>
 					<c:if test="${pm.next}">
-						<a href="/board/list${pm.makeSearch(pm.end+1)}">>></a>
+						<a href="/board/list${cri.makeSearch(pm.end+1)}">>></a>
 					</c:if>
 				</div>
 			</div>
@@ -217,8 +220,8 @@ font-size:70%
 					</div>
 				
 					<div class="3u 12u$(small)">
-							<button id="search" value="Search" class="button special icon fa-search">Search</button>
-						</div>
+						<button id="search" value="Search"
+							class="button special icon fa-search">Search</button>
 					</div>
 				</div><!-- 검색end -->
 				
@@ -226,11 +229,9 @@ font-size:70%
 			</div>
 		</div>
 	</div>
-		<form id="form">
-		<input type="hidden" name="pm" value="${pm.makeSearch(cri.page)}">
-		
-		
-		
+	</div>
+ 	<form id="form">
+		<input type="hidden" name="pm" value="${cri.makeSearch(cri.page)}">
 		<input type="hidden" name="page" value="${cri.page}">
 		<c:if test="${cri.type ne null}">
 			<input type="hidden" name="type" value="${cri.type}">
@@ -283,8 +284,9 @@ font-size:70%
 							$(".box").on("click",function(e){
 						
 								var bno = $(this).attr("data-bno");
+								var link = '${cri.makeSearch(cri.page)}';
 								
-								self.location = "/board/read"+'${pm.makeSearch(cri.page)}'+"&bno="+bno;
+								self.location = "/board/read"+link+"&bno="+bno;
 							});
 
 

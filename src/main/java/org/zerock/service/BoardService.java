@@ -13,4 +13,5 @@ public interface BoardService {
 	
 	public int register(BoardVO vo);
 
+	public BoardVO read(int bno);
 }

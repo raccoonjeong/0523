@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageMaker;
 import org.zerock.service.BoardService;
@@ -57,6 +59,13 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list";
+			
+	}
+
+	@GetMapping("/read")
+	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model) throws Exception{
+		log.info("Read...zzz");
+		model.addAttribute("vo", service.read(bno));
 		
 	}
 
