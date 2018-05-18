@@ -144,11 +144,12 @@ font-size:70%
 					<tbody>
 						<c:forEach items="${list}" var="vo">
 							<tr>
-								<td class="bno"><c:out value="${vo.bno}" /></td>
+								<td class="bno" ><c:out value="${vo.bno}" /></td>
 
-								<td class="box"><span class="title"> <c:out
-											value="${vo.title}" />
-								</span> <span class="ico"> <c:if test="${vo.checkNew()}">
+								<td class="box" data-bno="${vo.bno }"><span class="title"> 
+									<c:out value="${vo.title}" /></span> 
+									
+									<span class="ico"> <c:if test="${vo.checkNew()}">
 											<img src="/resources/images/new.jpg">
 										</c:if>
 								</span></td>
@@ -225,6 +226,18 @@ font-size:70%
 			</div>
 		</div>
 	</div>
+		<form id="form">
+		<input type="hidden" name="pm" value="${pm.makeSearch(cri.page)}">
+		
+		
+		
+		<input type="hidden" name="page" value="${cri.page}">
+		<c:if test="${cri.type ne null}">
+			<input type="hidden" name="type" value="${cri.type}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
+		</c:if>
+		<input type="hidden" name="bno" class="bno" value="${vo.bno}">
+	</form>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -242,6 +255,12 @@ font-size:70%
 														+ "&keyword="+ encodeURIComponent($('#query').val());
 								
 								});
+							$(".box").on("click",function(e){
+						
+								var bno = $(this).attr("data-bno");
+								
+								self.location = "/board/read"+'${pm.makeSearch(cri.page)}'+"&bno="+bno;
+							});
 
 						});
 	</script>

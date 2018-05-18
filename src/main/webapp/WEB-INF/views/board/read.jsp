@@ -5,122 +5,167 @@
     Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
-    <title>Hielo by TEMPLATED</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="assets/css/main.css"/>
-    <style>
-        .contentbox {
-            min-height: 500px;
-        }
-        .mytable{
-            width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-     .subpage{
-            background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
-        }
-        .outer{
-            padding-top: 5%;
-            background-color: #ffffff;
-            background-color: rgba( 255, 255, 255, 0.6);
-        }
-        
-    </style>
+<title>Hielo by TEMPLATED</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/resources/css/main.css" />
+<style>
+.contentbox {
+	min-height: 500px;
+}
+
+.mytable {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.subpage {
+	background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
+}
+
+.outer {
+	padding-top: 5%;
+	background-color: #ffffff;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+</style>
 </head>
+
 <body class="subpage">
-<!-- Header -->
-<header id="header">
-    <div class="logo"><a href="index.html">Hielo <span>by TEMPLATED</span></a></div>
-    <a href="#menu">Menu</a>
-</header>
-<!-- Nav -->
-<nav id="menu">
-    <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="generic.html">Generic</a></li>
-        <li><a href="elements.html">Elements</a></li>
-    </ul>
-</nav>
-<!-- One -->
-<section id="One" class="wrapper style3">
-    <div class="inner">
-        <header class="align-center">
-            <p>Sed amet nulla</p>
-            <h2>Candy</h2>
-        </header>
-    </div>
-</section>
-<!-- Main -->
-<div id="main" class="container">
-    <div class="outer">
-    <div class="mytable">
-    <div class="table-wrapper">
-        <h3>View</h3>
-        <table class="alt">
-            <thead>
-            <tr>
-                <th>No.1</th>
-            </tr>
-            </thead>
-            <tbody >
-            <tr>
-                <td colspan="2"><strong>Title Title Title</strong></td>
-            </tr>
-            <tr>
-                <td style="border-right: hidden; border-left: hidden;">Writer</td >
-                <td width=50% style="text-align: right;border-right: hidden;">
-                    2018-05-15 23:15
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" >
-                    <div class="contentbox">Content..... Content..... Content.....Content..... Content.....
-                        Content.....Content..... Content..... Content.....Content..... Content..... Content.....</div>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td >
-                    <ul class="actions" style="float:left;">
-                        <li><a href="#" class="button special">goList</a></li>
-                    </ul>
-                </td>
-                <td >
-                    <ul class="actions" style="float:right;">
-                                    <li><a href="#" class="button">Modify</a></li>
-                                    <li><a href="#" class="button alt">Delete</a></li>
-                                </ul>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
-    </div>
-    </div>
-</div>
-<!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-        </ul>
-    </div>
-    <div class="copyright">
-        &copy; Untitled. All rights reserved.
-    </div>
-</footer>
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrollex.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+
+	<!-- Header -->
+	<header id="header">
+		<div class="logo">
+			<a href="index.html">Hielo <span>by TEMPLATED</span></a>
+		</div>
+		<a href="#menu">Menu</a>
+	</header>
+	<!-- Nav -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a href="index.html">Home</a></li>
+			<li><a href="generic.html">Generic</a></li>
+			<li><a href="elements.html">Elements</a></li>
+		</ul>
+	</nav>
+	<!-- One -->
+	<section id="One" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<p>Sed amet nulla</p>
+				<h2>Candy</h2>
+			</header>
+		</div>
+	</section>
+	<!-- Main -->
+ <h1>${cri.keyword} </h1>
+	<div id="main" class="container">
+		<div class="outer">
+			<div class="mytable">
+				<div class="table-wrapper">
+					<h3>View</h3>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th>No.1</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="2"><strong><c:out value="${vo.title}" /></strong></td>
+							</tr>
+							<tr>
+								<td style="border-right: hidden; border-left: hidden;">Writer:
+									<c:out value="${vo.writer}" />
+								</td>
+								<td width=50% style="text-align: right; border-right: hidden;">
+									<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="contentbox">
+										<c:out value="${vo.content}" />
+									</div>
+								</td>
+							</tr>
+						</tbody>
+
+					</table>
+					<div class="12u$">
+
+						<ul class="actions">
+							<li><input type="button" class="special list"
+								value="List"></li>
+							<li><input type="button" class="special modify"
+								value="Modify" /></li>
+							<li><input type="button" class="special remove"
+								value="Remove" /></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	<form id="form">
+	
+		<input type="hidden" name="page" value="${cri.page}">
+		<input type="hidden" name="bno" class="bno" value="${vo.bno}">
+		<c:if test="${cri.type ne null}">
+			<input type="hidden" name="type" value="${cri.type}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
+	</c:if>
+	</form>
+	
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
+	<script>
+		var form = $("#form");
+
+		$(document).ready(function(e) {
+
+					$(".actions").on("click",".list",
+							function(e) {
+								form.children(".bno").remove();
+								form.attr("action", "/board/list").attr("method", "get").submit();
+
+							});
+
+				});
+	</script>
+
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="container">
+			<ul class="icons">
+				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon fa-facebook"><span
+						class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon fa-instagram"><span
+						class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon fa-envelope-o"><span
+						class="label">Email</span></a></li>
+			</ul>
+		</div>
+		<div class="copyright">&copy; Untitled. All rights reserved.</div>
+	</footer>
+	<!-- Scripts -->
+	<script src="/resources/js/jquery.min.js"></script>
+	<script src="/resources/js/jquery.scrollex.min.js"></script>
+	<script src="/resources/js/skel.min.js"></script>
+	<script src="/resources/js/util.js"></script>
+	<script src="/resources/js/main.js"></script>
 </body>
 </html>
