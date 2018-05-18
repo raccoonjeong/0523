@@ -167,7 +167,7 @@ font-size:70%
 						</tbody>
 						<tfoot>
 						<tr>
-						<td colspan="4" ><button class="button special fit"  style="float: right;">Register</button></td>
+						<td colspan="4" ><button class="button special fit" id="regbtn"  style="float: right;">Register</button></td>
 						</tr>
 						</tfoot>
 				</table>
@@ -244,17 +244,42 @@ font-size:70%
 	<script>
 		$(document).ready(function() {
 							$("#search").on("click",function(e) {
-								console.log("clicked...............................")
-								console.log(encodeURIComponent($('#keywordInput').val()))
+								console.log("clicked...............................");
+								console.log(encodeURIComponent($('#keywordInput').val()));
 								var type = $("#category")[0].value;
 								if (type === 'n') {
-									return
-								}
+									return;
+								};
 								self.location ="/board/list"+'${pm.makeQuery(1)}'+ "&type="
 														+ $("select option:selected").val()
 														+ "&keyword="+ encodeURIComponent($('#query').val());
 								
 								});
+
+							
+							$("#regbtn").on("click", function(e){
+								console.log("clicked.......................");
+								self.location ="/board/register";
+								
+							});
+							
+							
+							
+							
+							console.log("history:"+history.state);
+							console.dir("history:"+history.state);
+							
+							var msg = '<c:out value="${msg}"/>';
+							
+							if(msg=="success" && !history.state){
+						
+								alert("등록이 완료되었습니다."); 
+							}
+							if(msg=="fail" && !history.state){
+								
+								alert("등록이 실패하였습니다."); 
+							}
+
 							$(".box").on("click",function(e){
 						
 								var bno = $(this).attr("data-bno");
@@ -262,6 +287,11 @@ font-size:70%
 								self.location = "/board/read"+'${pm.makeSearch(cri.page)}'+"&bno="+bno;
 							});
 
+
+
+							history.replaceState({}, null, null);
+							
+								
 						});
 	</script>
 

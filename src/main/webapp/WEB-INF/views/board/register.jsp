@@ -4,6 +4,8 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <html>
 <head>
 <title>Hielo by TEMPLATED</title>
@@ -68,28 +70,28 @@
 		<div class="mytable">
 			<h3>form</h3>
 
-			<form method="post" action="#">
+			<form method="post" action="">
 				<div class="row uniform">
 
 					<div class="6u 12u$(xsmall)">
 
-						<input type="text" name="name" id="name" value=""
+						<input type="text" name="title" id="name" value="제목"
 							placeholder="title" />
 					</div>
 
 					<div class="6u 12u$(xsmall)">
 
-						<input type="text" name="writer" id="writer" value=""
+						<input type="text" name="writer" id="writer" value="작성자"
 							placeholder="writer" />
 					</div>
 
 					<div class="12u$">
-						<textarea name="message" id="message"
+						<textarea name="content" id="message"
 							placeholder="Enter your message" rows="20"></textarea>
 					</div>
 					<div class="12u$">
 						<ul class="actions">
-							<li><input type="submit" value="Send Message" /></li>
+							<li><input type="submit" value="Register" class="register"/></li>
 							<li><input type="reset" value="Reset" class="alt" /></li>
 						</ul>
 					</div>
@@ -123,5 +125,11 @@
 	<script src="/resources/js/skel.min.js"></script>
 	<script src="/resources/js/util.js"></script>
 	<script src="/resources/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+	<script>
+	
+	</script>
 </body>
 </html>
