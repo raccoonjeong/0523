@@ -47,17 +47,22 @@ public class BoardController {
 	
 	@PostMapping("/register")
 	public String registerPOST(BoardVO vo, RedirectAttributes rttr)throws Exception{
+		
+		
 		String title = vo.getTitle();
+		String content = vo.getContent();
+		
 
-		if (title != null && title.trim().length() != 0) {
+		if (title != null && title.trim().length() != 0 && content != null && content.trim().length() != 0) {
 			service.register(vo);
 			rttr.addFlashAttribute("msg", "success");
 			
 		} else {
 			rttr.addFlashAttribute("msg", "fail");
-
 		}
 
+		
+		
 		return "redirect:/board/list";
 			
 	}

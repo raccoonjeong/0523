@@ -64,7 +64,7 @@
 		</div>
 	</section>
 	<!-- Main -->
- <h1>${cri.keyword} </h1>
+
 	<div id="main" class="container">
 		<div class="outer">
 			<div class="mytable">
@@ -114,38 +114,24 @@
 		</div>
 	</div>
 	</div>
-	<%-- 
-	<form id="form">
-	
-		<input type="hidden" name="page" value="${cri.page}">
-		<input type="hidden" name="bno" class="bno" value="${vo.bno}">
-		<c:if test="${cri.type ne null}">
-			<input type="hidden" name="type" value="${cri.type}">
-			<input type="hidden" name="keyword" value="${cri.keyword}">
-	</c:if>
-	</form>  --%>
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
-	<!-- <script>
-		/* var form = $("#form");
+<script>
+		
  
 		$(document).ready(function(e) {
 
 					$(".actions").on("click",".list",
 							function(e) {
-								form.children(".bno").remove();
-								form.attr("action", "/board/list").attr("method", "get").submit();  */
-								
-								
-								
-/* self.location="/board/list${cri.makeSearch(1)}"
+						self.location="/board/list${cri.makeSearch(cri.page)}"
 							});
 
-				}); */
-	</script> -->
+				}); 
+	</script>
 
 
 	<!-- Footer -->

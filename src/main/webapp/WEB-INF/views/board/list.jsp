@@ -122,7 +122,6 @@ font-size:70%
 	<!-- Main -->
 	<div id="main" class="container">
 	
-	<h1>${cri.makeSearch(cri.page)}</h1>
 		<div class="outer">
 			<!-- Table -->
 			<h3>Table</h3>
@@ -169,8 +168,7 @@ font-size:70%
 						<tfoot>
 						<tr>
 						<td colspan="4" ><button class="button special fit" id="regbtn"  style="float: right;">Register</button></td>
-							<td colspan="4"><button class="button special fit"
-									style="float: right;">Register</button></td>
+					
 						</tr>
 						</tfoot>
 				</table>
@@ -244,7 +242,12 @@ font-size:70%
 		crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
-							$("#search").on("click",function(e) {
+						
+			
+			
+			
+			
+			$("#search").on("click",function(e) {
 								console.log("clicked...............................");
 								console.log(encodeURIComponent($('#keywordInput').val()));
 								var type = $("#category")[0].value;
@@ -259,28 +262,12 @@ font-size:70%
 
 							
 							$("#regbtn").on("click", function(e){
-								console.log("clicked.......................");
+								console.log("clicked...........ssddddd............");
 								self.location ="/board/register";
 								
 							});
 							
-							
-							
-							
-							console.log("history:"+history.state);
-							console.dir("history:"+history.state);
-							
-							var msg = '<c:out value="${msg}"/>';
-							
-							if(msg=="success" && !history.state){
 						
-								alert("등록이 완료되었습니다."); 
-							}
-							if(msg=="fail" && !history.state){
-								
-								alert("등록이 실패하였습니다."); 
-							}
-
 							$(".box").on("click",function(e){
 						
 								var bno = $(this).attr("data-bno");
@@ -289,11 +276,22 @@ font-size:70%
 								self.location = "/board/read"+link+"&bno="+bno;
 							});
 
-
-
+							
+							
+							
+							
+							console.log("history:"+history.state);
+							
+							var msg = '<c:out value="${msg}"/>';
+							
+							if(msg=="success" && !history.state){
+								alert("등록이 완료되었습니다.");
+							}
+							if(msg=="fail" && !history.state){
+								alert("등록이 실패하였습니다. 내용을 똑바로 입력하세요.");
+							}
 							history.replaceState({}, null, null);
 							
-								
 						});
 	</script>
 
