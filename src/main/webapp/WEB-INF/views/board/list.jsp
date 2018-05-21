@@ -141,8 +141,8 @@ font-size:70%
 						<th style="text-align: right;">Writer</th>
 						<th style="text-align: right;">Regdate</th>
 						</tr>
-					</thead>
-					<tbody>
+
+				<tbody>
 						<c:forEach items="${list}" var="vo">
 							<tr>
 								<td class="bno" ><c:out value="${vo.bno}" /></td>
@@ -228,15 +228,7 @@ font-size:70%
 		</div>
 	</div>
 	</div>
- 	<form id="form">
-		<input type="hidden" name="pm" value="${cri.makeSearch(cri.page)}">
-		<input type="hidden" name="page" value="${cri.page}">
-		<c:if test="${cri.type ne null}">
-			<input type="hidden" name="type" value="${cri.type}">
-			<input type="hidden" name="keyword" value="${cri.keyword}">
-		</c:if>
-		<input type="hidden" name="bno" class="bno" value="${vo.bno}">
-	</form>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -296,14 +288,6 @@ font-size:70%
 	</script>
 
 	<!--@@@검색@@@ -->
-
-
-
-
-
-
-
-
 
 	<!-- Footer -->
 	<footer id="footer">

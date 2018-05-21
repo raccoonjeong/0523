@@ -68,10 +68,37 @@ public class BoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model) throws Exception{
+	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,BoardVO vo,Model model) throws Exception{
 		log.info("Read...zzz");
 		model.addAttribute("vo", service.read(bno));
 		
 	}
+	
+	@GetMapping("/modify")
+	public void modify(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model)throws Exception{
+		log.info("modify............");
+		model.addAttribute("vo",service.read(bno));
+	}
+	
+	@PostMapping("/modify")
+	public String modifyPOST(@ModelAttribute("cri")Criteria cri,BoardVO vo,RedirectAttributes rttr)throws Exception{
+		
+	
+		String title = vo.getTitle();
+		String content = vo.getContent();
+		int bno = vo.getBno();
+		
+		
+		if (title != null && title.trim().length() != 0 && content != null && content.trim().length() != 0) {
+			service.modify(vo);
+			rttr.addFlashAttribute("msg", "success");
+			
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+		}
+
+		return "redirect:/board/read" +cri.makeSearch(cri.getPage())+"&bno="+bno ;
+	}
+		
 
 }

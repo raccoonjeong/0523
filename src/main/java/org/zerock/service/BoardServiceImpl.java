@@ -39,6 +39,14 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.read(bno);
 	}
 
+	@Override
+	public int modify(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.modify(vo);
+	}
+
+
+
 	
 
 	

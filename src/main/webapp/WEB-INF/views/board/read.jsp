@@ -73,7 +73,7 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th>No.1</th>
+								<th><c:out value="${vo.bno}" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -85,7 +85,7 @@
 									<c:out value="${vo.writer}" />
 								</td>
 								<td width=50% style="text-align: right; border-right: hidden;">
-									<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" />
+									<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm" />
 								</td>
 							</tr>
 							<tr>
@@ -103,7 +103,7 @@
 						<ul class="actions">
 							<li><input type="button" class="special list"
 								value="List"></li>
-							<li><input type="button" class="special modify"
+							<li ><input type="button" class="special modify" data-bno="${vo.bno}"
 								value="Modify" /></li>
 							<li><input type="button" class="special remove"
 								value="Remove" /></li>
@@ -128,6 +128,11 @@
 					$(".actions").on("click",".list",
 							function(e) {
 						self.location="/board/list${cri.makeSearch(cri.page)}"
+							});
+					$(".actions").on("click",".modify",
+							function(e) {
+						var bno = $(this).attr("data-bno");
+						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
 							});
 
 				}); 
