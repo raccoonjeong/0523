@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +40,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
-	public void registerGET()throws Exception{
+	public void registerGET(@ModelAttribute("cri")Criteria cri)throws Exception{
 		log.info("register get.............");
+		log.info(cri);
 	
 	}
 	
@@ -74,6 +76,23 @@ public class BoardController {
 		
 	}
 	
+
+	
+	@PostMapping("/remove")
+	public String removePOST(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno, String makeuri, RedirectAttributes rttr) {
+		log.info("remove.....");
+		
+		try{
+			service.remove(bno);
+			rttr.addFlashAttribute("msg", "successRemove");
+			
+		}catch(Exception e){
+			rttr.addFlashAttribute("msg", "failRemove");}
+		
+		
+		return "redirect:/board/list"+makeuri;
+	}
+
 	@GetMapping("/modify")
 	public void modify(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model)throws Exception{
 		log.info("modify............");
@@ -100,5 +119,6 @@ public class BoardController {
 		return "redirect:/board/read" +cri.makeSearch(cri.getPage())+"&bno="+bno ;
 	}
 		
+
 
 }

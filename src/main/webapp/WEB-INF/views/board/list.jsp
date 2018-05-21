@@ -229,6 +229,8 @@ font-size:70%
 	</div>
 	</div>
 
+ 	
+
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -239,23 +241,25 @@ font-size:70%
 			
 			
 			
-			$("#search").on("click",function(e) {
+				$("#search").on("click",function(e) {
 								console.log("clicked...............................");
 								console.log(encodeURIComponent($('#keywordInput').val()));
 								var type = $("#category")[0].value;
-								if (type === 'n') {
+								var keyword = $('#query').val();
+								
+								if (type === 'n' || keyword === '') {
 									return;
 								};
 								self.location ="/board/list"+'${pm.makeQuery(1)}'+ "&type="
 														+ $("select option:selected").val()
-														+ "&keyword="+ encodeURIComponent($('#query').val());
+														+ "&keyword="+ encodeURIComponent(keyword);
 								
 								});
 
 							
 							$("#regbtn").on("click", function(e){
 								console.log("clicked...........ssddddd............");
-								self.location ="/board/register";
+								self.location ="/board/register${cri.makeSearch(cri.page)}";
 								
 							});
 							
@@ -282,10 +286,19 @@ font-size:70%
 							if(msg=="fail" && !history.state){
 								alert("등록이 실패하였습니다. 내용을 똑바로 입력하세요.");
 							}
+							if(msg=="successRemove" && !history.state){
+								alert("삭제가 완료되었습니다.");
+							}
+							if(msg=="failRemove" && !history.state){
+								alert("삭제에 실패하였습니다.");
+							}
 							history.replaceState({}, null, null);
 							
 						});
 	</script>
+
+
+
 
 	<!--@@@검색@@@ -->
 
