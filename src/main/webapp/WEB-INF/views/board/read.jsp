@@ -73,7 +73,7 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th>No.1</th>
+								<th>No.<c:out value="${vo.bno}"/></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -114,7 +114,10 @@
 		</div>
 	</div>
 	</div>
-
+<form role = "form" action = "remove" method = "post">
+<input type = "hidden" name = "bno" value = "${vo.bno}">
+<input type = "hidden" name = "makeuri" value = "${cri.makeSearch(cri.page)}">
+</form>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -124,11 +127,21 @@
 		
  
 		$(document).ready(function(e) {
-
+					
+		    	/* 목록가기 */
 					$(".actions").on("click",".list",
 							function(e) {
-						self.location="/board/list${cri.makeSearch(cri.page)}"
+						self.location="/board/list${cri.makeSearch(cri.page)}";
 							});
+					
+				/* 삭제  */
+					var formObj = $("form[role='form']");
+				
+					$(".actions").on("click",".remove",
+							function(e) {
+						formObj.submit();
+
+					});
 
 				}); 
 	</script>

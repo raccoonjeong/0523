@@ -35,5 +35,12 @@ public class BoardServiceTests {
 		service.register(vo);
 		
 	}
+	
+	@Test
+	public void remove() {
+		int bno = 1507384;
+		
+		service.remove(bno);
+	}
 
 }

@@ -91,8 +91,9 @@
 					</div>
 					<div class="12u$">
 						<ul class="actions">
-							<li><input type="submit" value="Register" class="register"/></li>
+							<li><input type="button" value="GoList" class="golist"/></li>
 							<li><input type="reset" value="Reset" class="alt" /></li>
+							<li><input type="submit" value="Register" class="register"/></li>
 						</ul>
 					</div>
 				</div>
@@ -129,7 +130,12 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 	<script>
-	
+	$(document).ready(function(e) {
+		$(".actions").on("click",".golist",
+				function(e) {
+			self.location="/board/list${cri.makeSearch(cri.page)}";
+				})
+	}); 
 	</script>
 </body>
 </html>

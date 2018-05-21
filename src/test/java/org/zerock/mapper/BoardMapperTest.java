@@ -53,4 +53,11 @@ public class BoardMapperTest {
 	public void getRead() {
 		log.info(mapper.read(3));
 	}
+	
+	@Test
+	public void remove() {
+		int bno = 1507385;
+		log.info(mapper.remove(bno));
+	}
+	
 }

@@ -39,6 +39,12 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.read(bno);
 	}
 
+	@Override
+	public int remove(int bno) {
+		
+		return mapper.remove(bno);
+	}
+
 	
 
 	
