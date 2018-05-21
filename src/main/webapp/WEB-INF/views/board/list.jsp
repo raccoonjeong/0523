@@ -141,8 +141,8 @@ font-size:70%
 						<th style="text-align: right;">Writer</th>
 						<th style="text-align: right;">Regdate</th>
 						</tr>
-					</thead>
-					<tbody>
+
+				<tbody>
 						<c:forEach items="${list}" var="vo">
 							<tr>
 								<td class="bno" ><c:out value="${vo.bno}" /></td>
@@ -228,7 +228,9 @@ font-size:70%
 		</div>
 	</div>
 	</div>
+
  	
+
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
@@ -299,14 +301,6 @@ font-size:70%
 
 
 	<!--@@@검색@@@ -->
-
-
-
-
-
-
-
-
 
 	<!-- Footer -->
 	<footer id="footer">

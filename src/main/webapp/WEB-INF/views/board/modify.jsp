@@ -70,19 +70,16 @@
 			<div class="mytable">
 				<div class="table-wrapper">
 					<h3>View</h3>
+					<form method="post" action="">
 					<table class="alt">
 						<thead>
 							<tr>
-
-								<th>No.<c:out value="${vo.bno}"/></th>
-
 								<th><c:out value="${vo.bno}" /></th>
-
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="2"><strong><c:out value="${vo.title}" /></strong></td>
+								<td colspan="2"><input type="text" name="title" id="title" value="${vo.title}" /></td>
 							</tr>
 							<tr>
 								<td style="border-right: hidden; border-left: hidden;">Writer:
@@ -95,67 +92,30 @@
 							<tr>
 								<td colspan="2">
 									<div class="contentbox">
-										<c:out value="${vo.content}" />
+										<input type="text" name="content" id="content" value="${vo.content}" />
 									</div>
 								</td>
 							</tr>
 						</tbody>
 
 					</table>
+			
 					<div class="12u$">
-
 						<ul class="actions">
-							<li><input type="button" class="special list"
-								value="List"></li>
-							<li ><input type="button" class="special modify" data-bno="${vo.bno}"
-								value="Modify" /></li>
-							<li><input type="button" class="special remove"
-								value="Remove" /></li>
+							<li><input type="submit" value="Modify"/></li>
+							<li><input type="reset" value="Reset"/></li>
 						</ul>
+					</div>
+</form>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-<form role = "form" action = "remove" method = "post">
-<input type = "hidden" name = "bno" value = "${vo.bno}">
-<input type = "hidden" name = "makeuri" value = "${cri.makeSearch(cri.page)}">
-</form>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-		crossorigin="anonymous"></script>
 
-<script>
-		
- 
-		$(document).ready(function(e) {
-					
-		    	/* 목록가기 */
-					$(".actions").on("click",".list",
-							function(e) {
-						self.location="/board/list${cri.makeSearch(cri.page)}";
-							});
 
-					
-				/* 삭제  */
-					var formObj = $("form[role='form']");
-				
-					$(".actions").on("click",".remove",
-							function(e) {
-						formObj.submit();
 
-					});
-
-					$(".actions").on("click",".modify",
-							function(e) {
-						var bno = $(this).attr("data-bno");
-						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
-							});
-
-				}); 
-	</script>
 
 
 	<!-- Footer -->

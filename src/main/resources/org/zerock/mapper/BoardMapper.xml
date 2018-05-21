@@ -19,7 +19,6 @@
 		</where>
 	</sql>
 
-
 	<select id="list" resultType="org.zerock.domain.BoardVO">
 		select bno,title,writer,regdate,updatedate
 		from tbl_aboard
@@ -38,13 +37,17 @@
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
-
 		select bno,title,content,writer,regdate from tbl_aboard where bno=#{bno};
 	</select>
 	
 	<delete id="remove">
 	delete from tbl_aboard where bno = #{bno};
 	</delete>
+
+	
+	<update id="modify">
+	update tbl_aboard set title=#{title} ,content=#{content},updatedate=now() where bno=#{bno};
+	</update>
 
 
 
