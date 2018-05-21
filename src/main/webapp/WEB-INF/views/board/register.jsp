@@ -14,19 +14,20 @@
 <link rel="stylesheet" href="/resources/css/main.css" />
 
 <style>
-.subpage{
-           background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
-       }
-.outer{
-  padding-top: 5%;
-           background-color: #ffffff;
-           background-color: rgba( 255, 255, 255, 0.6);
-       }
+.subpage {
+	background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
+}
+
+.outer {
+	padding-top: 5%;
+	background-color: #ffffff;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
 .mytable {
 	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
-	         
 }
 
 /* body {
@@ -66,42 +67,47 @@
 
 	<!-- Main -->
 	<div id="main" class="container">
-<div class="outer">
-		<div class="mytable">
-			<h3>form</h3>
+		<div class="outer">
+			<div class="mytable">
+				<h3>form</h3>
 
-			<form method="post" action="">
-				<div class="row uniform">
+				<form method="post" action="">
+					<div class="row uniform">
 
-					<div class="6u 12u$(xsmall)">
+						<div class="6u 12u$(xsmall)">
 
-						<input type="text" name="title" id="name" value="제목"
-							placeholder="title" />
+							<input type="text" name="title" id="name" value="제목"
+								placeholder="title" />
+						</div>
+
+						<div class="6u 12u$(xsmall)">
+
+							<input type="text" name="writer" id="writer" value="작성자"
+								placeholder="writer" />
+						</div>
+
+						<div class="12u$">
+							<textarea name="content" id="message"
+								placeholder="Enter your message" rows="20"></textarea>
+						</div>
+						<div class="12u$">
+							<ul class="actions">
+
+								<li><input type="button" class="special list" value="List"></li>
+								<li><input type="submit" class="special list"
+									value="Register"></li>
+
+
+
+							</ul>
+						</div>
 					</div>
+				</form>
 
-					<div class="6u 12u$(xsmall)">
+				<hr />
 
-						<input type="text" name="writer" id="writer" value="작성자"
-							placeholder="writer" />
-					</div>
-
-					<div class="12u$">
-						<textarea name="content" id="message"
-							placeholder="Enter your message" rows="20"></textarea>
-					</div>
-					<div class="12u$">
-						<ul class="actions">
-							<li><input type="button" value="GoList" class="golist"/></li>
-							<li><input type="reset" value="Reset" class="alt" /></li>
-							<li><input type="submit" value="Register" class="register"/></li>
-						</ul>
-					</div>
-				</div>
-			</form>
-
-			<hr />
-
-		</div></div>
+			</div>
+		</div>
 
 	</div>
 	<!-- Footer -->
@@ -130,12 +136,11 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 	<script>
-	$(document).ready(function(e) {
-		$(".actions").on("click",".golist",
-				function(e) {
-			self.location="/board/list${cri.makeSearch(cri.page)}";
-				})
-	}); 
+		$(document).ready(function(e) {
+			$(".actions").on("click", ".list", function(e) {
+				self.location = "/board/list${cri.makeSearch(cri.page)}";
+			})
+		});
 	</script>
 </body>
 </html>

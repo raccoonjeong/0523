@@ -37,7 +37,7 @@
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
-		select bno,title,content,writer,regdate from tbl_aboard where bno=#{bno};
+		select * from tbl_aboard where bno=#{bno};
 	</select>
 	
 	<delete id="remove">

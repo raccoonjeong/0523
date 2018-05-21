@@ -74,9 +74,7 @@
 						<thead>
 							<tr>
 
-								<th>No.<c:out value="${vo.bno}"/></th>
-
-								<th><c:out value="${vo.bno}" /></th>
+								<th>No.<c:out value="${vo.bno}" /></th>
 
 							</tr>
 						</thead>
@@ -89,7 +87,12 @@
 									<c:out value="${vo.writer}" />
 								</td>
 								<td width=50% style="text-align: right; border-right: hidden;">
-									<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm" />
+									작성일 <fmt:formatDate value="${vo.regdate}"
+										pattern="yyyy-MM-dd HH:mm" />
+										<div class="12u$">
+								수정일 <fmt:formatDate value="${vo.updatedate}"
+									pattern="yyyy-MM-dd HH:mm" />
+						</div>
 								</td>
 							</tr>
 							<tr>
@@ -105,10 +108,9 @@
 					<div class="12u$">
 
 						<ul class="actions">
-							<li><input type="button" class="special list"
-								value="List"></li>
-							<li ><input type="button" class="special modify" data-bno="${vo.bno}"
-								value="Modify" /></li>
+							<li><input type="button" class="special list" value="List"></li>
+							<li><input type="button" class="special modify"
+								data-bno="${vo.bno}" value="Modify" /></li>
 							<li><input type="button" class="special remove"
 								value="Remove" /></li>
 						</ul>
@@ -118,16 +120,16 @@
 		</div>
 	</div>
 	</div>
-<form role = "form" action = "remove" method = "post">
-<input type = "hidden" name = "bno" value = "${vo.bno}">
-<input type = "hidden" name = "makeuri" value = "${cri.makeSearch(cri.page)}">
-</form>
+	<form role="form" action="remove" method="post">
+		<input type="hidden" name="bno" value="${vo.bno}"> <input
+			type="hidden" name="makeuri" value="${cri.makeSearch(cri.page)}">
+	</form>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
-<script>
+	<script>
 		
  
 		$(document).ready(function(e) {
@@ -153,8 +155,21 @@
 						var bno = $(this).attr("data-bno");
 						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
 							});
+					
+					var msg = '<c:out value="${msg}"/>';
+                    
+                    if(msg=="success" && !history.state){
+                        alert("수정이 완료되었습니다.");
+                    }
+                    if(msg=="fail" && !history.state){
+                        alert("수정 실패하였습니다. 내용을 똑바로 입력하세요.");
+                    }
+                    history.replaceState({}, null, null);
+                    
+                
+                });
 
-				}); 
+		
 	</script>
 
 
@@ -171,7 +186,7 @@
 						class="label">Email</span></a></li>
 			</ul>
 		</div>
-		<div class="copyright"> Untitled. All rights reserved.</div>
+		<div class="copyright">Untitled. All rights reserved.</div>
 	</footer>
 	<!-- Scripts -->
 	<script src="/resources/js/jquery.min.js"></script>
