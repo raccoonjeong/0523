@@ -89,7 +89,7 @@
 						<div class="12u$">
 							<ul class="actions" >
 							<li><input type="button" class="special list" value="Cancel"></li>
-							<li><input type="button" class="special list" value="Register"></li>
+							<li><input type="submit" class="special list" value="Register"></li>
 							</ul>
 						</div>
 					</div>
