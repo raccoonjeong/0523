@@ -50,7 +50,7 @@
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="/board/list">Home</a></li>
 			<li><a href="generic.html">Generic</a></li>
 			<li><a href="elements.html">Elements</a></li>
 		</ul>
@@ -71,7 +71,7 @@
 	
 			<div class="mytable">
 			<h3>Modify</h3>
-				<form method="post" action="">
+				<form method="post" action="modify">
 					<div class="row uniform">
 						<div class="6u 12u$(xsmall)">
 							<input type="text" name="title" id="title" id="name"
@@ -81,11 +81,11 @@
 							<input type="text" name="writer" id="writer" value="${vo.writer}"
 								placeholder="writer" />
 						</div>
-
 						<div class="12u$">
 							<textarea name="content" id="message"
 								placeholder="Enter your message" rows="20">${vo.content }</textarea>
 						</div>
+						
 						<div class="12u$">
 							<ul class="actions" >
 							<li><input type="button" class="special list" value="Cancel"></li>
@@ -93,14 +93,18 @@
 							</ul>
 						</div>
 					</div>
-				</form>
+<input type="hidden" name="bno" value="${vo.bno}">
+<input type="hidden" name="keyword" value="${cri.keyword}">
+			 <input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="type" value="${cri.type}"> 
+							</form>
 
 
 			</div>
 		</div>
 	</div>
 
-
+	
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>

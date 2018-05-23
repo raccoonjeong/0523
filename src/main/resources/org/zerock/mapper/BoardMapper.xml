@@ -14,10 +14,11 @@
 					<if test="target eq 't'.toString()"> title like concat('%',#{keyword},'%') </if>
 					<if test="target eq 'c'.toString()"> content like concat('%',#{keyword},'%') </if>
 					<if test="target eq 'w'.toString()"> writer like concat('%',#{keyword},'%') </if>
-				</foreach>
+				</foreach> 
 			</if>
-		</where>
+			</where>
 	</sql>
+		
 
 	<select id="list" resultType="org.zerock.domain.BoardVO">
 		select bno,title,writer,regdate,updatedate

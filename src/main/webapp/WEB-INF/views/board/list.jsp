@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <head>
 <title>Hielo by TEMPLATED</title>
@@ -98,14 +99,14 @@ font-size:70%
 	<!-- Header -->
 	<header id="header">
 		<div class="logo">
-			<a href="index.html">Hielo <span>by TEMPLATED</span></a>
+			<a href="index.html">Candy~ <span>almond</span></a>
 		</div>
 		<a href="#menu">Menu</a>
 	</header>
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="/board/list">Home</a></li>
 			<li><a href="generic.html">Generic</a></li>
 			<li><a href="elements.html">Elements</a></li>
 		</ul>
@@ -143,6 +144,10 @@ font-size:70%
 						</tr>
 
 				<tbody>
+				<c:if test ="${fn:length(list)==0 }"> 
+				<tr><td colspan="4" style="text-align: center">내용없음</td></tr>
+				</c:if>
+			
 						<c:forEach items="${list}" var="vo">
 							<tr>
 								<td class="bno" ><c:out value="${vo.bno}" /></td>
@@ -292,7 +297,7 @@ font-size:70%
 							if(msg=="failRemove" && !history.state){
 								alert("삭제에 실패하였습니다.");
 							}
-							history.replaceState({}, null, null);
+							 history.replaceState({}, null, null); 
 							
 						});
 	</script>

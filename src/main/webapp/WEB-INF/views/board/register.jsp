@@ -48,7 +48,7 @@
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.jsp">Home</a></li>
+			<li><a href="/board/list">Home</a></li>
 			<li><a href="generic.jsp">Generic</a></li>
 			<li><a href="elements.jsp">Elements</a></li>
 		</ul>
@@ -71,7 +71,7 @@
 			<div class="mytable">
 				<h3>form</h3>
 
-				<form method="post" action="">
+				<form method="post" action="register">
 					<div class="row uniform">
 
 						<div class="6u 12u$(xsmall)">
