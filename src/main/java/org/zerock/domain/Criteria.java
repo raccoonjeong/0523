@@ -36,9 +36,8 @@ public class Criteria {
 	}
 	
 	public String makeSearch(int page) {
-        if(this.keyword!=null || this.type!=null) {
-        
-        UriComponents uriComponents =
+        if(this.keyword!=null && this.type!=null && this.keyword!="" && this.type!="") {
+       UriComponents uriComponents =
                 UriComponentsBuilder.newInstance().queryParam("page", page).
                 queryParam("type", this.type).
                 queryParam("keyword", encoding(this.keyword)).build();

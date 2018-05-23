@@ -89,10 +89,11 @@
 								<td width=50% style="text-align: right; border-right: hidden;">
 									작성일 <fmt:formatDate value="${vo.regdate}"
 										pattern="yyyy-MM-dd HH:mm" />
-										<div class="12u$">
-								수정일 <fmt:formatDate value="${vo.updatedate}"
-									pattern="yyyy-MM-dd HH:mm" />
-						</div>
+									<div class="12u$">
+										수정일
+										<fmt:formatDate value="${vo.updatedate}"
+											pattern="yyyy-MM-dd HH:mm" />
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -121,55 +122,64 @@
 	</div>
 	</div>
 	<form role="form" action="remove" method="post">
-		<input type="hidden" name="bno" value="${vo.bno}"> <input
-			type="hidden" name="makeuri" value="${cri.makeSearch(cri.page)}">
+		<input type="hidden" name="bno" value="${vo.bno}">
+		<%-- <input type="hidden" name="makeuri" value="${cri.makeSearch(cri.page)}"> --%>
+		
+		
+	<input type="hidden" name='page' value='<c:out value="${cri.page}"/>'> 
+		<input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
+		<input type='hidden' name='keyword'	value='<c:out value="${cri.keyword}"/>'>
 	</form>
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
 	<script>
-		
- 
-		$(document).ready(function(e) {
-					
-		    	/* 목록가기 */
-					$(".actions").on("click",".list",
-							function(e) {
-						self.location="/board/list${cri.makeSearch(cri.page)}";
+		$(document)
+				.ready(
+						function(e) {
+
+							/* 목록가기 */
+							$(".actions")
+									.on(
+											"click",
+											".list",
+											function(e) {
+												self.location = "/board/list${cri.makeSearch(cri.page)}";
+											});
+
+							/* 삭제  */
+							var formObj = $("form[role='form']");
+
+							$(".actions").on("click", ".remove", function(e) {
+								formObj.submit();
+
 							});
 
-					
-				/* 삭제  */
-					var formObj = $("form[role='form']");
-				
-					$(".actions").on("click",".remove",
-							function(e) {
-						formObj.submit();
+							$(".actions")
+									.on(
+											"click",
+											".modify",
+											function(e) {
+												var bno = $(this).attr(
+														"data-bno");
+												self.location = "/board/modify${cri.makeSearch(cri.page)}&bno="
+														+ bno;
+											});
 
-					});
+							var msg = '<c:out value="${msg}"/>';
 
-					$(".actions").on("click",".modify",
-							function(e) {
-						var bno = $(this).attr("data-bno");
-						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
-							});
-					
-					var msg = '<c:out value="${msg}"/>';
-                    
-                    if(msg=="success" && !history.state){
-                        alert("수정이 완료되었습니다.");
-                    }
-                    if(msg=="fail" && !history.state){
-                        alert("수정 실패하였습니다. 내용을 똑바로 입력하세요.");
-                    }
-                    history.replaceState({}, null, null);
-                    
-                
-                });
+							if (msg == "success" && !history.state) {
+								alert("수정이 완료되었습니다.");
+							}
+							if (msg == "fail" && !history.state) {
+								alert("수정 실패하였습니다. 내용을 똑바로 입력하세요.");
+							}
+							history.replaceState({}, null, null);
 
-		
+						});
 	</script>
 
 
