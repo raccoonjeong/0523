@@ -70,16 +70,17 @@ public class BoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,BoardVO vo,Model model) throws Exception{
+	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno, Model model) throws Exception{
 		log.info("Read...zzz");
 		model.addAttribute("vo", service.read(bno));
 		
+		log.info("~~~~~~~~~~~~~~~~~~~~~~cri~~~~~~~~~~~~1111111: "+cri);
 	}
 	
 
 	
 	@PostMapping("/remove")
-	public String removePOST(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno, String makeuri, RedirectAttributes rttr) {
+	public String removePOST(Criteria cri, @RequestParam("bno") int bno, String makeuri, RedirectAttributes rttr) {
 		log.info("remove.....");
 		
 		try{
@@ -88,9 +89,10 @@ public class BoardController {
 			
 		}catch(Exception e){
 			rttr.addFlashAttribute("msg", "failRemove");}
+		log.info("~~~~~~~~~~~~~~~~~~~~~~cri~~~~~~~~~~~~222222: "+cri);
 		
 		
-		return "redirect:/board/list"+makeuri;
+		return "redirect:/board/list" +cri.makeSearch(cri.getPage()) ;
 	}
 
 	@GetMapping("/modify")
