@@ -29,6 +29,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri")Criteria cri,Model model) throws Exception{
+		
 		log.info("list...zzz");
 		model.addAttribute("list",service.list(cri));
 		
@@ -70,17 +71,19 @@ public class BoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno, Model model) throws Exception{
+	public void read(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model) throws Exception{
 		log.info("Read...zzz");
 		model.addAttribute("vo", service.read(bno));
+		log.info("Crireadread postttttttttttttttttttttttttttt???????????"+cri.getPage());
+
 		
-		log.info("~~~~~~~~~~~~~~~~~~~~~~cri~~~~~~~~~~~~1111111: "+cri);
 	}
 	
 
 	
 	@PostMapping("/remove")
 	public String removePOST(Criteria cri, @RequestParam("bno") int bno, String makeuri, RedirectAttributes rttr) {
+		
 		log.info("remove.....");
 		
 		try{
@@ -89,26 +92,26 @@ public class BoardController {
 			
 		}catch(Exception e){
 			rttr.addFlashAttribute("msg", "failRemove");}
-		log.info("~~~~~~~~~~~~~~~~~~~~~~cri~~~~~~~~~~~~222222: "+cri);
-		
-		
-		return "redirect:/board/list" +cri.makeSearch(cri.getPage()) ;
+				
+		return "redirect:/board/list"+cri.makeSearch(cri.getPage());
 	}
 
 	@GetMapping("/modify")
 	public void modify(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model)throws Exception{
-		log.info("modify............");
+		
+		log.info("modify............CRI========================"+cri);
+		
 		model.addAttribute("vo",service.read(bno));
+
 	}
 	
 	@PostMapping("/modify")
 	public String modifyPOST(@ModelAttribute("cri")Criteria cri,BoardVO vo,RedirectAttributes rttr)throws Exception{
-		
+
 	
 		String title = vo.getTitle();
 		String content = vo.getContent();
 		int bno = vo.getBno();
-		
 		
 		if (title != null && title.trim().length() != 0 && content != null && content.trim().length() != 0) {
 			service.modify(vo);
@@ -117,10 +120,7 @@ public class BoardController {
 		} else {
 			rttr.addFlashAttribute("msg", "fail");
 		}
-
 		return "redirect:/board/read" +cri.makeSearch(cri.getPage())+"&bno="+bno ;
 	}
-		
-
-
+	
 }

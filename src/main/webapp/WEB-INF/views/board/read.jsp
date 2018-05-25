@@ -42,16 +42,15 @@
 	<!-- Header -->
 	<header id="header">
 		<div class="logo">
-			<a href="index.html">Hielo <span>by TEMPLATED</span></a>
+			<a href="/board/list">Hielo <span>by TEMPLATED</span></a>
 		</div>
 		<a href="#menu">Menu</a>
 	</header>
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.html">Home</a></li>
-			<li><a href="generic.html">Generic</a></li>
-			<li><a href="elements.html">Elements</a></li>
+			<li><a href="/board/list">Home</a></li>
+			
 		</ul>
 	</nav>
 	<!-- One -->
@@ -73,9 +72,7 @@
 					<table class="alt">
 						<thead>
 							<tr>
-
 								<th>No.<c:out value="${vo.bno}" /></th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -87,12 +84,9 @@
 									<c:out value="${vo.writer}" />
 								</td>
 								<td width=50% style="text-align: right; border-right: hidden;">
-									작성일 <fmt:formatDate value="${vo.regdate}"
-										pattern="yyyy-MM-dd HH:mm" />
+									작성일 <fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm" />
 									<div class="12u$">
-										수정일
-										<fmt:formatDate value="${vo.updatedate}"
-											pattern="yyyy-MM-dd HH:mm" />
+										수정일 <fmt:formatDate value="${vo.updatedate}" pattern="yyyy-MM-dd HH:mm" />
 									</div>
 								</td>
 							</tr>
@@ -112,74 +106,62 @@
 							<li><input type="button" class="special list" value="List"></li>
 							<li><input type="button" class="special modify"
 								data-bno="${vo.bno}" value="Modify" /></li>
-							<li><input type="button" class="special remove"
-								value="Remove" /></li>
+							<li><input type="button" class="special remove" value="Remove" /></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
 	<form role="form" action="remove" method="post">
 		<input type="hidden" name="bno" value="${vo.bno}">
-		<%-- <input type="hidden" name="makeuri" value="${cri.makeSearch(cri.page)}"> --%>
-		
-		
-	<input type="hidden" name='page' value='<c:out value="${cri.page}"/>'> 
-		<input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
-		<input type='hidden' name='keyword'	value='<c:out value="${cri.keyword}"/>'>
-	</form>
 
+	<input type="hidden" name="keyword" value="${cri.keyword}">
+			 <input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="type" value="${cri.type}">  
+			
+	</form>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
 	<script>
-		$(document)
-				.ready(
-						function(e) {
+		
+ 
+		$(document).ready(function(e) {
+					
+		    	/* 목록가기 */
+					$(".actions").on("click",".list", function(e) {
+						self.location="/board/list${cri.makeSearch(cri.page)}";
+					});
+					
+				/* 삭제  */
+					var formObj = $("form[role='form']");
+				
+					$(".actions").on("click",".remove", function(e) {
+						formObj.submit();
+					});
+					
+				/* 수정  */
+					$(".actions").on("click",".modify", function(e) {
+						var bno = $(this).attr("data-bno");
+						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
+					});
+					
+					var msg = '<c:out value="${msg}"/>';
+                    
+                    if(msg=="success" && !history.state){
+                        alert("수정이 완료되었습니다.");
+                    	}
+                    if(msg=="fail" && !history.state){
+                        alert("수정 실패하였습니다. 내용을 똑바로 입력하세요.");
+                    	}
+                    history.replaceState({}, null, null);
+                 
+                });
 
-							/* 목록가기 */
-							$(".actions")
-									.on(
-											"click",
-											".list",
-											function(e) {
-												self.location = "/board/list${cri.makeSearch(cri.page)}";
-											});
-
-							/* 삭제  */
-							var formObj = $("form[role='form']");
-
-							$(".actions").on("click", ".remove", function(e) {
-								formObj.submit();
-
-							});
-
-							$(".actions")
-									.on(
-											"click",
-											".modify",
-											function(e) {
-												var bno = $(this).attr(
-														"data-bno");
-												self.location = "/board/modify${cri.makeSearch(cri.page)}&bno="
-														+ bno;
-											});
-
-							var msg = '<c:out value="${msg}"/>';
-
-							if (msg == "success" && !history.state) {
-								alert("수정이 완료되었습니다.");
-							}
-							if (msg == "fail" && !history.state) {
-								alert("수정 실패하였습니다. 내용을 똑바로 입력하세요.");
-							}
-							history.replaceState({}, null, null);
-
-						});
+		
 	</script>
 
 
