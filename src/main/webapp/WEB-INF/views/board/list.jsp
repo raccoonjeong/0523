@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <head>
 <title>Hielo by TEMPLATED</title>
@@ -12,15 +12,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 <style>
-
 .search1 {
-
-text-align: center;
-    /* display: flex;
+	text-align: center;
+	/* display: flex;
     flex-wrap: wrap; 
     justify-content: center; 
     align-items: center; */
-
 }
 
 .outer {
@@ -53,16 +50,17 @@ text-align: center;
 	color: white;
 }
 
-.pagination a:hover:not(.active){
-background-color:pink;
+.pagination a:hover:not (.active ){
+	background-color: pink;
 }
 
 .search {
 	width: 33%;
 	margin-left: 33%;
 }
-.bno{
-font-size:70%
+
+.bno {
+	font-size: 70%
 }
 
 .box {
@@ -88,9 +86,9 @@ font-size:70%
 	vertical-align: middle;
 }
 
-#selectbox{
+#selectbox {
 	display: inline-block;
-	width:80%;
+	width: 80%;
 }
 </style>
 </head>
@@ -99,7 +97,7 @@ font-size:70%
 	<!-- Header -->
 	<header id="header">
 		<div class="logo">
-			<a href="index.html">Candy~ <span>almond</span></a>
+			<a href="/board/list">Candy~ <span>almond</span></a>
 		</div>
 		<a href="#menu">Menu</a>
 	</header>
@@ -107,8 +105,6 @@ font-size:70%
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
-			<li><a href="generic.html">Generic</a></li>
-			<li><a href="elements.html">Elements</a></li>
 		</ul>
 	</nav>
 	<!-- One -->
@@ -122,7 +118,7 @@ font-size:70%
 	</section>
 	<!-- Main -->
 	<div id="main" class="container">
-	
+
 		<div class="outer">
 			<!-- Table -->
 			<h3>Table</h3>
@@ -142,40 +138,49 @@ font-size:70%
 						<th style="text-align: right;">Writer</th>
 						<th style="text-align: right;">Regdate</th>
 						</tr>
+					<tbody>
 
-				<tbody>
-				<c:if test ="${fn:length(list)==0 }"> 
-				<tr><td colspan="4" style="text-align: center">내용없음</td></tr>
-				</c:if>
-			
+						<c:if test="${fn:length(list)==0 }">
+							<tr>
+								<td colspan="4" style="text-align: center">내용없음</td>
+							</tr>
+						</c:if>
+
 						<c:forEach items="${list}" var="vo">
 							<tr>
-								<td class="bno" ><c:out value="${vo.bno}" /></td>
-
-								<td class="box" id="toread" data-bno="${vo.bno}"><span class="title">
-										<c:out value="${vo.title}" />
-								</span> <span class="ico"> <c:if test="${vo.checkNew()}">
+								<td class="bno"><c:out value="${vo.bno}" /></td>
+								
+								<td class="box" id="toread" data-bno="${vo.bno}">
+								<span class="title"> <c:out value="${vo.title}" /></span>
+									<span class="ico"> 
+										<c:if test="${vo.checkNew()}">
 											<img src="/resources/images/new.jpg">
 										</c:if>
-								</span></td>
-
-								<td style="text-align: right"><c:out value="${vo.writer}" />
+									</span>
 								</td>
 
-								<td style="text-align: right"><c:if test="${vo.checkNew()}">
+								<td style="text-align: right">
+									<c:out value="${vo.writer}" />
+								</td>
+
+								<td style="text-align: right">
+									<c:if test="${vo.checkNew()}">
 										<fmt:formatDate value="${vo.regdate}" pattern="HH:mm" />
-									</c:if> <c:if test="${!vo.checkNew()}">
+									</c:if> 
+									<c:if test="${!vo.checkNew()}">
 										<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" />
-									</c:if></td>
+									</c:if>
+								</td>
 							</tr>
 						</c:forEach>
-						</tbody>
-						<tfoot>
+					</tbody>
+					<tfoot>
 						<tr>
-						<td colspan="4" ><button class="button special fit" id="regbtn"  style="float: right;">Register</button></td>
-					
+							<td colspan="4"><button class="button special fit"
+									id="regbtn" style="float: right;">Register</button></td>
+
 						</tr>
-						</tfoot>
+					</tfoot>
 				</table>
 			</div>
 			<div class="center">
@@ -216,90 +221,78 @@ font-size:70%
 							</select>
 						</div>
 					</div>
-				
+
 					<div class="6u 12u$(small)">
 						<input type="text" name="keyword" id="query"
 							value="${cri.keyword}" placeholder="search" />
 					</div>
-				
+
 					<div class="3u 12u$(small)">
 						<button id="search" value="Search"
 							class="button special icon fa-search">Search</button>
 					</div>
-				</div><!-- 검색end -->
-				
-				
+				</div>
+				<!-- 검색end -->
+
+
 			</div>
 		</div>
 	</div>
-	</div>
+	
 
- 	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
-						
-			
-			
-			
-			
-				$("#search").on("click",function(e) {
-								console.log("clicked...............................");
-								console.log(encodeURIComponent($('#keywordInput').val()));
-								var type = $("#category")[0].value;
-								var keyword = $('#query').val();
-								
-								if (type === 'n' || keyword === '') {
-									return;
-								};
-								self.location ="/board/list"+'${pm.makeQuery(1)}'+ "&type="
-														+ $("select option:selected").val()
-														+ "&keyword="+ encodeURIComponent(keyword);
-								
-								});
+			$("#search").on("click",function(e) {
+				console.log("clicked...............................");
+				console.log(encodeURIComponent($('#keywordInput').val()));
+				var type = $("#category")[0].value;
+				var keyword = $('#query').val();
 
-							
-							$("#regbtn").on("click", function(e){
-								console.log("clicked...........ssddddd............");
-								self.location ="/board/register${cri.makeSearch(cri.page)}";
-								
-							});
-							
-						
-							$(".box").on("click",function(e){
-						
-								var bno = $(this).attr("data-bno");
-								var link = '${cri.makeSearch(cri.page)}';
-								
-								self.location = "/board/read"+link+"&bno="+bno;
-							});
+				if (type === 'n'|| keyword === '') {
+					return;
+				};
+				self.location = "/board/list"+'${pm.makeQuery(1)}'+"&type="
+								+ $("select option:selected").val()
+								+ "&keyword="+ encodeURIComponent(keyword);
+			});
 
-							
-							
-							
-							
-							console.log("history:"+history.state);
-							
-							var msg = '<c:out value="${msg}"/>';
-							
-							if(msg=="success" && !history.state){
-								alert("등록이 완료되었습니다.");
-							}
-							if(msg=="fail" && !history.state){
-								alert("등록이 실패하였습니다. 내용을 똑바로 입력하세요.");
-							}
-							if(msg=="successRemove" && !history.state){
-								alert("삭제가 완료되었습니다.");
-							}
-							if(msg=="failRemove" && !history.state){
-								alert("삭제에 실패하였습니다.");
-							}
-							 history.replaceState({}, null, null); 
-							
-						});
+			$("#regbtn").on("click",function(e) {
+				console.log("clicked...........ssddddd............");
+				self.location = "/board/register${cri.makeSearch(cri.page)}";
+
+			});
+
+			$(".box").on("click",function(e) {
+
+				var bno = $(this).attr("data-bno");
+				var link = '${cri.makeSearch(cri.page)}';
+
+				self.location = "/board/read"+ link + "&bno=" + bno;
+			});
+
+			console.log("history:" + history.state);
+
+			var msg = '<c:out value="${msg}"/>';
+
+			if (msg == "success" && !history.state) {
+				alert("등록이 완료되었습니다.");
+				}
+			if (msg == "fail" && !history.state) {
+				alert("등록이 실패하였습니다. 내용을 똑바로 입력하세요.");
+				}
+			if (msg == "successRemove" && !history.state) {
+				alert("삭제가 완료되었습니다.");
+				}
+			if (msg == "failRemove" && !history.state) {
+				alert("삭제에 실패하였습니다.");
+				}
+			history.replaceState({}, null, null);
+
+		});
 	</script>
 
 

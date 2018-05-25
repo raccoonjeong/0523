@@ -29,6 +29,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri")Criteria cri,Model model) throws Exception{
+		
 		log.info("list...zzz");
 		model.addAttribute("list",service.list(cri));
 		
@@ -82,27 +83,24 @@ public class BoardController {
 	
 	@PostMapping("/remove")
 	public String removePOST(Criteria cri, @RequestParam("bno") int bno, String makeuri, RedirectAttributes rttr) {
+		
 		log.info("remove.....");
-		rttr.addAttribute(cri.makeSearch(cri.getPage()));
+		
 		try{
 			service.remove(bno);
 			rttr.addFlashAttribute("msg", "successRemove");
 			
 		}catch(Exception e){
 			rttr.addFlashAttribute("msg", "failRemove");}
-		
-		log.info("cri/./..........................dfdfdfdf"+cri);
-		log.info("cri/./..........................dfdfdfdf"+rttr.addAttribute(cri));
-		log.info("cri/./..........................dfdfdfdf"+cri);
-		log.info("cri/./..........................dfdfdfdf"+cri);
-		log.info("cri/./..........................dfdfdfdf"+cri);
-		
+				
 		return "redirect:/board/list"+cri.makeSearch(cri.getPage());
 	}
 
 	@GetMapping("/modify")
 	public void modify(@ModelAttribute("cri")Criteria cri, @RequestParam("bno") int bno,Model model)throws Exception{
+		
 		log.info("modify............CRI========================"+cri);
+		
 		model.addAttribute("vo",service.read(bno));
 
 	}
@@ -122,9 +120,6 @@ public class BoardController {
 		} else {
 			rttr.addFlashAttribute("msg", "fail");
 		}
-		log.info(rttr.addAttribute("cri................keyword"+cri.getKeyword()));
-
-		log.info(rttr.addAttribute("cri................typetypetype"+cri.getType()));
 		return "redirect:/board/read" +cri.makeSearch(cri.getPage())+"&bno="+bno ;
 	}
 	

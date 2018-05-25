@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	public int modify(BoardVO vo) {
-		// TODO Auto-generated method stub
+
 		return mapper.modify(vo);
 	}
 

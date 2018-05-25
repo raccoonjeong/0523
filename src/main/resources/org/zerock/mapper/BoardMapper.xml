@@ -38,7 +38,7 @@
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
-		select * from tbl_aboard where bno=#{bno};
+		select * from tbl_aboard where bno = #{bno};
 	</select>
 	
 	<delete id="remove">
@@ -47,10 +47,8 @@
 
 	
 	<update id="modify">
-	update tbl_aboard set title=#{title} ,content=#{content},updatedate=now() where bno=#{bno};
+	update tbl_aboard set title=#{title}, content=#{content}, updatedate=now() where bno=#{bno};
 	</update>
-
-
 
 
 </mapper>

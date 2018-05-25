@@ -40,7 +40,7 @@
 	<!-- Header -->
 	<header id="header">
 		<div class="logo">
-			<a href="index.jsp">Hielo <span>by TEMPLATED</span></a>
+			<a href="/board/list">Hielo <span>by TEMPLATED</span></a>
 		</div>
 		<a href="#menu">Menu</a>
 	</header>
@@ -49,8 +49,6 @@
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
-			<li><a href="generic.jsp">Generic</a></li>
-			<li><a href="elements.jsp">Elements</a></li>
 		</ul>
 	</nav>
 
@@ -73,15 +71,12 @@
 
 				<form method="post" action="register">
 					<div class="row uniform">
-
 						<div class="6u 12u$(xsmall)">
-
 							<input type="text" name="title" id="name" value="제목"
 								placeholder="title" />
 						</div>
 
 						<div class="6u 12u$(xsmall)">
-
 							<input type="text" name="writer" id="writer" value="작성자"
 								placeholder="writer" />
 						</div>
@@ -92,20 +87,13 @@
 						</div>
 						<div class="12u$">
 							<ul class="actions">
-
 								<li><input type="button" class="special list" value="List"></li>
-								<li><input type="submit" class="special list"
-									value="Register"></li>
-
-
-
+								<li><input type="submit" class="special list" value="Register"></li>
 							</ul>
 						</div>
 					</div>
 				</form>
-
-				<hr />
-
+				<hr/>
 			</div>
 		</div>
 
@@ -136,11 +124,13 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 	<script>
+	
 		$(document).ready(function(e) {
 			$(".actions").on("click", ".list", function(e) {
 				self.location = "/board/list${cri.makeSearch(cri.page)}";
-			})
+			});
 		});
+		
 	</script>
 </body>
 </html>

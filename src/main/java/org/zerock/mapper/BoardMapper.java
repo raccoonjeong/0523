@@ -17,7 +17,6 @@ public interface BoardMapper {
 	public int register(BoardVO vo);
 			
 	public BoardVO read(int bno);
-	
 
 	public int remove(int bno);
 
