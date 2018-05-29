@@ -17,7 +17,7 @@ public interface ReplyMapper {
 	public int delete(Integer rno);
 	
 	public List<ReplyVO> list(
-			@Param("cri")Criteria cri,
+			@Param("cri") Criteria cri,
 			@Param("bno") Integer bno);
 	
 	public int getTotal(Integer bno);

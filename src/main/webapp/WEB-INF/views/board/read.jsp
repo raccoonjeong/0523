@@ -34,6 +34,58 @@
 	background-color: #ffffff;
 	background-color: rgba(255, 255, 255, 0.6);
 }
+ .listDiv li {
+            list-style-type: none;
+
+        }
+        ul {
+            display: inline;
+            padding: 0;
+        }
+        li {
+            display: inline;
+            background: #bdf;
+        }
+
+        p {
+            color: #000;
+        }
+        .mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            background: #000;
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+        #modalLayer {
+            display: none;
+            position: relative;
+        }
+        #modalLayer .modalContent {
+            width: 440px;
+            height: 200px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 11;
+            background: #fff;
+        }
+        #modalLayer .modalContent .closebtn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+        .active{
+            background-color: yellow;
+        }
+
 </style>
 </head>
 
@@ -109,10 +161,44 @@
 							<li><input type="button" class="special remove" value="Remove" /></li>
 						</ul>
 					</div>
+					<div class="wrapper">
+    <div class="inputDiv">
+        <div><input type="text" name="content"/></div>
+        <div><input type="text" name="replyer"/></div>
+        <div>
+            <button class="rbtn" data-type="register">Register</button>
+        </div>
+    </div>
+
+    <div class="listDiv">
+
+    </div>
+</div>
+<ul class="pagination">
+
+</ul>
 				</div>
+				
 			</div>
+			
 		</div>
 	</div>
+	
+	<div id="modalLayer"><div class="mask"></div>
+    <div class="modalContent">
+        <button class="closebtn">닫기</button>
+
+        <div style="text-align: center;">
+            <input type="text" name="modalContent">
+            <input type="text" name="modalReplyer">
+        </div>
+        <div style="text-align: center;">
+            <button class="mbtn">수정</button>
+            <button class="dbtn">삭제</button>
+
+        </div>
+    </div>
+</div>
 	<form role="form" action="remove" method="post">
 		<input type="hidden" name="bno" value="${vo.bno}">
 
@@ -163,6 +249,170 @@
 
 		
 	</script>
+<script>
+    $(document).ready(function () {
+        var inputContent = $("input[name='content']");
+        var inputReplyer = $("input[name='replyer']");
+        var modifyContent = $("input[name='modalContent']");
+        var modifyReplyer = $("input[name='modalReplyer']");
+
+        var rbtn = $(".rbtn");
+        var mbtn = $(".mbtn");
+        var dbtn = $(".dbtn");
+        var listUL = $(".listDiv");
+        var bno = ${vo.bno};
+        var replyPage = 1;
+
+    
+
+        function loadList(bno, page) {
+           replyPage = page || 1;
+            /* var bno = bno || 1; */
+            $.getJSON("http://localhost:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
+                console.log(data.replyCnt);
+                console.log(data.list);
+                var str = "";
+                $(data.list).each(function (idx, data) {
+                    str += "<li data-rno = '" + data.rno + "'>" + "<div class='replies'>"
+                        + data.rno + "번 글 :  " + data.rcontent + "글쓴이: " + data.replyer + "   날짜 :   " + data.regdate + "</div></li>"
+                });
+                listUL.html(str);
+                showReplyPage(replyPage, data.replyCnt);
+                console.log("로드리스트 페이지는"+replyPage);
+            })
+        }
+        loadList(bno, 1);
+
+        function saveReplies() {
+
+            var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val()};
+           
+            
+            $.ajax({
+                type: 'post',
+                url: "http://localhost:8080/replies/new",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                dataType: "text",
+                data: JSON.stringify(data),
+                success: function (result) {
+                    console.log("result: " + result);
+                    
+                    loadList(bno, 1);
+                }
+               
+            });
+            console.log("세이브리플 페이지는"+replyPage);
+        }
+
+        function readReplies(rno, page) {
+
+            $.getJSON("http://localhost:8080/replies/" + rno + ".json", function (data) {
+                console.log(data);
+				var replyPage = page;
+                modifyContent.val(data.rcontent);
+                modifyReplyer.val(data.replyer);
+                mbtn.attr("data-rno", rno);
+                dbtn.attr("data-rno", rno);
+            });
+            console.log("리드 리플 페이지는"+replyPage);
+        }
+
+        function modifyReplies() {
+            var rno = mbtn.attr("data-rno");
+            var data = {rcontent: modifyContent.val(), replyer: modifyReplyer.val()};
+            
+            $.ajax({
+                type: 'put',
+                url: "http://localhost:8080/replies/" + rno,
+                headers: {
+                    "Content-type": "application/json"
+                },
+                dataType: "text",
+                data: JSON.stringify(data),
+                success: function (result) {
+                    console.log("result: " + result);
+                    console.dir("수정 페이지는"+replyPage);
+                    loadList(bno, replyPage);
+                    modalLayer.fadeOut("slow");
+                }
+            });
+        }
+
+        function deleteReplies(rno) {
+            $.ajax({
+                type: 'delete',
+                url: "http://localhost:8080/replies/" + rno,
+                headers: {
+                    "Content-type": "application/json"
+                },
+                dataType: "text",
+                success: function (result) {
+                    console.log("result: " + result);
+                    loadList(bno, replyPage);
+                }
+            });
+        }
+
+        $(".pagination").on("click", "li a", function (e) {
+            e.preventDefault();
+            console.log("hi~~~");
+            replyPage = $(this).attr("href");
+
+            loadList(bno, replyPage);
+
+        });
+
+
+        rbtn.on("click", function (e) {
+            /*var type = $('.rbtn').attr("data-type");*/
+            saveReplies();
+        });
+
+
+        var modalLayer = $("#modalLayer");
+
+        var modalCont = $(".modalContent");
+        var marginLeft = modalCont.outerWidth() / 2;
+        var marginTop = modalCont.outerHeight() / 2;
+
+        listUL.on("click", "li", function (e) {
+            var rno = $(this).attr("data-rno");
+            readReplies(rno, replyPage);
+            modalLayer.fadeIn("slow");
+            modalCont.css({"margin-top": -marginTop, "margin-left": -marginLeft});
+            $(this).blur();
+            $(".modalContent > a").focus();
+            return false;
+        });
+
+        $(".modalContent > .closebtn").click(function () {
+            modalLayer.fadeOut("slow");
+
+        });
+
+        mbtn.on("click", function (e) {
+            modifyReplies();
+            alert("수정되었습니다.");
+        });
+
+        dbtn.on("click", function (e) {
+
+            var rno = dbtn.attr("data-rno");
+
+            if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
+                deleteReplies(rno);
+                modalLayer.fadeOut("slow");
+            }
+
+        });
+
+    });
+
+</script>
+
+<script type="text/javascript" src="/resources/js/pageMaker.js"></script>	
 
 
 	<!-- Footer -->

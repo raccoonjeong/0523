@@ -1,9 +1,8 @@
 package org.zerock.service;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyDTO;
 import org.zerock.domain.ReplyVO;
 
 public interface ReplyService {
@@ -16,9 +15,10 @@ public interface ReplyService {
 	
 	public int delete(Integer rno);
 	
-	public List<ReplyVO> list(
+	
+	public ReplyDTO list(
 			@Param("cri")Criteria cri,
 			@Param("bno") Integer bno);
 	
-	public int getTotal(Integer bno);
+
 }
