@@ -17,6 +17,7 @@ public class Criteria {
 	public Criteria() {
 		this.page = 1;
 	}
+	//디폴트 생성자
 
 	public Criteria(int page) {
 

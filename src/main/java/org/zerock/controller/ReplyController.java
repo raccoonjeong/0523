@@ -1,9 +1,6 @@
 package org.zerock.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.PageMaker;
+import org.zerock.domain.ReplyDTO;
 import org.zerock.domain.ReplyVO;
 import org.zerock.mapper.ReplyMapper;
+import org.zerock.service.ReplyService;
 
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @CrossOrigin
@@ -28,6 +27,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ReplyController {
 	
+	@Setter(onMethod_= {@Autowired})
+	private ReplyService service;
 	
 	private ReplyMapper mapper;
 	
@@ -83,32 +84,15 @@ public class ReplyController {
 	
 	
 	@GetMapping("/list/{bno}/{page}")
-	public ResponseEntity<Map<String,Object>> list(@PathVariable("page")Integer page,
+	public ResponseEntity<ReplyDTO> list(@PathVariable("page")Integer page,
 			@PathVariable("bno")Integer bno){
 		
-		ResponseEntity<Map<String,Object>> entity = null;
 		
-		log.info("cri: " + page);
 		Criteria cri = new Criteria(page);
 		
-		try{Map<String,Object> map = new HashMap<String,Object>();
-		List<ReplyVO> list = mapper.list(cri, bno);
-		
-		map.put("list", list);
-		
-		int replyCount = mapper.getTotal(bno);
-		
-		PageMaker pageMaker = new PageMaker(cri, replyCount);
-		map.put("pageMaker", pageMaker);
-		
-		entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
+			
+		return new ResponseEntity<ReplyDTO>(service.list(cri, bno), HttpStatus.OK);
+	
 	}
 	
 }

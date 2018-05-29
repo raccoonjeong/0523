@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyDTO;
 import org.zerock.domain.ReplyVO;
 import org.zerock.mapper.ReplyMapper;
 
@@ -41,15 +42,13 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<ReplyVO> list(Criteria cri, Integer bno) {
+	public ReplyDTO list(Criteria cri, Integer bno) {
 		
-		return mapper.list(cri, bno);
-	}
-
-	@Override
-	public int getTotal(Integer bno) {
+		ReplyDTO dto = new ReplyDTO();
+		dto.setList(mapper.list(cri, bno));
+		dto.setReplyCnt(mapper.getTotal(bno));
 		
-		return mapper.getTotal(bno);
+		return dto;
 	}
 
 }

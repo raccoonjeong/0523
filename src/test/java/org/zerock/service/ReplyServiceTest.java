@@ -29,12 +29,7 @@ public class ReplyServiceTest {
 		log.info(service.list(cri,1));
 	}
 
-	@Test
-	public void getTotal() {
-		Criteria cri = new Criteria();
-		log.info(service.getTotal(5));
-	}
-	
+
 	@Test
 	public void register() {
 		ReplyVO vo = new ReplyVO();
