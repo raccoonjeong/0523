@@ -91,7 +91,9 @@ public class BoardController {
 			rttr.addFlashAttribute("msg", "successRemove");
 			
 		}catch(Exception e){
-			rttr.addFlashAttribute("msg", "failRemove");}
+			e.printStackTrace();
+			rttr.addFlashAttribute("msg", "failRemove");
+			}
 				
 		return "redirect:/board/list"+cri.makeSearch(cri.getPage());
 	}

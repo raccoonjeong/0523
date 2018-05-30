@@ -15,10 +15,8 @@ public interface ReplyService {
 	
 	public int delete(Integer rno);
 	
-	
 	public ReplyDTO list(
 			@Param("cri")Criteria cri,
 			@Param("bno") Integer bno);
-	
 
 }
