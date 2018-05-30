@@ -162,9 +162,9 @@
 						</ul>
 					</div>
 					<div class="wrapper">
-    <div class="inputDiv">
-        <div><input type="text" name="content"/></div>
-        <div><input type="text" name="replyer"/></div>
+    <div class="inputDiv"><h1>여러분의 소중한 댓글은 글쓴이에게 힘이 됩니다.</h1>
+        <div><label style="text-align: left">댓글내용:</label><input type="text" name="content"/></div>
+        <div><label style="text-align: left">댓글쓴이:</label><input type="text" name="replyer"/></div>
         <div>
             <button class="rbtn" data-type="register">Register</button>
         </div>
@@ -189,8 +189,8 @@
         <button class="closebtn">닫기</button>
 
         <div style="text-align: center;">
-            <input type="text" name="modalContent">
-            <input type="text" name="modalReplyer">
+            <label style="text-align: left">댓글내용:</label><input type="text" name="modalContent">
+            <label style="text-align: left">댓글쓴이:</label><input type="text" name="modalReplyer">
         </div>
         <div style="text-align: center;">
             <button class="mbtn">수정</button>
@@ -268,13 +268,13 @@
         function loadList(bno, page) {
            replyPage = page || 1;
             /* var bno = bno || 1; */
-            $.getJSON("http://localhost:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
+            $.getJSON("http://10.10.10.12:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
                 console.log(data.replyCnt);
                 console.log(data.list);
                 var str = "";
                 $(data.list).each(function (idx, data) {
-                    str += "<li data-rno = '" + data.rno + "'>" + "<div class='replies'>"
-                        + data.rno + "번 글 :  " + data.rcontent + "글쓴이: " + data.replyer + "   날짜 :   " + data.regdate + "</div></li>"
+                    str += "<li>" + "<div class='replies'><span data-rno = '" + data.rno + "'>"
+                        + data.rno + "번 글 :  " + data.rcontent + "글쓴이: " + data.replyer + "   날짜 :   " + data.regdate + "</span></div></li>"
                 });
                 listUL.html(str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -285,30 +285,35 @@
 
         function saveReplies() {
 
-            var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val()};
-           
-            
-            $.ajax({
-                type: 'post',
-                url: "http://localhost:8080/replies/new",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                dataType: "text",
-                data: JSON.stringify(data),
-                success: function (result) {
-                    console.log("result: " + result);
-                    
-                    loadList(bno, 1);
-                }
-               
-            });
+        	console.log("inputval"+inputContent.val());
+        	if(inputContent.val()!="" && inputReplyer.val()!=""){
+        		var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val()};
+        	
+            	$.ajax({
+               	 type: 'post',
+               	 url: "http://10.10.10.12:8080/replies/new",
+               	 headers: {
+               	     "Content-type": "application/json"
+               	 },
+               	 dataType: "text",
+               	 data: JSON.stringify(data),
+               	 success: function (result) {
+               	     console.log("result: " + result);
+                     loadList(bno, 1);
+                     alert("등록이 완료되었습니다.");
+                     inputContent.val("");
+                     inputReplyer.val("");
+                }               
+            });        		
+        	}else {
+        		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!");
+        	}            
             console.log("세이브리플 페이지는"+replyPage);
         }
 
         function readReplies(rno, page) {
 
-            $.getJSON("http://localhost:8080/replies/" + rno + ".json", function (data) {
+            $.getJSON("http://10.10.10.12:8080/replies/" + rno + ".json", function (data) {
                 console.log(data);
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
@@ -325,7 +330,7 @@
             
             $.ajax({
                 type: 'put',
-                url: "http://localhost:8080/replies/" + rno,
+                url: "http://10.10.10.12:8080/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -343,7 +348,7 @@
         function deleteReplies(rno) {
             $.ajax({
                 type: 'delete',
-                url: "http://localhost:8080/replies/" + rno,
+                url: "http://10.10.10.12:8080/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -366,7 +371,9 @@
 
 
         rbtn.on("click", function (e) {
-            /*var type = $('.rbtn').attr("data-type");*/
+            
+        	
+        	
             saveReplies();
         });
 
@@ -377,7 +384,7 @@
         var marginLeft = modalCont.outerWidth() / 2;
         var marginTop = modalCont.outerHeight() / 2;
 
-        listUL.on("click", "li", function (e) {
+        listUL.on("click", "span", function (e) {
             var rno = $(this).attr("data-rno");
             readReplies(rno, replyPage);
             modalLayer.fadeIn("slow");
