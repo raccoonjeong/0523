@@ -26,17 +26,11 @@ function showReplyPage(page, replyCnt) {
             str += "<li><a href = '" + (end + 1) + "'> >> </a></li>"
         }
         $('.pagination').html(str);
-        
-        
-        
-
-       
-        
     }
 function formatDate(date) {
-    return date.getFullYear() + '년 ' +
-        (date.getMonth() + 1) + '월 ' +
-        date.getDate() + '일 ' +
-        date.getHours() + '시 ' +
-        date.getMinutes() + '분';
-}
+	   return date.getFullYear() + '년 ' +
+	       (date.getMonth() + 1) + '월 ' +
+	       date.getDate() + '일 ' +
+	       date.getHours() + '시 ' +
+	       date.getMinutes() + '분';
+	}

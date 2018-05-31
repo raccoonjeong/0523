@@ -15,6 +15,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css?ver=1" />
 <style>
+.pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination li {
+   display: inline;
+            }
+.pagination a {
+	color: black;	
+	padding: 8px 5px;
+	text-decoration: none;
+}
+
+.pagination .active {
+	background-color: yellowgreen;
+	color: white;
+}
+
+.pagination a:hover:not (.active ){
+	background-color: pink;
+}
 .contentbox {
 	min-height: 500px;
 }
@@ -43,14 +64,17 @@
             padding: 0;
         }
         
-        .pagination{
+
+ .pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination{
         display: block;
-        text-align: center;
+        
         }
-        .pagination li {
-            display: inline;
-            background: #bdf;
-        }
+
+        
 
         p {
             color: #000;
@@ -87,11 +111,13 @@
             top: 0;
             cursor: pointer;
         }
-        .pagination .active{
-            background-color: yellow;
-        }
-        .datestyle{
+
+        #datestyle{
         font-size: 80%;
+        text-align: right;
+        }
+        .dbtn{
+
         text-align: right;
         }
 
@@ -183,9 +209,9 @@
     <div class="listDiv">
 
     </div>
-    <ul class="pagination">
+    <div class="pagination">
 
-</ul>
+</div>
 </div>
 
 				</div>
@@ -279,20 +305,15 @@
         function loadList(bno, page) {
            replyPage = page || 1;
             /* var bno = bno || 1; */
-            $.getJSON("http://10.10.10.11:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
+            $.getJSON("/replies/list/" + bno + "/" + page + ".json", function (data) {
                 console.log(data.replyCnt);
                 console.log(data.list);
                 var str = "";
-                
                 $(data.list).each(function (idx, data) {
-                	
-					var regdate = new Date(data.regdate);
-                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"
-                    	 +"글쓴이: " +data.replyer+ "<br>"+"내용: "
-                         + data.rcontent + "</span></li>"
-                         +"<div class=datestyle><a>답글달기</a>"+"&nbsp&nbsp"
-                         +"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
-                         +"날짜 :   " + formatDate(regdate) + "</div><hr>"
+                    var regdate = new Date(data.regdate);
+                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"+"글쓴이: " +data.replyer+ "<br>"+"내용: "
+                         + data.rcontent + "</span></li>"+"<div id=datestyle><span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"+
+                         "&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "+"날짜 :   " + formatDate(regdate) + "</div><hr>"
                 });
                 listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -309,7 +330,7 @@
         	
             	$.ajax({
                	 type: 'post',
-               	 url: "http://10.10.10.11:8080/replies/new",
+               	 url: "/replies/new",
                	 headers: {
                	     "Content-type": "application/json"
                	 },
@@ -331,7 +352,7 @@
 
         function readReplies(rno, page) {
 
-            $.getJSON("http://10.10.10.11:8080/replies/" + rno + ".json", function (data) {
+            $.getJSON("/replies/" + rno + ".json", function (data) {
                 console.log(data);
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
@@ -348,7 +369,7 @@
             
             $.ajax({
                 type: 'put',
-                url: "http://10.10.10.12:8080/replies/" + rno,
+                url: "/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -366,7 +387,7 @@
         function deleteReplies(rno) {
             $.ajax({
                 type: 'delete',
-                url: "http://10.10.10.11:8080/replies/" + rno,
+                url: "/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -378,7 +399,7 @@
             });
         }
 
-        $(".pagination").on("click", "li a", function (e) {
+        $(".pagination").on("click", "a", function (e) {
             e.preventDefault();
             console.log("hi~~~");
             replyPage = $(this).attr("href");
@@ -414,7 +435,7 @@
         var marginLeft = modalCont.outerWidth() / 2;
         var marginTop = modalCont.outerHeight() / 2;
 
-        listUL.on("click", "span", function (e) {
+        listUL.on("click", "#modibtn", function (e) {
             var rno = $(this).attr("data-rno");
             readReplies(rno, replyPage);
             modalLayer.fadeIn("slow");
