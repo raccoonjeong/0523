@@ -279,13 +279,20 @@
         function loadList(bno, page) {
            replyPage = page || 1;
             /* var bno = bno || 1; */
-            $.getJSON("http://10.10.10.12:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
+            $.getJSON("http://10.10.10.11:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
                 console.log(data.replyCnt);
                 console.log(data.list);
                 var str = "";
+                
                 $(data.list).each(function (idx, data) {
-                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"+"글쓴이: " +data.replyer+ "<br>"+"내용: "
-                         + data.rcontent + "</span></li>"+"<div class=datestyle><a>답글달기</a>"+"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "+"날짜 :   " + data.regdate + "</div><hr>"
+                	
+					var regdate = new Date(data.regdate);
+                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	 +"글쓴이: " +data.replyer+ "<br>"+"내용: "
+                         + data.rcontent + "</span></li>"
+                         +"<div class=datestyle><a>답글달기</a>"+"&nbsp&nbsp"
+                         +"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
+                         +"날짜 :   " + formatDate(regdate) + "</div><hr>"
                 });
                 listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -302,7 +309,7 @@
         	
             	$.ajax({
                	 type: 'post',
-               	 url: "http://10.10.10.12:8080/replies/new",
+               	 url: "http://10.10.10.11:8080/replies/new",
                	 headers: {
                	     "Content-type": "application/json"
                	 },
@@ -324,7 +331,7 @@
 
         function readReplies(rno, page) {
 
-            $.getJSON("http://10.10.10.12:8080/replies/" + rno + ".json", function (data) {
+            $.getJSON("http://10.10.10.11:8080/replies/" + rno + ".json", function (data) {
                 console.log(data);
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
@@ -359,7 +366,7 @@
         function deleteReplies(rno) {
             $.ajax({
                 type: 'delete',
-                url: "http://10.10.10.12:8080/replies/" + rno,
+                url: "http://10.10.10.11:8080/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
