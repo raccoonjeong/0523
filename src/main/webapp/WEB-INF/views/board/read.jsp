@@ -13,8 +13,29 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=1" />
 <style>
+.pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination li {
+   display: inline;
+            }
+.pagination a {
+	color: black;	
+	padding: 8px 5px;
+	text-decoration: none;
+}
+
+.pagination .active {
+	background-color: yellowgreen;
+	color: white;
+}
+
+.pagination a:hover:not (.active ){
+	background-color: pink;
+}
 .contentbox {
 	min-height: 500px;
 }
@@ -42,10 +63,18 @@
             display: inline;
             padding: 0;
         }
-        li {
-            display: inline;
-            background: #bdf;
+        
+
+ .pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination{
+        display: block;
+        
         }
+
+        
 
         p {
             color: #000;
@@ -82,8 +111,14 @@
             top: 0;
             cursor: pointer;
         }
-        .active{
-            background-color: yellow;
+
+        #datestyle{
+        font-size: 80%;
+        text-align: right;
+        }
+        .dbtn{
+
+        text-align: right;
         }
 
 </style>
@@ -167,16 +202,18 @@
         <div><label style="text-align: left">댓글쓴이:</label><input type="text" name="replyer"/></div>
         <div>
             <button class="rbtn" data-type="register">Register</button>
+            
         </div>
     </div>
 
     <div class="listDiv">
 
     </div>
-</div>
-<ul class="pagination">
+    <div class="pagination">
 
-</ul>
+</div>
+</div>
+
 				</div>
 				
 			</div>
@@ -194,7 +231,7 @@
         </div>
         <div style="text-align: center;">
             <button class="mbtn">수정</button>
-            <button class="dbtn">삭제</button>
+            
 
         </div>
     </div>
@@ -263,20 +300,22 @@
         var bno = ${vo.bno};
         var replyPage = 1;
 
-    
+        
 
         function loadList(bno, page) {
            replyPage = page || 1;
             /* var bno = bno || 1; */
-            $.getJSON("http://10.10.10.12:8080/replies/list/" + bno + "/" + page + ".json", function (data) {
+            $.getJSON("/replies/list/" + bno + "/" + page + ".json", function (data) {
                 console.log(data.replyCnt);
                 console.log(data.list);
                 var str = "";
                 $(data.list).each(function (idx, data) {
-                    str += "<li>" + "<div class='replies'><span data-rno = '" + data.rno + "'>"
-                        + data.rno + "번 글 :  " + data.rcontent + "글쓴이: " + data.replyer + "   날짜 :   " + data.regdate + "</span></div></li>"
+                    var regdate = new Date(data.regdate);
+                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"+"글쓴이: " +data.replyer+ "<br>"+"내용: "
+                         + data.rcontent + "</span></li>"+"<div id=datestyle><span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"+
+                         "&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "+"날짜 :   " + formatDate(regdate) + "</div><hr>"
                 });
-                listUL.html(str);
+                listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
                 console.log("로드리스트 페이지는"+replyPage);
             })
@@ -291,7 +330,7 @@
         	
             	$.ajax({
                	 type: 'post',
-               	 url: "http://10.10.10.12:8080/replies/new",
+               	 url: "/replies/new",
                	 headers: {
                	     "Content-type": "application/json"
                	 },
@@ -313,7 +352,7 @@
 
         function readReplies(rno, page) {
 
-            $.getJSON("http://10.10.10.12:8080/replies/" + rno + ".json", function (data) {
+            $.getJSON("/replies/" + rno + ".json", function (data) {
                 console.log(data);
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
@@ -330,7 +369,7 @@
             
             $.ajax({
                 type: 'put',
-                url: "http://10.10.10.12:8080/replies/" + rno,
+                url: "/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -348,7 +387,7 @@
         function deleteReplies(rno) {
             $.ajax({
                 type: 'delete',
-                url: "http://10.10.10.12:8080/replies/" + rno,
+                url: "/replies/" + rno,
                 headers: {
                     "Content-type": "application/json"
                 },
@@ -360,12 +399,24 @@
             });
         }
 
-        $(".pagination").on("click", "li a", function (e) {
+        $(".pagination").on("click", "a", function (e) {
             e.preventDefault();
             console.log("hi~~~");
             replyPage = $(this).attr("href");
 
             loadList(bno, replyPage);
+
+        });
+        
+        listUL.on("click",".dbtn", function (e) {
+
+        	console.log($(this));
+            var rno = $(this).attr("data-rno");
+
+            if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
+                deleteReplies(rno);
+               
+            }
 
         });
 
@@ -384,7 +435,7 @@
         var marginLeft = modalCont.outerWidth() / 2;
         var marginTop = modalCont.outerHeight() / 2;
 
-        listUL.on("click", "span", function (e) {
+        listUL.on("click", "#modibtn", function (e) {
             var rno = $(this).attr("data-rno");
             readReplies(rno, replyPage);
             modalLayer.fadeIn("slow");
@@ -404,16 +455,7 @@
             alert("수정되었습니다.");
         });
 
-        dbtn.on("click", function (e) {
 
-            var rno = dbtn.attr("data-rno");
-
-            if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
-                deleteReplies(rno);
-                modalLayer.fadeOut("slow");
-            }
-
-        });
 
     });
 
