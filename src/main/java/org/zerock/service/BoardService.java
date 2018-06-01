@@ -19,5 +19,8 @@ public interface BoardService {
 
 	public int modify(BoardVO vo);
 	
+	public int updateReplyCnt(Integer bno, int amount);
+	
+	
 
 }

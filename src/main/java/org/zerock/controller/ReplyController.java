@@ -30,18 +30,14 @@ public class ReplyController {
 	@Setter(onMethod_= {@Autowired})
 	private ReplyService service;
 	
-	private ReplyMapper mapper;
-	
-	public ReplyController(ReplyMapper mapper) {
-		this.mapper = mapper;
-	}
+
 	
 
 	@PostMapping("/new")
 	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		
 		
-		mapper.create(vo);
+		service.create(vo);
 		
 		
 		return new ResponseEntity<String>("success",HttpStatus.OK);
@@ -52,7 +48,7 @@ public class ReplyController {
 	public ResponseEntity<ReplyVO> read(@PathVariable("rno")Integer rno){
 		
 		
-		return new ResponseEntity<ReplyVO>(mapper.read(rno), HttpStatus.OK);
+		return new ResponseEntity<ReplyVO>(service.read(rno), HttpStatus.OK);
 		
 		
 	}
@@ -61,7 +57,7 @@ public class ReplyController {
 	public ResponseEntity<String> remove(
 			@PathVariable("rno")Integer rno){
 		
-		String msg =  mapper.delete(rno) == 1?"success":"fail";
+		String msg =  service.delete(rno) == 1?"success":"fail";
 		
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 		
@@ -75,7 +71,7 @@ public class ReplyController {
 		
 		vo.setRno(rno);
 		
-		String msg =  mapper.update(vo) == 1?"success":"fail";
+		String msg =  service.update(vo) == 1?"success":"fail";
 		//메소드에 @RequestBody가 적용된 경우, 리턴 객체를 JSON이나 XML과 같은 알맞은 응답으로  변환
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 		
