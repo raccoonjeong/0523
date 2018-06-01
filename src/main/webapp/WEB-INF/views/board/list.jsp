@@ -12,6 +12,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 <style>
+.count{
+font-size: 70%;
+color: #04B486 ;
+font-weight: bold;
+}
 .search1 {
 	text-align: center;
 	/* display: flex;
@@ -152,11 +157,13 @@
 								
 								<td class="box" id="toread" data-bno="${vo.bno}">
 								<span class="title"> <c:out value="${vo.title}" /></span>
+								<span class="count">[<c:out value = "${vo.recnt }"></c:out>]</span>
 									<span class="ico"> 
 										<c:if test="${vo.checkNew()}">
 											<img src="/resources/images/new.jpg">
 										</c:if>
 									</span>
+									
 								</td>
 
 								<td style="text-align: right">
@@ -171,7 +178,7 @@
 										<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" />
 									</c:if>
 								</td>
-							</tr>
+									</tr>
 						</c:forEach>
 					</tbody>
 					<tfoot>

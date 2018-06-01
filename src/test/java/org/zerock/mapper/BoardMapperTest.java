@@ -20,6 +20,14 @@ public class BoardMapperTest {
 	private BoardMapper mapper;
 	
 	@Test
+	public void updateReplyCntTest() {
+		
+		
+		log.info(mapper.updateReplyCnt(2, 2));
+		
+		}
+	
+	@Test
 	public void getList() {
 		Criteria cri = new Criteria(1);
 		log.info(mapper.list(cri));

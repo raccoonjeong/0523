@@ -21,4 +21,6 @@ public interface ReplyMapper {
 			@Param("bno") Integer bno);
 	
 	public int getTotal(Integer bno);
+	
+	public int getBno(Integer rno);
 }

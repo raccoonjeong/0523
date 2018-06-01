@@ -19,6 +19,7 @@ public class BoardServiceTests {
 	@Setter(onMethod_= {@Autowired})
 	private BoardService service;
 	
+	
 	@Test
 	public void getList() {
 		Criteria cri = new Criteria(3);

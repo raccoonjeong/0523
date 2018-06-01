@@ -1,6 +1,8 @@
 package org.zerock.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,16 +42,24 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-
 	public int remove(int bno) {
 		
 		return mapper.remove(bno);
 	}
 
 
+	@Override
 	public int modify(BoardVO vo) {
 
 		return mapper.modify(vo);
+	}
+
+	@Override
+	public int updateReplyCnt(Integer bno, int amount) {
+
+		
+		return mapper.updateReplyCnt(bno,amount);
+		
 	}
 
 
