@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-    Hielo by TEMPLATED
-    templated.co @templatedco
-    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -29,25 +24,46 @@ ul {
 	padding: 0;
 }
 
-li {
+.uploadUL li {
 	display: inline-block;
+	margin: 10px 30px 0 30px;
 }
 
 .uploadUL li img {
 	width: 100px;
 	height: 100px;
+	
 }
 
-#wall {
+
+.uploadUL {
 	width: 100%;
-	height: 600px;
-	/*  border: 1px solid red; */
-	/*  background-color: gray; */
-	position: absolute;
-	display: none;
-	z-index: 100;
+	text-align:center;
+
+}
+
+#bg {
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
 	justify-content: center;
 	align-items: center;
+	z-index: 100;
+}
+
+#bg img {
+	width: 300px;
+	height: 300px;
+}
+
+.show {
+	display: flex;
+}
+
+.hide {
+	display: none;
 }
 </style>
 </head>
@@ -80,7 +96,13 @@ li {
 	<!-- Main -->
 
 	<div id="main" class="container">
+	<div id="bg" class="hide">
+
+</div>
 		<div class="outer">
+
+			<ul class='uploadUL'>
+			</ul>
 
 			<form id="uploadForm">
 				<input type='file' id='upload' multiple>
@@ -88,13 +110,11 @@ li {
 			<button id='btn'>upload</button>
 		</div>
 
-		<div>
-			<ul class='uploadUL'>
-			</ul>
-		</div>
-		<div id='wall'>
-		</div>
 
+		<!-- <div id='wall'></div>
+ -->
+<div id="bg" class="hide">
+<div id = "inner" ></div></div>
 	</div>
 
 
@@ -104,117 +124,123 @@ li {
 		crossorigin="anonymous"></script>
 
 	<script>
-		$(document)
-				.ready(
-						function(e) {
 
-							var uploadUL = $(".uploadUL");
-							var uploadInput = $("#upload");
-							var wall = $("#wall");
+	$(document).ready(function(e) {
 
-							showList();
+		var uploadUL = $(".uploadUL");
+		var uploadInput = $("#upload");
+		/* var wall = $("#wall"); */
+		var w = document.documentElement.clientWidth;
+    	var h = document.documentElement.scrollHeight;
+    	var bg = $("#bg");
 
-							function showList() {
+		showList();
+		
 
-								$
-										.getJSON(
-												"/up/listdata" + ".json",
-												function(data) {
-													console.log(data);
-													var str = "";
+			  
 
-													$(data)
-															.each(
-																	function(
-																			idx,
-																			data) {
-																		str += "<li data-file='"+data.fullName+"'><img src='../display?file=s_"
-																				+ data.fullName
-																				+ "'><small data-src="+data.fullName+">X</small></li>";
-																	})
-													uploadUL.html(str);
-												})
+		function showList() {
+
+			$.getJSON("/up/listdata" + ".json",function(data) {
+				console.log(data);
+				var str = "";
+
+				$(data).each(function(idx,data) {
+						str += "<li data-file='"+data.fullName+"'><img src='../display?file=s_"
+												+ data.fullName+ "'><small data-src="+data.fullName+">X</small></li>";
+				})
+				uploadUL.html(str);
+			})
 
 							}
 
-							uploadUL.on("click", "small", function(e) {
-								
-							e.stopPropagation();
-								console.log("--------------------");
-								console.log(this);
-								console.log($(this).attr("data-src"));
+		uploadUL.on("click", "small", function(e) {
 
-							
-								if(confirm("삭제하시겠습니까?")==true){
-								
-									var data = {
-											fullName : $(this).attr("data-src")
-										};
+			e.stopPropagation();
+			console.log("--------------------");
+			console.log(this);
+			console.log($(this).attr("data-src"));
 
-										$.ajax({
-											url : "deleteFile",
-											type : 'delete',
-											data : data.fullName,
-											dataType : "text",
-											success : function(result) {
-												if (result == 'deleted') {
-													alert("deleted");
-													showList();
-													wall.hide('slow');
-												}
+			if (confirm("삭제하시겠습니까?") == true) {
+
+				var data = {fullName : $(this).attr("data-src")};
+
+				$.ajax({
+					url : "deleteFile",
+					type : 'delete',
+					data : data.fullName,
+					dataType : "text",
+					success : function(result) {
+						if (result == 'deleted') {
+							alert("deleted");
+							showList();
+						
 											}
+										}});
+				} else {return;
+				}
+});
+		
 
-										});
-										
-								}else{
-									
-										return ;									
-								}
+		uploadUL.on("click", "li", function(e) {
 
-						});
+			console.log("li clicked");
+		
+			var fileName = $(this).data("file");
 
-							uploadUL.on("click", "li", function(e) {
+			var str = "<img src='../display?file="+ fileName + "'>";
 
-								console.log("li clicked");
-								//$(this).attr("data-file")
-								var fileName = $(this).data("file");
 
-								var str = "<img src='../display?file=" + fileName
-										+ "'>";
 
-								wall.html(str);
-								wall.show('slow');
+	        bg.attr("style","height: " + h +"px;");
+	        bg.attr("class","show");
+	        bg.html(str);
+	        
+		});
+		
+		bg.on("click", function(e){
 
-							});
+	        console.log("bg click");
+	        
+	        bg.attr("class","hide");
+	        bg.removeAttr("style");
 
-							wall.on("click", function(e) {
-								wall.hide('slow');
 
-							});
+	    });
 
-							$('#btn').on("click", function(e) {
+/* 		wall.html(str);
+				wall.show('slow');
 
-								var formData = new FormData();
-								var files = uploadInput[0].files;
+				
 
-								for (var i = 0; i < files.length; i++) {
-									formData.append("file", files[i]);
-								}
-								$.ajax({
-									url : '/up/ajax',
-									data : formData,
-									processData : false,
-									contentType : false,
-									type : 'POST',
-									success : function(data) {
+		wall.on("click", function(e) {
+				wall.hide('slow');
+				}); */
+
+		$('#btn').on("click", function(e) {
+
+				var formData = new FormData();
+				var files = uploadInput[0].files;
+
+				for (var i = 0; i < files.length; i++) {
+					formData.append("file", files[i]);
+							}
+					$.ajax({
+						url : '/up/ajax',
+						data : formData,
+						processData : false,
+						contentType : false,
+						type : 'POST',
+						success : function(data) {
 										console.log(data);
 										$("#uploadForm")[0].reset();
 										showList();
 									}
 								});
 							});
+				});
 
-						});
+					
 	</script>
 
 
