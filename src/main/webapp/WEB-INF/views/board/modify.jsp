@@ -45,7 +45,8 @@
 		<div class="logo">
 			<a href="/board/list">Hielo <span>by TEMPLATED</span></a>
 		</div>
-		<a href="#menu">Menu</a>
+			<li><a href="/board/list">Home</a></li>
+			<li><a href="/up/ajax">Image gallery</a></li>
 	</header>
 	<!-- Nav -->
 	<nav id="menu">

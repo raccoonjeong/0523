@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.UploadVO;
-import org.zerock.mapper.UploadMapper;
 import org.zerock.service.UploadService;
 
 import lombok.Setter;
@@ -41,8 +41,15 @@ public class UploadMapperTests {
 	@Test
 	public void getListTest() {
 		
-		log.info(mapper.getList());
+		Criteria cri = new Criteria(2);
+		log.info(mapper.getList(cri));
 		
+	}
+	
+	@Test
+	public void getTotalTest() {
+		
+		log.info(mapper.getTotal());
 	}
 
 }

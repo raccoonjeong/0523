@@ -10,6 +10,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css?ver=1" />
 <style>
+
+.pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination li {
+   display: inline;
+            }
+.pagination a {
+	color: black;	
+	padding: 8px 5px;
+	text-decoration: none;
+}
+
+.pagination .active {
+	background-color: yellowgreen;
+	color: white;
+}
+
+.pagination a:hover:not (.active ){
+	background-color: pink;
+}
 .subpage {
 	background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
 }
@@ -65,6 +87,15 @@ ul {
 .hide {
 	display: none;
 }
+
+ .pagination {
+	display: inline-block;
+	text-align: center;
+}
+.pagination{
+        display: block;
+        
+        }
 </style>
 </head>
 
@@ -81,6 +112,7 @@ ul {
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
+			<li><a href="/up/ajax">Image gallery</a></li>
 
 		</ul>
 	</nav>
@@ -103,11 +135,15 @@ ul {
 
 			<ul class='uploadUL'>
 			</ul>
+			
+			<div class="pagination"></div>
 
 			<form id="uploadForm">
 				<input type='file' id='upload' multiple>
 			</form>
 			<button id='btn'>upload</button>
+			
+			
 		</div>
 
 
@@ -124,7 +160,8 @@ ul {
 		crossorigin="anonymous"></script>
 
 	<script>
-
+	
+	
 	$(document).ready(function(e) {
 
 		var uploadUL = $(".uploadUL");
@@ -134,21 +171,28 @@ ul {
     	var h = document.documentElement.scrollHeight;
     	var bg = $("#bg");
 
-		showList();
+		showList(1);
 		
 
-			  
+		 var uploadPage = 1;
 
-		function showList() {
+			 
+		function showList(page) {
 
-			$.getJSON("/up/listdata" + ".json",function(data) {
+			uploadPage = page || 1;
+			
+			$.getJSON("/up/listdata/" +page + ".json",function(data) {
+				
 				console.log(data);
+				console.log(page);
 				var str = "";
 
-				$(data).each(function(idx,data) {
+				$(data.list).each(function(idx,data) {
 						str += "<li data-file='"+data.fullName+"'><img src='../display?file=s_"
 												+ data.fullName+ "'><small data-src="+data.fullName+">X</small></li>";
 				})
+				showReplyPage(uploadPage, data.uploadCnt);
+				
 				uploadUL.html(str);
 			})
 
@@ -161,6 +205,7 @@ ul {
 			console.log(this);
 			console.log($(this).attr("data-src"));
 
+			console.log(uploadPage);
 			if (confirm("삭제하시겠습니까?") == true) {
 
 				var data = {fullName : $(this).attr("data-src")};
@@ -173,7 +218,7 @@ ul {
 					success : function(result) {
 						if (result == 'deleted') {
 							alert("deleted");
-							showList();
+							showList(uploadPage);
 						
 											}
 										}});
@@ -207,6 +252,15 @@ ul {
 
 
 	    });
+		
+		$(".pagination").on("click", "a", function (e) {
+	            e.preventDefault();
+	            console.log("upload~~~");
+	            uploadPage = $(this).attr("href");
+				console.log("upload"+ uploadPage);
+	            showList(uploadPage);
+
+	      });
 
 /* 		wall.html(str);
 				wall.show('slow');
@@ -234,7 +288,7 @@ ul {
 						success : function(data) {
 										console.log(data);
 										$("#uploadForm")[0].reset();
-										showList();
+										showList(1);
 									}
 								});
 							});
@@ -243,6 +297,7 @@ ul {
 					
 	</script>
 
+<script type="text/javascript" src="/resources/js/pageMaker.js"></script>	
 
 	<!-- Footer -->
 	<footer id="footer">
