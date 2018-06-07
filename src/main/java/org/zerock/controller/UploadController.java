@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.UploadDTO;
 import org.zerock.domain.UploadVO;
-
 import org.zerock.service.UploadService;
 
 import lombok.Setter;
@@ -92,12 +93,14 @@ public class UploadController {
 		
 	}
 
-	@GetMapping("/listdata")
-	public ResponseEntity<List<UploadVO>> listdata() {
+	@GetMapping("/listdata/{page}")
+	public ResponseEntity <UploadDTO> listdata(@PathVariable("page")Integer page) {
 	
 		log.info("upload Ajax get");
 		
-		return new ResponseEntity<List<UploadVO>>(service.getList(),HttpStatus.OK);
+		Criteria cri = new Criteria(page);
+		
+		return new ResponseEntity<UploadDTO>(service.pageList(cri),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deleteFile")

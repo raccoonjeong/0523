@@ -49,6 +49,7 @@
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
+			<li><a href="/up/ajax">Image gallery</a></li>
 		</ul>
 	</nav>
 

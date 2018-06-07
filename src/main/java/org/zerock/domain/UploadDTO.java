@@ -5,9 +5,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ReplyDTO {
+public class UploadDTO {
 
-	private int replyCnt;
-	private List<ReplyVO> list;
-	
+	private int uploadCnt;
+	private List<UploadVO> list;
 }
