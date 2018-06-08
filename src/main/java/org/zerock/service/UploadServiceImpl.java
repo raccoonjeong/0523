@@ -20,9 +20,9 @@ public class UploadServiceImpl implements UploadService {
 	
 
 	@Override
-	public int delete(String fullName) {
+	public int delete(String uuid) {
 		
-		return mapper.delete(fullName);
+		return mapper.delete(uuid);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class UploadVO {
 	
-	private String fullName;
+	private String uuid, fileName;
 	private Date regdate;
 
 }

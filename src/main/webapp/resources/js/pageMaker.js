@@ -34,3 +34,20 @@ function formatDate(date) {
 	       date.getHours() + '시 ' +
 	       date.getMinutes() + '분';
 	}
+
+function galleryPm(page, uploadCnt) {
+
+    var uploadCnt = uploadCnt || 1;
+    var page = page || 1;
+    var next = false;
+    var tempLast = Math.ceil(page / 10.0) * 10;
+    var start = tempLast - 9;
+    var prev = (start != 1);
+
+    if (tempLast * 10 >= uploadCnt) {
+        tempLast = Math.ceil(uploadCnt / 10.0);
+    } else {
+        next = true;
+    }
+    var end = tempLast;
+}

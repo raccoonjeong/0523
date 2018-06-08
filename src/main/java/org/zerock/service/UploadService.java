@@ -10,7 +10,7 @@ import org.zerock.domain.UploadVO;
 public interface UploadService {
 	
 	
-	public int delete(String fullName);
+	public int delete(String uuid);
 	
 	public int insert(UploadVO vo);
 	

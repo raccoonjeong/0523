@@ -8,8 +8,21 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 <style>
+
+
+.realName {
+	
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 120px;
+    overflow: hidden;
+    display: inline-block
+}
+
 
 .pagination {
 	display: inline-block;
@@ -33,14 +46,17 @@
 	background-color: pink;
 }
 .subpage {
-	background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed
+	background: linear-gradient(120deg, #D3959B, #BFE6BA) fixed;
+	
 }
 
 .outer {
 	padding-top: 5%;
 	background-color: #ffffff;
 	background-color: rgba(255, 255, 255, 0.6);
+	min-height: 500px;
 }
+
 
 ul {
 	padding: 0;
@@ -48,14 +64,27 @@ ul {
 
 .uploadUL li {
 	display: inline-block;
-	margin: 10px 30px 0 30px;
+	margin: 10px 30px 30px 30px;
 }
 
-.uploadUL li img {
-	width: 100px;
-	height: 100px;
-	
+.pic{
+
+
+
 }
+.uploadUL li img {
+	width: 150px;
+	height: 150px;
+	border:8px solid #9D7361;
+
+border-radius : 10px;
+        
+padding:3px;
+	
+	/* border-bottom:3px solid #9D7361;
+	border-style : dashed */
+}
+
 
 
 .uploadUL {
@@ -78,6 +107,7 @@ ul {
 #bg img {
 	width: 300px;
 	height: 300px;
+
 }
 
 .show {
@@ -96,6 +126,36 @@ ul {
         display: block;
         
         }
+#uploadForm{
+       float:left;
+       overflow:hidden;
+        }
+#btn{
+    text-align :center;
+        }
+
+.uploadStyle{
+display: inline-block;
+text-align:right;
+margin: auto;
+
+
+
+}
+form{
+margin: 0 auto;
+width: 250px;}
+        
+        .xxx{
+        float: right;
+        margin-right:5px;
+        color: #DC143C;}
+        
+        
+        .nameTag{
+        background: white;}
+
+
 </style>
 </head>
 
@@ -131,26 +191,28 @@ ul {
 	<div id="bg" class="hide">
 
 </div>
-		<div class="outer">
-
-			<ul class='uploadUL'>
-			</ul>
+<div class="outer">
+	<span class="left" style="cusor: pointer;">hi</span>
+	
+	<span class="right" style="cusor: pointer;">hello</span>
+	<ul class='uploadUL'></ul>
 			
-			<div class="pagination"></div>
+	<div class="pagination"></div>
 
-			<form id="uploadForm">
-				<input type='file' id='upload' multiple>
-			</form>
-			<button id='btn'>upload</button>
-			
-			
-		</div>
+	<center><div class="uploadStyle">
+	<form id="uploadForm">
+		<input type="file" id="upload"  multiple>
+	</form>
 
+	<button id='btn' class="button special icon fa-search">upload</button>
 
-		<!-- <div id='wall'></div>
- -->
+</div></center>
+
+	</div>
+
 <div id="bg" class="hide">
-<div id = "inner" ></div></div>
+<div id = "inner" ></div>
+</div>
 	</div>
 
 
@@ -170,6 +232,7 @@ ul {
 		var w = document.documentElement.clientWidth;
     	var h = document.documentElement.scrollHeight;
     	var bg = $("#bg");
+    
 
 		showList(1);
 		
@@ -188,8 +251,11 @@ ul {
 				var str = "";
 
 				$(data.list).each(function(idx,data) {
-						str += "<li data-file='"+data.fullName+"'><img src='../display?file=s_"
-												+ data.fullName+ "'><small data-src="+data.fullName+">X</small></li>";
+					var fullName= data.uuid+"_"+data.fileName;
+					console.log("fullNAmeeee",fullName);
+						str += "<li data-file='"+fullName+"'><div class='pic'><img src='../display?file=s_"
+								+fullName+ "'><br><div class='nameTag'><span class='realName'>"+data.fileName+"</span>"
+								+"<span class='xxx'><small data-src="+data.uuid+">X</small></span></div></div></li>";
 				})
 				showReplyPage(uploadPage, data.uploadCnt);
 				
@@ -197,6 +263,12 @@ ul {
 			})
 
 							}
+		
+		function checkImageType(fileName){
+			var pattern = /jpg$|gif$|png$|jpeg/i;
+			return fileName.match(pattern);
+		}
+		
 
 		uploadUL.on("click", "small", function(e) {
 
@@ -208,12 +280,13 @@ ul {
 			console.log(uploadPage);
 			if (confirm("삭제하시겠습니까?") == true) {
 
-				var data = {fullName : $(this).attr("data-src")};
+				var data = {uuid : $(this).attr("data-src")};
+				console.log("delete:",data);
 
 				$.ajax({
 					url : "deleteFile",
 					type : 'delete',
-					data : data.fullName,
+					data : data.uuid,
 					dataType : "text",
 					success : function(result) {
 						if (result == 'deleted') {
@@ -275,9 +348,19 @@ ul {
 
 				var formData = new FormData();
 				var files = uploadInput[0].files;
-
+				console.log("files가",files);
+				console.log("uploadInput",uploadInput[0]);
+				console.log("formData",formData)
+			
+					
 				for (var i = 0; i < files.length; i++) {
-					formData.append("file", files[i]);
+					console.log("dddd",files[i])
+					if(checkImageType(files[i].name)){
+
+						formData.append("file", files[i]);
+					}else{
+						alert(files[i].name+"은 이미지가 아닙니다. 이미지를 똑바로 올리세요");
+					}
 							}
 					$.ajax({
 						url : '/up/ajax',
@@ -291,6 +374,7 @@ ul {
 										showList(1);
 									}
 								});
+				
 							});
 				});
 

@@ -52,16 +52,19 @@ public class UploadController {
 			
 			UUID uid= UUID.randomUUID();
 			
-			String uploadFileName = uid.toString()+"_"+upfile.getOriginalFilename();
+			String fullFileName = uid.toString()+"_"+upfile.getOriginalFilename();
+			
+			String originalFileName = upfile.getOriginalFilename();
 			
 			UploadVO vo = new UploadVO();
-			vo.setFullName(uploadFileName);
+			vo.setUuid(uid.toString());
+			vo.setFileName(originalFileName);
 			
 			service.insert(vo);
 			
 			FileOutputStream fos = 
 					new FileOutputStream( new File("C:\\zzz\\upload",
-						uploadFileName	) );
+						fullFileName	) );
 		
 			FileCopyUtils.copy(upfile.getInputStream(), fos);
 			fos.close();
@@ -71,15 +74,15 @@ public class UploadController {
 			FileOutputStream thfos = 
 				new FileOutputStream(
 				 new File("C:\\zzz\\upload", 
-						 "s_" + uploadFileName)
+						 "s_" + fullFileName)
 				);
 			
 			Thumbnailator.createThumbnail(
 					upfile.getInputStream(), 
-					thfos, 100,100);
+					thfos, 150,150);
 			thfos.close();
 			
-			uploadNames.add(uploadFileName);		
+			uploadNames.add(originalFileName);		
 		}
 		
 		return new ResponseEntity<List<String>>(uploadNames, HttpStatus.OK);
