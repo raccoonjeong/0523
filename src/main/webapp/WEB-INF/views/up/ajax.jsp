@@ -27,9 +27,15 @@
 .pagination {
 	display: inline-block;
 	text-align: center;
+
+	
 }
 .pagination li {
    display: inline;
+   margin: 0 10% 0 10%;
+   font-size: 2em;
+   vertical-align: text-bottom;
+
             }
 .pagination a {
 	color: black;	
@@ -146,14 +152,60 @@ form{
 margin: 0 auto;
 width: 250px;}
         
-        .xxx{
+.xxx{
         float: right;
         margin-right:5px;
         color: #DC143C;}
         
         
-        .nameTag{
+.nameTag{
         background: white;}
+#goLeft{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 50px;
+    
+
+
+}
+#goLeft img{
+width: 100%;
+	height: 100%;
+}
+#goLeft:hover{
+background-color: white; 
+transition:1s;
+}
+#goLeft:active {
+ background-color: white;
+ box-shadow: 0 5px #666;
+ transform: translateY(4px);
+ }
+#goRight{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 50px;
+
+
+}
+#goRight img{
+width: 100%;
+	height: 100%;
+}
+#goRight:hover{
+background-color: white; 
+transition:1s;
+content: '\00bb';
+}
+#goRight:active {
+ background-color: white;
+ box-shadow: 0 5px #666;
+ transform: translateY(4px);
+}
 
 
 </style>
@@ -181,7 +233,7 @@ width: 250px;}
 		<div class="inner">
 			<header class="align-center">
 				<p>Sed amet nulla</p>
-				<h2>Candy</h2>
+				<h2>Candy Gallery</h2>
 			</header>
 		</div>
 	</section>
@@ -192,21 +244,27 @@ width: 250px;}
 
 </div>
 <div class="outer">
-	<span class="left" style="cusor: pointer;">hi</span>
-	
-	<span class="right" style="cusor: pointer;">hello</span>
-	<ul class='uploadUL'></ul>
-			
+
+            
+<ul class='uploadUL'></ul>
+		
 	<div class="pagination"></div>
 
-	<center><div class="uploadStyle">
+<center>
+	
+	 
+	<div class="uploadStyle">
 	<form id="uploadForm">
 		<input type="file" id="upload"  multiple>
 	</form>
 
 	<button id='btn' class="button special icon fa-search">upload</button>
 
-</div></center>
+</div>
+  
+</center>
+<br>
+   
 
 	</div>
 
@@ -232,6 +290,7 @@ width: 250px;}
 		var w = document.documentElement.clientWidth;
     	var h = document.documentElement.scrollHeight;
     	var bg = $("#bg");
+    	var uploadCnt;
     
 
 		showList(1);
@@ -248,6 +307,7 @@ width: 250px;}
 				
 				console.log(data);
 				console.log(page);
+				uploadCnt=data.uploadCnt;
 				var str = "";
 
 				$(data.list).each(function(idx,data) {
@@ -255,11 +315,14 @@ width: 250px;}
 					console.log("fullNAmeeee",fullName);
 						str += "<li data-file='"+fullName+"'><div class='pic'><img src='../display?file=s_"
 								+fullName+ "'><br><div class='nameTag'><span class='realName'>"+data.fileName+"</span>"
-								+"<span class='xxx'><small data-src="+data.uuid+">X</small></span></div></div></li>";
+								+"<span class='xxx'><small data-src="+data.uuid+">X</small></span></div>"
+								+"<button class='dd' data-file="+fullName+">Download</button></div></li>";
 				})
-				showReplyPage(uploadPage, data.uploadCnt);
 				
+				
+				galleryPm(uploadPage, data.uploadCnt);
 				uploadUL.html(str);
+				
 			})
 
 							}
@@ -325,15 +388,37 @@ width: 250px;}
 
 
 	    });
+	
+		$(".pagination").on("click","#goRight",function (e) {
+	
+			
+			if(uploadPage==galleryPm(uploadPage, uploadCnt)){
+			uploadPage=1;
+		}else{
+			uploadPage = uploadPage+1;} 
+            showList(uploadPage);
+
+      });
+		$(".pagination").on("click","#goLeft",function (e) {
+	           
+			if(uploadPage==1){
+				uploadPage=galleryPm(uploadPage, uploadCnt);
+			}else{
+            uploadPage = uploadPage-1;
+            }
+			
+            showList(uploadPage);
+
+      });
 		
-		$(".pagination").on("click", "a", function (e) {
+	/* 	$(".pagination").on("click", "a", function (e) {
 	            e.preventDefault();
 	            console.log("upload~~~");
 	            uploadPage = $(this).attr("href");
 				console.log("upload"+ uploadPage);
 	            showList(uploadPage);
 
-	      });
+	      }); */
 
 /* 		wall.html(str);
 				wall.show('slow');
@@ -376,14 +461,30 @@ width: 250px;}
 								});
 				
 							});
+				
+		$(".uploadUL").on("click", "li .dd", function(e){
+		       console.log("down...");
+		       e.stopPropagation();
+		        var liObj = $(this);
+		        
+		        console.log("this", liObj);
+		       
+		       var path = encodeURIComponent(liObj.data("file"));
+		       console.log("path",path);
+		       
+		       
+		           self.location ="/up/download?fileName="+path;
+		       
+		       
+		   });
+				
 				});
 
 					
 	</script>
 
-<script type="text/javascript" src="/resources/js/pageMaker.js"></script>	
-
-	<!-- Footer -->
+<script type="text/javascript" src="/resources/js/galleryPageMaker.js"></script>	
+<!-- Footer -->
 	<footer id="footer">
 		<div class="container">
 			<ul class="icons">
