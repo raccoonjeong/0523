@@ -18,6 +18,8 @@ public interface ReplyService {
 	public ReplyDTO list(
 			@Param("cri")Criteria cri,
 			@Param("bno") Integer bno);
+	
+	public int rereply(ReplyVO vo);
 
 	
 }

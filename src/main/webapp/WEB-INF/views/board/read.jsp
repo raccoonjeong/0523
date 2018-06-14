@@ -364,12 +364,26 @@
                 var str = "";
                 $(data.list).each(function (idx, data) {
                     var regdate = new Date(data.regdate);
-                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"+"글쓴이: " +data.replyer+ "<br>"+"내용: "
-                         + data.rcontent + "</span></li>"
+                    console.log("ord===",data)
+                    if(data.ord==0){
+                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	 +"글쓴이: " +data.replyer+ "<br>"
+                    	 +"내용: "+ data.rcontent + "</span></li>"
                          +"<div id=datestyle><a class=rerebtn data-rno = '"+data.rno+"'>답댓글</a>"
                          +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
-                         +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "+"날짜 :   " 
-                         + formatDate(regdate) + "</div><hr>"
+                         +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
+                         +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
+                    }else{
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	+"&emsp;"+"<span style='color:crimson'>"+"[Re:]"+"</span>"
+                    	+"글쓴이: " +data.replyer+ "<br>"
+                    	+"&emsp;&emsp;&emsp;내용: "+ data.rcontent + "</span></li>"
+                        +"<div id=datestyle>"
+                        +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
+                        +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
+                        +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
+                    	
+                    }
                 });
                 listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -378,15 +392,23 @@
         }
         loadList(bno, 1);
 
-        function saveReplies(gno) {
+        function saveReplies(ord, inputgno) {
 
         	console.log("inputval"+inputContent.val());
-        	if(inputContent.val()!="" && inputReplyer.val()!=""){
-        		
-        		 if(gno== 0){
-        			var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val(), ord: 0};
-        			}else{		
-        				var data = {bno: bno, rcontent:  reContent.val(), replyer: reReplyer.val(), gno:gno};
+        	console.log("inputval"+reContent.val());     		
+        		 if(ord == 0){
+        			 
+        			 if(inputContent.val()!="" && inputReplyer.val()!=""){       				 
+        				var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val(), ord:0};
+        			}else {
+                		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!"); return;
+                	}
+        		 }else{
+        			if(reContent.val()!="" && reReplyer.val()!=""){
+        				var data = {bno: bno, rcontent: reContent.val(), replyer: reReplyer.val(),ord:1, gno: inputgno};
+        			}else {
+        	        		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!"); return;
+        	        	}
         			}
             	$.ajax({
                	 type: 'post',
@@ -397,24 +419,24 @@
                	 dataType: "text",
                	 data: JSON.stringify(data),
                	 success: function (result) {
-               	     console.log("result: " + result);
+               	     
                      loadList(bno, 1);
                      alert("등록이 완료되었습니다.");
                      inputContent.val("");
                      inputReplyer.val("");
+                     reContent.val("");
+                     reReplyer.val("");
                      
                 }
             });      		
-        	}else {
-        		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!");
-        	}
+        	
             console.log("세이브리플 페이지는"+replyPage);
         }
 
         function readReplies(rno, page) {
 
             $.getJSON("/replies/" + rno + ".json", function (data) {
-                console.log(data);
+                
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
                 modifyReplyer.val(data.replyer);
@@ -437,8 +459,7 @@
                 dataType: "text",
                 data: JSON.stringify(data),
                 success: function (result) {
-                    console.log("result: " + result);
-                    console.dir("수정 페이지는"+replyPage);
+                    
                     loadList(bno, replyPage);
                     modalLayer.fadeOut("slow");
                 }
@@ -454,7 +475,7 @@
                 },
                 dataType: "text",
                 success: function (result) {
-                    console.log("result: " + result);
+                    
                     loadList(bno, replyPage);
                 }
             });
@@ -471,7 +492,6 @@
         
         listUL.on("click",".dbtn", function (e) {
 
-        	console.log($(this));
             var rno = $(this).attr("data-rno");
 
             if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
@@ -498,14 +518,24 @@
         var reMarginLeft = reModalCont.outerWidth() / 2;
         var reMarginTop = reModalCont.outerHeight() / 2;
         
+        var replynumber;
+        
         listUL.on("click",".rerebtn", function(e){
-         var rno = $(this).attr("data-rno");
+         replynumber = $(this).attr("data-rno");
        	 reModalLayer.fadeIn("slow");
        	 reModalCont.css({"margin-top": -reMarginTop, "margin-left": -reMarginLeft});
          $(this).blur();
          $(".reModalContent > a").focus();
+        
+         
          
        });
+        $(".reRegister").on("click", function(e){
+       		
+        	saveReplies(1,replynumber);
+        	reModalLayer.fadeOut("slow");
+     
+   		});
 
        
         
@@ -516,11 +546,8 @@
             modalCont.css({"margin-top": -marginTop, "margin-left": -marginLeft});
             $(this).blur();
             $(".modalContent > a").focus();
-       
-       		$(".reRegister").on("click", function(e){
-       			var rno = $(this).attr("data-rno");
-            	saveReplies(rno);
-            }); });
+        });
+
        
 
         $(".modalContent > .closebtn").click(function () {

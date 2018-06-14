@@ -63,6 +63,14 @@ public class ReplyServiceImpl implements ReplyService {
 		return dto;
 	}
 
+	@Override
+	@Transactional
+	public int rereply(ReplyVO vo) {
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
+		
+		return replyMapper.rereply(vo);
+	}
+
 	
 
 }

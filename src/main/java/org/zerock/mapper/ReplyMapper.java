@@ -25,4 +25,6 @@ public interface ReplyMapper {
 	public int getBno(Integer rno);
 
 	public int updateup(ReplyVO vo);
+	
+	public int rereply(ReplyVO vo);
 }

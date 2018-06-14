@@ -36,8 +36,13 @@ public class ReplyController {
 	@PostMapping("/new")
 	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		
+		if(vo.getOrd()==1) {
+			service.rereply(vo);
+	}
+		else {
+			service.create(vo);
+			};
 		
-		service.create(vo);
 		
 		
 		return new ResponseEntity<String>("success",HttpStatus.OK);
