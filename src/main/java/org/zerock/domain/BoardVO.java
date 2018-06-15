@@ -9,6 +9,7 @@ public class BoardVO {
 	private int bno,recnt;
 	private String title,content,writer;
 	private Date regdate,updatedate;
+	private String[] files;
 	
 	private static final Long ADAY = 1000 * 60 * 60 * 24L;
 	

@@ -4,7 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
-
+<insert id="insertFile">
+  insert into tbl_aupload (uuid,fileName,bno) values (#{uuid},#{fileName},last_insert_id());
+  </insert>
 
 	<sql id="search">
 		<where>

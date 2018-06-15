@@ -11,7 +11,7 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 
 <style>
 .subpage {
@@ -29,7 +29,28 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.fileDrop
+{
+width: 96.8%;
+            height: 100px;
+            padding: 20px;
+            border: 1px solid #ccc;
+     background: rgba(144, 144, 144, 0.075);
+      margin: 40px 10px 0px 10px; 
+      float:right;
 
+            }
+.fileList
+{
+width: 96.8%;
+            height: 100px;
+            padding: 20px;
+            border: 1px solid #ccc;
+    background: rgba(144, 144, 144, 0.075);
+    margin: 0 10px 40px 10px; 
+     float:right;
+
+}
 /* body {
 	background-image: url(/resources/images/bg.jpg);
 } */
@@ -70,7 +91,7 @@
 			<div class="mytable">
 				<h3>form</h3>
 
-				<form method="post" action="register">
+				<form method="post" action="register" id="registerForm">
 					<div class="row uniform">
 						<div class="6u 12u$(xsmall)">
 							<input type="text" name="title" id="name" value="제목"
@@ -86,6 +107,11 @@
 							<textarea name="content" id="message"
 								placeholder="Enter your message" rows="20"></textarea>
 						</div>
+						<div class="fileDrop">
+						
+						</div>
+					<div class="fileList">
+					</div>
 						<div class="12u$">
 							<ul class="actions">
 								<li><input type="button" class="special list" value="List"></li>
@@ -94,11 +120,101 @@
 						</div>
 					</div>
 				</form>
-				<hr/>
+				<hr />
 			</div>
 		</div>
 
 	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script id="template" type="text/x-handlebars-template">
+<li><span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"><span>
+<div class="mailbox-attachment-info">
+<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a></div>
+</li>
+</script>
+
+
+<script>
+
+$(document).ready(function () {
+	
+
+     	var template = Handlebars.compile($("#template").html());
+       $(".fileDrop").on("dragenter", function (e) {
+    	   e.preventDefault();
+       });
+       $(".fileDrop").on("dragover",function(e){
+           e.stopPropagation();
+           e.preventDefault();
+       });
+       
+       $(".fileDrop").on("drop", function (e) {
+    	   e.preventDefault();
+    	   var files = e.originalEvent.dataTransfer.files;
+    	   var file = files[0];
+    	   console.log("dropZone",file);
+    	   var formData = new FormData();
+    	   formData.append("file",file);
+    	   $.ajax({
+             	 type: 'post',
+             	 url: "/file/new",
+             	 dataType: "text",
+             	 data: formData,
+             	 processData: false,
+             	 contentType: false,             	 
+             	 success: function (data) {
+             	
+
+             	  alert("등록이 완료되었습니다.");
+             	  console.dir("sss",data);
+             	 console.log("ddll......"+data[0].val);
+             	   var fileInfo = getFileInfo(data);
+             	   
+             	 console.log("fileInfo",fileInfo);
+             	   var html = template(fileInfo);
+             	  console.log("html",html);
+             	  $(".fileList").append(html);             	  
+             	 }   
+    	   });
+       });
+
+       
+       $("#registerForm").submit(function(event){
+    	   e.preventDefault();
+    	   var that =$(this);
+    	   var str="";
+    	   
+    	  $(".fileList").each(function(index){
+    		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
+    		  });
+       that.append(str);
+       that.get(0).submit();
+       });
+       
+       
+       
+       
+       
+       
+       
+       });
+            
+       
+
+
+
+
+
+</script>
+
+<script type="text/javascript" src="/resources/js/upload.js"></script>	
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="container">
@@ -125,13 +241,11 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 	<script>
-	
 		$(document).ready(function(e) {
 			$(".actions").on("click", ".list", function(e) {
 				self.location = "/board/list${cri.makeSearch(cri.page)}";
 			});
 		});
-		
 	</script>
 </body>
 </html>

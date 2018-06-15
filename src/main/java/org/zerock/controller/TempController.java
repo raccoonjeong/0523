@@ -20,15 +20,15 @@ public class TempController {
 	
 	
 	@RequestMapping(value="/display")
-	public @ResponseBody ResponseEntity<byte[]> display(String file)throws Exception{
+	public @ResponseBody ResponseEntity<byte[]> display(String fileName)throws Exception{
 		
-		System.out.println("file " + file);
+		System.out.println("file " + fileName);
 		
 		HttpHeaders headers = new HttpHeaders();
 		
 		headers.add("Content-Type", "image/jpg");
 		
-		String filePath = "C:\\zzz\\upload\\" + file;
+		String filePath = "C:\\zzz\\upload\\" + fileName;
 		ByteArrayOutputStream baos 
 		   = new ByteArrayOutputStream();
 		File target = new File(filePath);

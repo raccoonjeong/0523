@@ -6,8 +6,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -30,7 +32,15 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	@Transactional
 	public int register(BoardVO vo) {
+		
+		mapper.register(vo);
+		
+		
+		/*vo.getFiles();
+		
+		mapper.insertFile();*/
 		
 		return mapper.register(vo);
 	}
@@ -61,6 +71,8 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.updateReplyCnt(bno,amount);
 		
 	}
+
+	
 
 
 

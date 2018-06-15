@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 
 public interface BoardMapper {
 	
@@ -24,4 +25,5 @@ public interface BoardMapper {
 	
 	public int updateReplyCnt(@Param("bno")Integer bno, @Param("amount")int amount);
 
+	public int insertFile(FileVO vo);
 }

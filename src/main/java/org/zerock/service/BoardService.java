@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 
 public interface BoardService {
 	
@@ -20,7 +21,7 @@ public interface BoardService {
 	public int modify(BoardVO vo);
 	
 	public int updateReplyCnt(Integer bno, int amount);
-	
+
 	
 
 }
