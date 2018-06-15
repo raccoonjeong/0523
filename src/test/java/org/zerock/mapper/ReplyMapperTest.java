@@ -21,6 +21,11 @@ public class ReplyMapperTest {
 	private ReplyMapper mapper;
 	
 	@Test
+	public void havekid() {
+		log.info(mapper.haveChild(4));
+	}
+	
+	@Test
 	public void getList() {
 		Criteria cri = new Criteria(1);
 

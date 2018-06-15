@@ -13,13 +13,16 @@ public interface ReplyService {
 	
 	public int update(ReplyVO vo);
 	
-	public int delete(Integer rno);
-	
 	public ReplyDTO list(
 			@Param("cri")Criteria cri,
 			@Param("bno") Integer bno);
 	
 	public int rereply(ReplyVO vo);
 
+	public int delete(Integer rno);
+	
+	public int haveChild(Integer rno);
+	
+	public int deleteParentReply(Integer rno);
 	
 }
