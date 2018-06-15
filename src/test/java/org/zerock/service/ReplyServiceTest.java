@@ -24,7 +24,10 @@ public class ReplyServiceTest {
 	private ReplyService service;
 	
 
-
+	@Test
+	public void havekid() {
+		log.info(service.haveChild(4));
+	}
 	
 	@Test
 	public void getList() {

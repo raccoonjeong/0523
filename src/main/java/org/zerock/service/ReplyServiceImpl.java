@@ -71,6 +71,18 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyMapper.rereply(vo);
 	}
 
+	@Override
+	public int haveChild(Integer rno) {
+		
+		return replyMapper.haveChild(rno);
+	}
+
+	@Override
+	public int deleteParentReply(Integer rno) {
+		// TODO Auto-generated method stub
+		return replyMapper.deleteParentRply(rno);
+	}
+
 	
 
 }

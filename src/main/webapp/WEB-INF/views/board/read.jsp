@@ -365,25 +365,33 @@
                 $(data.list).each(function (idx, data) {
                     var regdate = new Date(data.regdate);
                     console.log("ord===",data)
-                    if(data.ord==0){
-                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"
-                    	 +"글쓴이: " +data.replyer+ "<br>"
-                    	 +"내용: "+ data.rcontent + "</span></li>"
-                         +"<div id=datestyle><a class=rerebtn data-rno = '"+data.rno+"'>답댓글</a>"
-                         +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
-                         +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
-                         +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
-                    }else{
+                    if(data.ord==1){
                     	str += "<li>" + "<span data-rno = '" + data.rno + "'>"
                     	+"&emsp;"+"<span style='color:crimson'>"+"[Re:]"+"</span>"
                     	+"글쓴이: " +data.replyer+ "<br>"
                     	+"&emsp;&emsp;&emsp;내용: "+ data.rcontent + "</span></li>"
                         +"<div id=datestyle>"
                         +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
-                        +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "
+                        +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'data-ord = '"+data.ord+"'>삭제</a> "
                         +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
                     	
+                    }else if(data.replyer!=""){
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	 +"글쓴이: " +data.replyer+ "<br>"
+                    	 +"내용: "+ data.rcontent + "</span></li>"
+                         +"<div id=datestyle><a class=rerebtn data-rno = '"+data.rno+"'>답댓글</a>"
+                         +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
+                         +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno 
+                         + "' data-ord = '"+data.ord+"'>삭제</a> "
+                         +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
+                    }else{
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "' style='color:gray'>"
+                   	 +"<br>"
+                   	 + data.rcontent + "</span></li>"
+                        +"<br><hr>";
+                    	
                     }
+                    	
                 });
                 listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -466,14 +474,16 @@
             });
         }
 
-        function deleteReplies(rno) {
+        function deleteReplies(rno,ord) {
+        	
             $.ajax({
                 type: 'delete',
-                url: "/replies/" + rno,
+                url: "/replies/" + rno +"/" + ord,
                 headers: {
                     "Content-type": "application/json"
                 },
                 dataType: "text",
+                
                 success: function (result) {
                     
                     loadList(bno, replyPage);
@@ -493,9 +503,10 @@
         listUL.on("click",".dbtn", function (e) {
 
             var rno = $(this).attr("data-rno");
+            var ord = $(this).attr("data-ord");
 
             if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
-                deleteReplies(rno);
+                deleteReplies(rno,ord);
                
             }
 
