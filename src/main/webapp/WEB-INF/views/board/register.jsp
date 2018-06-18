@@ -40,7 +40,7 @@ width: 96.8%;
       float:right;
 
             }
-.fileList
+.uploadedList
 {
 width: 96.8%;
             height: 100px;
@@ -110,7 +110,7 @@ width: 96.8%;
 						<div class="fileDrop">
 						
 						</div>
-					<div class="fileList">
+					<div class="uploadedList">
 					</div>
 						<div class="12u$">
 							<ul class="actions">
@@ -143,73 +143,92 @@ width: 96.8%;
 
 <script>
 
-$(document).ready(function () {
+$(document).ready(function(){
 	
+	var template = Handlebars.compile($("#template").html());
+	$(".fileDrop").on("dragenter dragover", function(e){
+			e.preventDefault();		
+	});
 
-     	var template = Handlebars.compile($("#template").html());
-       $(".fileDrop").on("dragenter", function (e) {
-    	   e.preventDefault();
-       });
-       $(".fileDrop").on("dragover",function(e){
-           e.stopPropagation();
-           e.preventDefault();
-       });
-       
-       $(".fileDrop").on("drop", function (e) {
-    	   e.preventDefault();
-    	   var files = e.originalEvent.dataTransfer.files;
-    	   var file = files[0];
-    	   console.log("dropZone",file);
-    	   var formData = new FormData();
-    	   formData.append("file",file);
-    	   $.ajax({
-             	 type: 'post',
-             	 url: "/file/new",
-             	 dataType: "text",
-             	 data: formData,
-             	 processData: false,
-             	 contentType: false,             	 
-             	 success: function (data) {
-             	
+	$(".fileDrop").on("drop", function(e){
+		e.preventDefault();
+		
+		var files = e.originalEvent.dataTransfer.files;
+		
+		var file = files[0];
+		
+		var formData = new FormData();
+		
+		formData.append("file" , file);
+		
+		
+		$.ajax({
+			url: '/ex/uploadAjax',
+			data:formData,
+			dataType: 'text',
+			processData:false,
+			contentType:false,
+			type: 'POST',
+			success: function(data){
 
-             	  alert("등록이 완료되었습니다.");
-             	  console.dir("sss",data);
-             	 console.log("ddll......"+data[0].val);
-             	   var fileInfo = getFileInfo(data);
-             	   
-             	 console.log("fileInfo",fileInfo);
-             	   var html = template(fileInfo);
-             	  console.log("html",html);
-             	  $(".fileList").append(html);             	  
-             	 }   
-    	   });
-       });
-
-       
-       $("#registerForm").submit(function(event){
+		
+				console.log("data.....",data);
+	     	   
+				var fileInfo = getFileInfo(data);
+	     	   
+	     	   console.log("FileInfo....",fileInfo);
+	     	   
+	       	   var html = template(fileInfo);
+	       	   
+	       	   console.log("html....", html);
+	       	   
+				$(".uploadedList").append(html);
+			
+			}
+		});
+		
+		console.log(file);
+	});
+       $("#registerForm").submit(function(e){
+    	   
     	   e.preventDefault();
     	   var that =$(this);
+    	   console.log("that..",that);
     	   var str="";
+    	   $(".uploadedList").each(function(index){
+     		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
+     		  });
     	   
-    	  $(".fileList").each(function(index){
-    		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
-    		  });
-       that.append(str);
-       that.get(0).submit();
-       });
+    	   	 console.log("that..",that);
+    	   
+      		 that.append(str);
+     	 	 that.get(0).submit(); 
+      	 });
        
+   	$(".uploadedList").on("click","i",function(e){
+		e.stopPropagation();
+   		console.log("click remove....");
+		var that = $(this);
+		
+		$.ajax({
+			url: '/ex/deleteFile',
+			type: 'POST',
+			data:{fileName:$(this).attr("data-src")},
+			dataType: 'text',
+			success:function(result){
+				if(result =='deleted'){
+					that.parent("div").remove();
+					alert("deleted");
+				}
+			}
+			
+			
+		});
+		
+   	});
        
-       
-       
-       
-       
-       
-       });
-            
-       
-
-
-
+    });
+   
 
 
 </script>

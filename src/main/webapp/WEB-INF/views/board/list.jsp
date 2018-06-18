@@ -131,16 +131,18 @@ font-weight: bold;
 			<div class="table-wrapper">
 				<table style="table-layout: fixed;">
 					<colgroup>
-						<col style="width: 15%;" />
-						<col style="width: 45%;" />
-						<col style="width: 25%;" />
-						<col style="width: 25%;" />
+						   <col style="width: 15%;" />
+    <col style="width: 35%;" />
+    <col style="width: 10%;" />
+    <col style="width: 25%;" />
+    <col style="width: 25%;" />
 
 					</colgroup>
 
 					<thead>
 						<th>Bno</th>
 						<th>Title</th>
+						<th style="text-align: right;">Views</th>
 						<th style="text-align: right;">Writer</th>
 						<th style="text-align: right;">Regdate</th>
 						</tr>
@@ -166,10 +168,13 @@ font-weight: bold;
 									</span>
 									
 								</td>
-
+							<td style="text-align: right">
+<c:out value="${vo.viewcnt}" />
+</td>
 								<td style="text-align: right">
 									<c:out value="${vo.writer}" />
 								</td>
+	
 
 								<td style="text-align: right">
 									<c:if test="${vo.checkNew()}">
@@ -184,7 +189,7 @@ font-weight: bold;
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4"><button class="button special fit"
+							<td colspan="5"><button class="button special fit"
 									id="regbtn" style="float: right;">Register</button></td>
 
 						</tr>

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.FileVO;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -33,16 +32,17 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	@Transactional
-	public int register(BoardVO vo) {
+	public void register(BoardVO vo) {
 		
 		mapper.register(vo);
+
+		String[] files = vo.getFiles();
 		
+		if(files==null) {return ;}
 		
-		/*vo.getFiles();
-		
-		mapper.insertFile();*/
-		
-		return mapper.register(vo);
+		for(String fileName :files) {
+			mapper.addAttach(fileName);
+		}
 	}
 
 	@Override
@@ -70,6 +70,18 @@ public class BoardServiceImpl implements BoardService{
 		
 		return mapper.updateReplyCnt(bno,amount);
 		
+	}
+
+	@Override
+	public void updateViewCnt(Integer bno) {
+		 mapper.updateViewCnt(bno);
+		
+	}
+
+	@Override
+	public List<String> getAttach(Integer bno) {
+
+		return mapper.getAttach(bno);
 	}
 
 	

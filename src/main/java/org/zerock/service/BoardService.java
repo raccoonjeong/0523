@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.FileVO;
+
 
 public interface BoardService {
 	
@@ -12,7 +12,7 @@ public interface BoardService {
 
 	public int getTotal(Criteria cri);
 	
-	public int register(BoardVO vo);
+	public void register(BoardVO vo);
 
 	public BoardVO read(int bno);
 	
@@ -22,6 +22,8 @@ public interface BoardService {
 	
 	public int updateReplyCnt(Integer bno, int amount);
 
+	public void updateViewCnt(Integer bno);
 	
+	public List<String> getAttach(Integer bno);
 
 }

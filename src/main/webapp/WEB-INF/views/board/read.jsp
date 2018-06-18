@@ -255,7 +255,7 @@
 			
 		</div>
 	</div>
-	
+	<ul class= "mailbox-attachments clearfix uploadedList"></ul>
 	<div id="modalLayer"><div class="mask"></div>
     <div class="modalContent">
         <button class="closebtn">닫기</button>
@@ -299,6 +299,16 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 
+<script id="templateAttach" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"><span>
+<div class="mailbox-attachment-info">
+<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+</span>
+</div>
+</li>
+</script>
+	
 	<script>
 		
  
@@ -500,6 +510,9 @@
 
         });
         
+        
+        
+        
         listUL.on("click",".dbtn", function (e) {
 
             var rno = $(this).attr("data-rno");
@@ -575,6 +588,21 @@
             modifyReplies();
             alert("수정되었습니다.");
         });
+        
+        var bno = ${vo.bno};
+        var template = Handlebars.compile($("#templateAttach").html());
+        
+        $.getJSON("/board/getAttach/"+bno, function(list){
+        	$(list).each(function(){
+        		
+        		var fileInfo = getFileInfo(this);
+        		
+        		var html = template(fileInfo);
+        		
+        		$(".uploadedList").append(html);
+        	});
+        });
+        
 
 
 

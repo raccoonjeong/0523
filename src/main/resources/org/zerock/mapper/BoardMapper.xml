@@ -4,9 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
-<insert id="insertFile">
-  insert into tbl_aupload (uuid,fileName,bno) values (#{uuid},#{fileName},last_insert_id());
-  </insert>
+
+<select id="getAttach" resultType="string">
+
+select fullName from tbl_aupload where bno = #{bno} order by regdate
+
+</select>
+<insert id="addAttach">
+ insert into tbl_aupload (fullName,bno) values (#{fullName},last_insert_id()) </insert>
 
 	<sql id="search">
 		<where>
@@ -26,7 +31,7 @@ update tbl_aboard set recnt = recnt+#{amount} where bno=#{bno}
 </update>
 
 	<select id="list" resultType="org.zerock.domain.BoardVO">
-		select bno,title,writer,regdate,updatedate,recnt
+		select bno,title,writer,regdate,updatedate,recnt,viewcnt
 		from tbl_aboard
 		<include refid="search"></include>
 		order by bno desc
@@ -56,4 +61,7 @@ update tbl_aboard set recnt = recnt+#{amount} where bno=#{bno}
 	</update>
 
 
+<update id="updateViewCnt">
+        update tbl_aboard set viewcnt = viewcnt + 1 where bno = #{bno}
+    </update>
 </mapper>
