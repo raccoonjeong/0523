@@ -10,17 +10,17 @@ function getFileInfo(fullName){
 	var fileLink;
 	
 	if(checkImageType(fullName)){
-		imgsrc="/display?fileName="+fullName;
+		imgsrc="/ex/displayFile?fileName="+fullName;
 		fileLink=fullName.substr(14);
 		
 		var front = fullName.substr(0,12);
 		var end = fullName.substr(14);
-		getLink = "/display?fileName="+front+end;
+		getLink = "/ex/displayFile?fileName="+front+end;
 	}
 	else{
 		imgsrc="/resources/images/fileiconicon.jpg";
 		fileLink = fullName.substr(12);
-		getLink = "/display?fileName="+fullName;
+		getLink = "/ex/displayFile?fileName="+fullName;
 		
 	}
 	fileName=fileLink.substr(fileLink.indexOf("_")+1);

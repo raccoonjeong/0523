@@ -6,10 +6,9 @@
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
 <select id="getAttach" resultType="string">
-
 select fullName from tbl_aupload where bno = #{bno} order by regdate
-
 </select>
+
 <insert id="addAttach">
  insert into tbl_aupload (fullName,bno) values (#{fullName},last_insert_id()) </insert>
 

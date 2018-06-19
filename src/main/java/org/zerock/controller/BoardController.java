@@ -37,7 +37,8 @@ public class BoardController {
 		
 		int totalCount = service.getTotal(cri);
 		
-		PageMaker pm = new PageMaker(cri, totalCount);
+		PageMaker pm =
+				new PageMaker(cri, totalCount);
 		model.addAttribute("pm",pm);		
 		
 	}
@@ -56,6 +57,9 @@ public class BoardController {
 		
 		String title = vo.getTitle();
 		String content = vo.getContent();
+		
+		log.info("vo:........."+vo);
+		log.info("vo:files........."+vo.getFiles());
 		
 
 		if (title != null && title.trim().length() != 0 && content != null && content.trim().length() != 0) {

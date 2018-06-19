@@ -115,7 +115,7 @@ width: 96.8%;
 						<div class="12u$">
 							<ul class="actions">
 								<li><input type="button" class="special list" value="List"></li>
-								<li><input type="submit" class="special list" value="Register"></li>
+								<li><input type="submit" class="special list" value=" Register"></li>
 							</ul>
 						</div>
 					</div>
@@ -193,19 +193,22 @@ $(document).ready(function(){
     	   
     	   e.preventDefault();
     	   var that =$(this);
-    	   console.log("that..",that);
+    	   console.log("that..1",that);
     	   var str="";
-    	   $(".uploadedList").each(function(index){
+    	   $(".uploadedList .delbtn").each(function(index){
      		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
+     		  alert(index);
      		  });
     	   
-    	   	 console.log("that..",that);
+    	   	 console.log("that..2",that.get(0));
     	   
       		 that.append(str);
-     	 	 that.get(0).submit(); 
+     	 	 that.get(0).submit();
+     	 	 
       	 });
        
-   	$(".uploadedList").on("click","i",function(e){
+   	$(".uploadedList").on("click",".delbtn",function(e){
+   		e.preventDefault();
 		e.stopPropagation();
    		console.log("click remove....");
 		var that = $(this);
@@ -213,12 +216,14 @@ $(document).ready(function(){
 		$.ajax({
 			url: '/ex/deleteFile',
 			type: 'POST',
-			data:{fileName:$(this).attr("data-src")},
+			data:{fileName:$(this).attr("href")},
 			dataType: 'text',
 			success:function(result){
 				if(result =='deleted'){
-					that.parent("div").remove();
+					that.parent("div").parent("span").parent("span").parent("li").remove();
 					alert("deleted");
+					console.dir(that);
+					console.log(that.parent("div").parent("span").parent("span").parent("li"));
 				}
 			}
 			

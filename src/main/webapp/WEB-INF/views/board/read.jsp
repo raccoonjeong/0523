@@ -13,7 +13,7 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
 <style>
 .pagination {
 	display: inline-block;
@@ -154,6 +154,25 @@
 
         text-align: right;
         }
+        
+       
+</style>
+<style type="text/css">
+		 .popup{position: absolute;}
+        .back{ 
+        	 opacity: 0.5; width: 100%; height: 100%;
+        		overflow: hidden; z-index: 1101;}
+        		
+        .front{
+        	z-index:1110; opacity: 1; border: 1px; margin: auto;}		
+		
+		.show{
+			position: relative;
+			max-width: 1200px;
+			max-height: 800px;
+			overflow: auto;	
+			}
+
 
 </style>
 </head>
@@ -222,6 +241,9 @@
 						</tbody>
 
 					</table>
+					
+					<ul class= "mailbox-attachments clearfix uploadedList">업로드리스트</ul>
+					
 					<div class="12u$">
 
 						<ul class="actions">
@@ -231,6 +253,15 @@
 							<li><input type="button" class="special remove" value="Remove" /></li>
 						</ul>
 					</div>
+					
+					
+					<div class='popup back' style="display:none;"></div>
+					<div id="popup_front" class='popup front' style="display:none;">
+						<img id="popup_img">
+	
+					</div>
+					
+					
 					<div class="wrapper">
     <div class="inputDiv"><h1>여러분의 소중한 댓글은 글쓴이에게 힘이 됩니다.</h1>
         <div><label style="text-align: left">댓글내용:</label><input type="text" name="content"/></div>
@@ -255,7 +286,7 @@
 			
 		</div>
 	</div>
-	<ul class= "mailbox-attachments clearfix uploadedList"></ul>
+	
 	<div id="modalLayer"><div class="mask"></div>
     <div class="modalContent">
         <button class="closebtn">닫기</button>
@@ -286,6 +317,9 @@
         </div>
     </div>
 </div>
+
+
+	
 	<form role="form" action="remove" method="post">
 		<input type="hidden" name="bno" value="${vo.bno}">
 
@@ -298,7 +332,8 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
-
+		
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script id="templateAttach" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"><span>
@@ -530,7 +565,8 @@
         rbtn.on("click", function (e) {
             saveReplies(0);
         });
-
+        
+      
 
         var modalLayer = $("#modalLayer");
         var modalCont = $(".modalContent");
@@ -595,16 +631,42 @@
         $.getJSON("/board/getAttach/"+bno, function(list){
         	$(list).each(function(){
         		
+        		
+        		
         		var fileInfo = getFileInfo(this);
         		
         		var html = template(fileInfo);
-        		
+        		console.log("fileInfo......",fileInfo)
         		$(".uploadedList").append(html);
         	});
         });
         
+        $(".uploadedList").on("click",".mailbox-attachment-info a", function(e){
+        	/* e.stopPropagation(); */
+        	
+        	console.log("1111111111111111");
+        	var fileLink = $(this).attr("href");
+        	
+        	if(checkImageType(fileLink)){
+        	e.preventDefault();
 
+        	var imgTag = $("#popup_img");
+        	imgTag.attr("src",fileLink);
+        	
+        	console.log(imgTag.attr("src"));
+        	
+        	$(".popup").show('slow');
+        	imgTag.addClass("show");
+        	}
+        });
+        	
+       $("#popup_img").on("click", function(){
+    	  
+    	   $(".popup").hide('slow');
+       });
 
+        
+      
 
     });
 
@@ -612,6 +674,7 @@
 
 <script type="text/javascript" src="/resources/js/pageMaker.js"></script>	
 
+<script type="text/javascript" src="/resources/js/upload.js?ver=3"></script>	
 
 	<!-- Footer -->
 	<footer id="footer">
