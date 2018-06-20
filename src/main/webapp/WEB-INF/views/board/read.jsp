@@ -345,10 +345,10 @@
 </script>
 	
 	<script>
-		
- 
+		 
 		$(document).ready(function(e) {
-					
+			var replyCnt = ${vo.recnt};
+			console.log("replyCnt",replyCnt);
 		    	/* 목록가기 */
 					$(".actions").on("click",".list", function(e) {
 						self.location="/board/list${cri.makeSearch(cri.page)}";
@@ -358,6 +358,22 @@
 					var formObj = $("form[role='form']");
 				
 					$(".actions").on("click",".remove", function(e) {
+						
+						if(replyCnt>0){
+							alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
+							return;
+						}
+						var arr=[];
+						$(".uplodedList li").each(function(index){
+							arr.push($(this).attr("data-src"));
+						});
+						
+						if(arr.length >0){
+							$.post("/deleteAllFiles",{files:arr},function(){
+								
+							});
+						}				
+						formObj.attr("action","/board/remove")					
 						formObj.submit();
 					});
 					

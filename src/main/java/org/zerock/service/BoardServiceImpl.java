@@ -52,16 +52,27 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	@Transactional
 	public int remove(int bno) {
-		
+		mapper.deleteAttach(bno);
 		return mapper.remove(bno);
 	}
 
 
 	@Override
-	public int modify(BoardVO vo) {
+	@Transactional
+	public void modify(BoardVO vo) {
+		
+		mapper.deleteAttach(vo.getBno());
+		String[] files = vo.getFiles();
+		if(files == null) {return ;}
+		
+		for(String fileName: files) {
+			mapper.replaceAttach(fileName, vo.getBno());
+			
+		}		
 
-		return mapper.modify(vo);
+		mapper.modify(vo);
 	}
 
 	@Override
@@ -83,6 +94,9 @@ public class BoardServiceImpl implements BoardService{
 
 		return mapper.getAttach(bno);
 	}
+
+
+
 
 	
 

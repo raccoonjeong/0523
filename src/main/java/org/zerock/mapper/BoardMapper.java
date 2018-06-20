@@ -30,4 +30,10 @@ public interface BoardMapper {
 	public void updateViewCnt(Integer bno);
 	
 	public List<String> getAttach(Integer bno);
+	
+	public void deleteAttach(Integer bno);
+	
+	public void replaceAttach(@Param("fullName")String fullName,@Param("bno")Integer bno);
+	
+	
 }

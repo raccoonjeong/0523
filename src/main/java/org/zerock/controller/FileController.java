@@ -137,8 +137,31 @@ public class FileController {
 		
 		return new ResponseEntity<String>("deleted",HttpStatus.OK);
 		
-		
 	}
 	
-	
-}
+	@PostMapping(value="/deleteAllFiles" ,produces = "text/plain;charset=UTF-8")
+	public @ResponseBody ResponseEntity<String> deleteFile(String[] files) throws Exception {
+		log.info("fileName"+files);
+		
+		if(files == null||files.length ==0) {
+			return  new ResponseEntity<String>("deleted",HttpStatus.OK);
+		}
+		
+		for(String fileName :files) {
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		MediaType mType = MediaUtils.getMediatype(formatName);
+		
+		if(mType!=null) {
+			String front = fileName.substring(0,12);
+			String end = fileName.substring(14);
+			new File(uploadPath +(front+end).replace('/', File.separatorChar)).delete();
+		
+		}new File(uploadPath +fileName.replace('/', File.separatorChar)).delete();
+		}
+	return  new ResponseEntity<String>("deleted",HttpStatus.OK);
+		
+	}
+	}
+
+

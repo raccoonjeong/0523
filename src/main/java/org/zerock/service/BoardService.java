@@ -18,12 +18,15 @@ public interface BoardService {
 	
 	public int remove(int bno);
 
-	public int modify(BoardVO vo);
+	public void modify(BoardVO vo);
 	
 	public int updateReplyCnt(Integer bno, int amount);
 
 	public void updateViewCnt(Integer bno);
 	
 	public List<String> getAttach(Integer bno);
+	
+	
+
 
 }
