@@ -31,24 +31,27 @@
 }
 .fileDrop
 {
-width: 96.8%;
-            height: 100px;
-            padding: 20px;
-            border: 1px solid #ccc;
-     background: rgba(144, 144, 144, 0.075);
-      margin: 40px 10px 0px 10px; 
-      float:right;
+	width: 96.8%;
+    height: 100px;
+    padding: 20px;
+    border: 3px solid #ccc;
+    border-style: dashed;
+    background: rgba(144, 144, 144, 0.075);
+    margin: 0px 0px 0px 0px; 
+    float:right;
+    font-size:1.8em;
+    text-align: center;
 
             }
 .uploadedList
 {
-width: 96.8%;
-            height: 100px;
-            padding: 20px;
-            border: 1px solid #ccc;
-    background: rgba(144, 144, 144, 0.075);
-    margin: 0 10px 40px 10px; 
-     float:right;
+	width: 96.8%;
+    min-height: 100px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    
+    margin: 30px 0px 0px 0px; 
+    float:right;
 
 }
 /* body {
@@ -107,8 +110,10 @@ width: 96.8%;
 							<textarea name="content" id="message"
 								placeholder="Enter your message" rows="20"></textarea>
 						</div>
+						<h3>File Upload</h3>
 						<div class="fileDrop">
 						
+						Drag&Drop file here.
 						</div>
 					<div class="uploadedList">
 					</div>
