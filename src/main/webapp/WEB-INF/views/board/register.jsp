@@ -46,14 +46,36 @@
 .uploadedList
 {
 	width: 96.8%;
-    min-height: 100px;
+    min-height: 250px;
     padding: 20px;
     border: 1px solid #ccc;
     
     margin: 30px 0px 0px 0px; 
     float:right;
+    list-style: none;
+
+
 
 }
+.uploadedList li{
+	border: 1px solid #ccc;
+	width: 170px;
+	height: 170px;
+	float:left; 
+	margin:0px 10px 10px 10px
+	
+}
+.uploadedList img{
+text-align: center;
+height: auto;
+}
+.uploadedList li div{
+ background: rgba(144, 144, 144, 0.075);
+ height: 30px;
+
+ bottom:0;
+}
+    
 /* body {
 	background-image: url(/resources/images/bg.jpg);
 } */
