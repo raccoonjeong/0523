@@ -154,6 +154,52 @@
 
         text-align: right;
         }
+        .uploadedList
+{
+	display:block;
+	width: 96.8%;
+    min-height: 220px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    
+    margin: 30px 0px 0px 0px; 
+    float:right;
+    list-style: none;
+
+
+
+}
+.uploadedList li{
+	display: inline-block;
+	border: 1px solid #ccc;
+	width: 170px;
+	height: 170px;
+	float:left; 
+	margin:0px 10px 10px 10px;
+	
+}
+.uploadedList img{
+width: 170px;
+    height: 130px;
+text-align: center;
+}
+.uploadedList li div{
+ background: rgba(144, 144, 144, 0.075);
+ height: 30px;
+
+ bottom:0;
+}
+
+.mailbox-attachment-name{
+
+        text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 149px;
+    overflow: hidden;
+    display: inline-block;
+
+}
         
        
 </style>
@@ -242,7 +288,7 @@
 
 					</table>
 					
-					<ul class= "mailbox-attachments clearfix uploadedList">업로드리스트</ul>
+					<ul class= "mailbox-attachments clearfix uploadedList"></ul>
 					
 					<div class="12u$">
 
@@ -380,6 +426,8 @@
 				/* 수정  */
 					$(".actions").on("click",".modify", function(e) {
 						var bno = $(this).attr("data-bno");
+						alert("첨부파일이 다 삭제되는데도 수정하실건가요?");
+						
 						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
 					});
 					

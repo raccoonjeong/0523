@@ -45,8 +45,9 @@
             }
 .uploadedList
 {
+	display:block;
 	width: 96.8%;
-    min-height: 250px;
+    min-height: 220px;
     padding: 20px;
     border: 1px solid #ccc;
     
@@ -58,22 +59,35 @@
 
 }
 .uploadedList li{
+	display: inline-block;
 	border: 1px solid #ccc;
 	width: 170px;
 	height: 170px;
 	float:left; 
-	margin:0px 10px 10px 10px
+	margin:0px 10px 10px 10px;
 	
 }
 .uploadedList img{
+width: 170px;
+    height: 130px;
 text-align: center;
-height: auto;
 }
 .uploadedList li div{
  background: rgba(144, 144, 144, 0.075);
  height: 30px;
 
  bottom:0;
+}
+
+.mailbox-attachment-name{
+
+        text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 149px;
+    overflow: hidden;
+    display: inline-block;
+
 }
     
 /* body {
@@ -222,7 +236,7 @@ if(fileSize<maxSize){
     	   var str="";
     	   $(".uploadedList .delbtn").each(function(index){
      		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
-     		  alert(index);
+     		  /* alert(index); */
      		  });
     	   
     	   	 console.log("that..2",that.get(0));
@@ -247,8 +261,8 @@ if(fileSize<maxSize){
 				if(result =='deleted'){
 					that.parent("div").parent("span").parent("span").parent("li").remove();
 					alert("deleted");
-					console.dir(that);
-					console.log(that.parent("div").parent("span").parent("span").parent("li"));
+					/* console.dir(that);
+					console.log(that.parent("div").parent("span").parent("span").parent("li")); */
 				}
 			}
 			
