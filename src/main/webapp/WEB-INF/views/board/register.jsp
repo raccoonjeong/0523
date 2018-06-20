@@ -11,7 +11,7 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=1" />
 
 <style>
 .subpage {
@@ -155,18 +155,21 @@ $(document).ready(function(){
 			e.preventDefault();		
 	});
 
+	
+	
 	$(".fileDrop").on("drop", function(e){
 		e.preventDefault();
-		
-		var files = e.originalEvent.dataTransfer.files;
-		
-		var file = files[0];
-		
+	
+		var files = e.originalEvent.dataTransfer.files;		
+		var file = files[0];		
+		var fileSize = file.size;
+		var maxSize  =5*1024*1024; 
+	
+		console.log("filesize",fileSize);
+if(fileSize<maxSize){			
 		var formData = new FormData();
-		
+		console.log("size", fileSize);
 		formData.append("file" , file);
-		
-		
 		$.ajax({
 			url: '/ex/uploadAjax',
 			data:formData,
@@ -174,26 +177,21 @@ $(document).ready(function(){
 			processData:false,
 			contentType:false,
 			type: 'POST',
-			success: function(data){
-
-		
-				console.log("data.....",data);
-	     	   
-				var fileInfo = getFileInfo(data);
-	     	   
-	     	   console.log("FileInfo....",fileInfo);
-	     	   
+			success: function(data){		
+				console.log("data.....",data);	     	   
+				var fileInfo = getFileInfo(data);	     	   
+	     	   console.log("FileInfo....",fileInfo);	     	   
 	       	   var html = template(fileInfo);
-	       	   
-	       	   console.log("html....", html);
-	       	   
-				$(".uploadedList").append(html);
-			
-			}
-		});
-		
-		console.log(file);
+	         	$(".uploadedList").append(html);
+	         }
+		})
+		}else{
+     	console.log("체크하고있다.",maxSize);
+     	alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.    ");
+     	return ;
+ }
 	});
+	
        $("#registerForm").submit(function(e){
     	   
     	   e.preventDefault();
@@ -237,7 +235,7 @@ $(document).ready(function(){
 		
    	});
        
-    });
+});
    
 
 

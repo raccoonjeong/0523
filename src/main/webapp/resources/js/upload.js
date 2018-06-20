@@ -26,3 +26,16 @@ function getFileInfo(fullName){
 	fileName=fileLink.substr(fileLink.indexOf("_")+1);
 	return {fileName:fileName,imgsrc:imgsrc,getLink:getLink,fullName:fullName};
 }
+/*function fileCheck(fileSize,html){
+	var maxSize  = 5*1024*1024; 
+	
+    if(fileSize<maxSize)
+    {
+    	$(".uploadedList").append(html);
+    }else{
+    	console.log("체크하고있다.",maxSize);
+    	alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.    ");
+    	return ;
+}
+}
+*/
