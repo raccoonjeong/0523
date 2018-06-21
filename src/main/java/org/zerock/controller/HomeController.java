@@ -8,35 +8,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping("/*")
+@Log4j
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	//Hello SoJeong I'm HyeSeung
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 * hi!!
-	 * hello!!
-	 * OK!!
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	@GetMapping("/home")
+	public void home(Locale locale, Model model) {
+		log.info("Get home");
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "board/read";
 	}
+	
+	@GetMapping("/foodtruck")
+	public void foodtruck(Locale locale, Model model) {
+		log.info("Get foodtruck");
+		
+	}
+	
+	@GetMapping("/ranking")
+	public void ranking(Locale locale, Model model) {
+		log.info("Get ranking");
+		
+	}
+	
+	@GetMapping("/view")
+	public void view(Locale locale, Model model) {
+		log.info("Get view");
+		
+	}
+	
 	
 }

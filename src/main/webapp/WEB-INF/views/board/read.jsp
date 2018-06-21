@@ -13,7 +13,7 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css?ver=2" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=3" />
 <style>
 .pagination {
 	display: inline-block;
@@ -79,7 +79,7 @@
         p {
             color: #000;
         }
-        .mask {
+.mask {
             width: 100%;
             height: 100%;
             position: fixed;
@@ -90,11 +90,11 @@
             opacity: .5;
             filter: alpha(opacity=50);
         }
-        #modalLayer {
+#modalLayer {
             display: none;
             position: relative;
         }
-        #modalLayer .modalContent {
+#modalLayer .modalContent {
             width: 440px;
             height: 200px;
             padding: 20px;
@@ -105,14 +105,14 @@
             z-index: 11;
             background: #fff;
         }
-        #modalLayer .modalContent .closebtn {
+#modalLayer .modalContent .closebtn {
             position: absolute;
             right: 0;
             top: 0;
             cursor: pointer;
         }
         /* 대댓글창 start*/
-         .reMask {
+.reMask {
             width: 100%;
             height: 100%;
             position: fixed;
@@ -123,11 +123,11 @@
             opacity: .5;
             filter: alpha(opacity=50);
         }
-        #reModalLayer {
+#reModalLayer {
             display: none;
             position: relative;
         }
-        #reModalLayer .reModalContent {
+#reModalLayer .reModalContent {
             width: 440px;
             height: 220px;
             padding: 20px;
@@ -138,7 +138,7 @@
             z-index: 11;
             background: #fff;
         }
-        #reModalLayer .reModalContent .reClosebtn {
+#reModalLayer .reModalContent .reClosebtn {
             position: absolute;
             right: 0;
             top: 0;
@@ -146,7 +146,7 @@
         }
          /* 대댓글창 end*/
 
-        #datestyle{
+#datestyle{
         font-size: 80%;
         text-align: right;
         }
@@ -154,10 +154,10 @@
 
         text-align: right;
         }
-        .uploadedList
+.uploadedList
 {
 	display:block;
-	width: 96.8%;
+	width: 100%;
     min-height: 220px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -179,7 +179,7 @@
 	
 }
 .uploadedList img{
-width: 170px;
+width: 168px;
     height: 130px;
 text-align: center;
 }
@@ -213,6 +213,7 @@ text-align: center;
         	z-index:1110; opacity: 1; border: 1px; margin: auto;}		
 		
 		.show{
+		    
 			position: relative;
 			max-width: 1200px;
 			max-height: 800px;
@@ -288,10 +289,15 @@ text-align: center;
 
 					</table>
 					
-					<ul class= "mailbox-attachments clearfix uploadedList"></ul>
+					<div class= "mailbox-attachments clearfix uploadedList"></div>
 					
 					<div class="12u$">
-
+					
+					<div class='popup back' style="display:none;"></div>
+					<div id="popup_front" class='popup front' style="display:none;">
+						<img id="popup_img">
+	
+					</div>
 						<ul class="actions">
 							<li><input type="button" class="special list" value="List"></li>
 							<li><input type="button" class="special modify"
@@ -300,12 +306,7 @@ text-align: center;
 						</ul>
 					</div>
 					
-					
-					<div class='popup back' style="display:none;"></div>
-					<div id="popup_front" class='popup front' style="display:none;">
-						<img id="popup_img">
-	
-					</div>
+
 					
 					
 					<div class="wrapper">

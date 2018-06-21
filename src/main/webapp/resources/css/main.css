@@ -1900,7 +1900,7 @@
 		display: inline-block;
 		font-weight: 300;
 		height: 2rem;
-		line-height: 0rem;
+		line-height: 2rem;
 		padding: 0 1.5rem;
 		text-align: center;
 		text-decoration: none;
@@ -1973,7 +1973,7 @@
 			input[type="button"],
 			button,
 			.button {
-				padding: 0;
+				/* padding: 0; */
 				width: 100%;
 			}
 
