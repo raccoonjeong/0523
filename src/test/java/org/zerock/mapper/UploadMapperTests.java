@@ -32,7 +32,7 @@ public class UploadMapperTests {
 	public void testInsert() {
 		
 		UploadVO upload = new UploadVO();
-		upload.setFullName("바사");
+		upload.setFileName("바사");
 
 		mapper.insert(upload);
 		

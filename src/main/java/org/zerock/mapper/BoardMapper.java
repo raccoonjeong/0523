@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
+
 public interface BoardMapper {
 	
 	public List<BoardVO> list(Criteria cri);
@@ -24,4 +25,15 @@ public interface BoardMapper {
 	
 	public int updateReplyCnt(@Param("bno")Integer bno, @Param("amount")int amount);
 
+	public int addAttach(String fullName);
+	
+	public void updateViewCnt(Integer bno);
+	
+	public List<String> getAttach(Integer bno);
+	
+	public void deleteAttach(Integer bno);
+	
+	public void replaceAttach(@Param("fullName")String fullName,@Param("bno")Integer bno);
+	
+	
 }

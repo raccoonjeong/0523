@@ -6,9 +6,10 @@ import lombok.Data;
 @Data
 public class BoardVO {
 	
-	private int bno,recnt;
+	private int bno,recnt,viewcnt;
 	private String title,content,writer;
 	private Date regdate,updatedate;
+	private String[] files;
 	
 	private static final Long ADAY = 1000 * 60 * 60 * 24L;
 	

@@ -36,9 +36,12 @@ public class ReplyController {
 	@PostMapping("/new")
 	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		
-		
-		service.create(vo);
-		
+		if(vo.getOrd()==1) {
+			service.rereply(vo);
+		}
+		else {
+			service.create(vo);
+		};
 		
 		return new ResponseEntity<String>("success",HttpStatus.OK);
 		
@@ -53,11 +56,23 @@ public class ReplyController {
 		
 	}
 	
-	@DeleteMapping("/{rno}")
+	@DeleteMapping("/{rno}/{ord}")
 	public ResponseEntity<String> remove(
-			@PathVariable("rno")Integer rno){
+			@PathVariable("rno")Integer rno, @PathVariable("ord")Integer ord){
 		
-		String msg =  service.delete(rno) == 1?"success":"fail";
+		
+		String msg = "fail";
+		log.info(ord);
+		log.info(service.haveChild(rno)>0);
+		if (ord == 0 && service.haveChild(rno)>0) {		
+			log.info("have child");
+			msg =  service.deleteParentReply(rno) == 1?"success":"fail";
+		}
+		else {
+			log.info("not have child");
+			msg =  service.delete(rno) == 1?"success":"fail";
+		}
+		
 		
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 		

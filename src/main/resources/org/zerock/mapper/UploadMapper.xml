@@ -9,11 +9,11 @@
   </select>
   
   <insert id="insert">
-  insert into tbl_upload (fullName) values (#{fullName})
+  insert into tbl_upload (uuid,fileName) values (#{uuid},#{fileName})
   </insert>
   
   <delete id="delete">
-  delete from tbl_upload where fullName=#{fullName}
+  delete from tbl_upload where uuid=#{uuid}
   </delete>
   
 

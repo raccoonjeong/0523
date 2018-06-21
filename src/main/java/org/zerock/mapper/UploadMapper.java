@@ -9,7 +9,7 @@ public interface UploadMapper {
 	
 	public List<UploadVO> getList(Criteria cri);
 	
-	public int delete(String fullName);
+	public int delete(String uuid);
 	
 	public int insert(UploadVO vo);
 	

@@ -13,7 +13,7 @@
 <title>Hielo by TEMPLATED</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="/resources/css/main.css?ver=3" />
 <style>
 .pagination {
 	display: inline-block;
@@ -79,7 +79,7 @@
         p {
             color: #000;
         }
-        .mask {
+.mask {
             width: 100%;
             height: 100%;
             position: fixed;
@@ -90,11 +90,11 @@
             opacity: .5;
             filter: alpha(opacity=50);
         }
-        #modalLayer {
+#modalLayer {
             display: none;
             position: relative;
         }
-        #modalLayer .modalContent {
+#modalLayer .modalContent {
             width: 440px;
             height: 200px;
             padding: 20px;
@@ -105,14 +105,48 @@
             z-index: 11;
             background: #fff;
         }
-        #modalLayer .modalContent .closebtn {
+#modalLayer .modalContent .closebtn {
             position: absolute;
             right: 0;
             top: 0;
             cursor: pointer;
         }
+        /* 대댓글창 start*/
+.reMask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            background: #000;
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+#reModalLayer {
+            display: none;
+            position: relative;
+        }
+#reModalLayer .reModalContent {
+            width: 440px;
+            height: 220px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 11;
+            background: #fff;
+        }
+#reModalLayer .reModalContent .reClosebtn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+         /* 대댓글창 end*/
 
-        #datestyle{
+#datestyle{
         font-size: 80%;
         text-align: right;
         }
@@ -120,6 +154,72 @@
 
         text-align: right;
         }
+.uploadedList
+{
+	display:block;
+	width: 100%;
+    min-height: 220px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    
+    margin: 30px 0px 0px 0px; 
+    float:right;
+    list-style: none;
+
+
+
+}
+.uploadedList li{
+	display: inline-block;
+	border: 1px solid #ccc;
+	width: 170px;
+	height: 170px;
+	float:left; 
+	margin:0px 10px 10px 10px;
+	
+}
+.uploadedList img{
+width: 168px;
+    height: 130px;
+text-align: center;
+}
+.uploadedList li div{
+ background: rgba(144, 144, 144, 0.075);
+ height: 30px;
+
+ bottom:0;
+}
+
+.mailbox-attachment-name{
+
+        text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 149px;
+    overflow: hidden;
+    display: inline-block;
+
+}
+        
+       
+</style>
+<style type="text/css">
+		 .popup{position: absolute;}
+        .back{ 
+        	 opacity: 0.5; width: 100%; height: 100%;
+        		overflow: hidden; z-index: 1101;}
+        		
+        .front{
+        	z-index:1110; opacity: 1; border: 1px; margin: auto;}		
+		
+		.show{
+		    
+			position: relative;
+			max-width: 1200px;
+			max-height: 800px;
+			overflow: auto;	
+			}
+
 
 </style>
 </head>
@@ -188,8 +288,16 @@
 						</tbody>
 
 					</table>
+					
+					<div class= "mailbox-attachments clearfix uploadedList"></div>
+					
 					<div class="12u$">
-
+					
+					<div class='popup back' style="display:none;"></div>
+					<div id="popup_front" class='popup front' style="display:none;">
+						<img id="popup_img">
+	
+					</div>
 						<ul class="actions">
 							<li><input type="button" class="special list" value="List"></li>
 							<li><input type="button" class="special modify"
@@ -197,6 +305,10 @@
 							<li><input type="button" class="special remove" value="Remove" /></li>
 						</ul>
 					</div>
+					
+
+					
+					
 					<div class="wrapper">
     <div class="inputDiv"><h1>여러분의 소중한 댓글은 글쓴이에게 힘이 됩니다.</h1>
         <div><label style="text-align: left">댓글내용:</label><input type="text" name="content"/></div>
@@ -237,6 +349,24 @@
         </div>
     </div>
 </div>
+
+<div id="reModalLayer"><div class="reMask"></div>
+    <div class="reModalContent">
+        <button class="reClosebtn">닫기</button>
+대댓글 달기
+        <div style="text-align: center;">
+            <label style="text-align: left">댓글내용:</label><input type="text" name="reModalContent">
+            <label style="text-align: left">댓글쓴이:</label><input type="text" name="reModalReplyer">
+        </div>
+        <div style="text-align: center;">
+            <button class="reRegister">등록</button>
+            
+        </div>
+    </div>
+</div>
+
+
+	
 	<form role="form" action="remove" method="post">
 		<input type="hidden" name="bno" value="${vo.bno}">
 
@@ -249,12 +379,23 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
-
-	<script>
 		
- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script id="templateAttach" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"><span>
+<div class="mailbox-attachment-info">
+<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+</span>
+</div>
+</li>
+</script>
+	
+	<script>
+		 
 		$(document).ready(function(e) {
-					
+			var replyCnt = ${vo.recnt};
+			console.log("replyCnt",replyCnt);
 		    	/* 목록가기 */
 					$(".actions").on("click",".list", function(e) {
 						self.location="/board/list${cri.makeSearch(cri.page)}";
@@ -264,12 +405,30 @@
 					var formObj = $("form[role='form']");
 				
 					$(".actions").on("click",".remove", function(e) {
+						
+						if(replyCnt>0){
+							alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
+							return;
+						}
+						var arr=[];
+						$(".uplodedList li").each(function(index){
+							arr.push($(this).attr("data-src"));
+						});
+						
+						if(arr.length >0){
+							$.post("/deleteAllFiles",{files:arr},function(){
+								
+							});
+						}				
+						formObj.attr("action","/board/remove")					
 						formObj.submit();
 					});
 					
 				/* 수정  */
 					$(".actions").on("click",".modify", function(e) {
 						var bno = $(this).attr("data-bno");
+						alert("첨부파일이 다 삭제되는데도 수정하실건가요?");
+						
 						self.location="/board/modify${cri.makeSearch(cri.page)}&bno="+bno;
 					});
 					
@@ -293,6 +452,8 @@
         var inputReplyer = $("input[name='replyer']");
         var modifyContent = $("input[name='modalContent']");
         var modifyReplyer = $("input[name='modalReplyer']");
+        var reContent = $("input[name='reModalContent']");
+        var reReplyer = $("input[name='reModalReplyer']");
 
         var rbtn = $(".rbtn");
         var mbtn = $(".mbtn");
@@ -300,6 +461,7 @@
         var listUL = $(".listDiv");
         var bno = ${vo.bno};
         var replyPage = 1;
+        var gno=1;
 
         
 
@@ -312,9 +474,34 @@
                 var str = "";
                 $(data.list).each(function (idx, data) {
                     var regdate = new Date(data.regdate);
-                    str += "<li>" + "<span data-rno = '" + data.rno + "'>"+"글쓴이: " +data.replyer+ "<br>"+"내용: "
-                         + data.rcontent + "</span></li>"+"<div id=datestyle><span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"+
-                         "&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'>삭제</a> "+"날짜 :   " + formatDate(regdate) + "</div><hr>"
+                    console.log("ord===",data)
+                    if(data.ord==1){
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	+"&emsp;"+"<span style='color:crimson'>"+"[Re:]"+"</span>"
+                    	+"글쓴이: " +data.replyer+ "<br>"
+                    	+"&emsp;&emsp;&emsp;내용: "+ data.rcontent + "</span></li>"
+                        +"<div id=datestyle>"
+                        +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
+                        +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno + "'data-ord = '"+data.ord+"'>삭제</a> "
+                        +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
+                    	
+                    }else if(data.replyer!=""){
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "'>"
+                    	 +"글쓴이: " +data.replyer+ "<br>"
+                    	 +"내용: "+ data.rcontent + "</span></li>"
+                         +"<div id=datestyle><a class=rerebtn data-rno = '"+data.rno+"'>답댓글</a>"
+                         +"&nbsp&nbsp"+"<span id=modibtn data-rno = '" + data.rno + "'><a>수정</a></span>"
+                         +"&nbsp&nbsp"+"<a class=dbtn data-rno = '" + data.rno 
+                         + "' data-ord = '"+data.ord+"'>삭제</a> "
+                         +"날짜 :   "+ formatDate(regdate) + "</div><hr>";
+                    }else{
+                    	str += "<li>" + "<span data-rno = '" + data.rno + "' style='color:gray'>"
+                   	 +"<br>"
+                   	 + data.rcontent + "</span></li>"
+                        +"<br><hr>";
+                    	
+                    }
+                    	
                 });
                 listUL.html("<hr>"+str);
                 showReplyPage(replyPage, data.replyCnt);
@@ -323,12 +510,24 @@
         }
         loadList(bno, 1);
 
-        function saveReplies() {
+        function saveReplies(ord, inputgno) {
 
         	console.log("inputval"+inputContent.val());
-        	if(inputContent.val()!="" && inputReplyer.val()!=""){
-        		var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val()};
-        	
+        	console.log("inputval"+reContent.val());     		
+        		 if(ord == 0){
+        			 
+        			 if(inputContent.val()!="" && inputReplyer.val()!=""){       				 
+        				var data = {bno: bno, rcontent: inputContent.val(), replyer: inputReplyer.val(), ord:0};
+        			}else {
+                		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!"); return;
+                	}
+        		 }else{
+        			if(reContent.val()!="" && reReplyer.val()!=""){
+        				var data = {bno: bno, rcontent: reContent.val(), replyer: reReplyer.val(),ord:1, gno: inputgno};
+        			}else {
+        	        		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!"); return;
+        	        	}
+        			}
             	$.ajax({
                	 type: 'post',
                	 url: "/replies/new",
@@ -338,23 +537,24 @@
                	 dataType: "text",
                	 data: JSON.stringify(data),
                	 success: function (result) {
-               	     console.log("result: " + result);
+               	     
                      loadList(bno, 1);
                      alert("등록이 완료되었습니다.");
                      inputContent.val("");
                      inputReplyer.val("");
-                }               
-            });        		
-        	}else {
-        		alert("내용을 똑바로 입력하세요 ㅡ_ㅡ!!");
-        	}            
+                     reContent.val("");
+                     reReplyer.val("");
+                     
+                }
+            });      		
+        	
             console.log("세이브리플 페이지는"+replyPage);
         }
 
         function readReplies(rno, page) {
 
             $.getJSON("/replies/" + rno + ".json", function (data) {
-                console.log(data);
+                
 				var replyPage = page;
                 modifyContent.val(data.rcontent);
                 modifyReplyer.val(data.replyer);
@@ -377,24 +577,25 @@
                 dataType: "text",
                 data: JSON.stringify(data),
                 success: function (result) {
-                    console.log("result: " + result);
-                    console.dir("수정 페이지는"+replyPage);
+                    
                     loadList(bno, replyPage);
                     modalLayer.fadeOut("slow");
                 }
             });
         }
 
-        function deleteReplies(rno) {
+        function deleteReplies(rno,ord) {
+        	
             $.ajax({
                 type: 'delete',
-                url: "/replies/" + rno,
+                url: "/replies/" + rno +"/" + ord,
                 headers: {
                     "Content-type": "application/json"
                 },
                 dataType: "text",
+                
                 success: function (result) {
-                    console.log("result: " + result);
+                    
                     loadList(bno, replyPage);
                 }
             });
@@ -409,33 +610,60 @@
 
         });
         
+        
+        
+        
         listUL.on("click",".dbtn", function (e) {
 
-        	console.log($(this));
             var rno = $(this).attr("data-rno");
+            var ord = $(this).attr("data-ord");
 
             if (confirm(rno + "번 글을 삭제하시겠습니까?")) {
-                deleteReplies(rno);
+                deleteReplies(rno,ord);
                
             }
 
         });
+         
 
 
         rbtn.on("click", function (e) {
-            
-        	
-        	
-            saveReplies();
+            saveReplies(0);
         });
-
+        
+      
 
         var modalLayer = $("#modalLayer");
-
         var modalCont = $(".modalContent");
         var marginLeft = modalCont.outerWidth() / 2;
         var marginTop = modalCont.outerHeight() / 2;
+        
+        var reModalLayer = $("#reModalLayer");
+        var reModalCont = $(".reModalContent");
+        var reMarginLeft = reModalCont.outerWidth() / 2;
+        var reMarginTop = reModalCont.outerHeight() / 2;
+        
+        var replynumber;
+        
+        listUL.on("click",".rerebtn", function(e){
+         replynumber = $(this).attr("data-rno");
+       	 reModalLayer.fadeIn("slow");
+       	 reModalCont.css({"margin-top": -reMarginTop, "margin-left": -reMarginLeft});
+         $(this).blur();
+         $(".reModalContent > a").focus();
+        
+         
+         
+       });
+        $(".reRegister").on("click", function(e){
+       		
+        	saveReplies(1,replynumber);
+        	reModalLayer.fadeOut("slow");
+     
+   		});
 
+       
+        
         listUL.on("click", "#modibtn", function (e) {
             var rno = $(this).attr("data-rno");
             readReplies(rno, replyPage);
@@ -443,11 +671,17 @@
             modalCont.css({"margin-top": -marginTop, "margin-left": -marginLeft});
             $(this).blur();
             $(".modalContent > a").focus();
-            return false;
         });
+
+       
 
         $(".modalContent > .closebtn").click(function () {
             modalLayer.fadeOut("slow");
+
+        });
+        
+        $(".reModalContent > .reClosebtn").click(function () {
+            reModalLayer.fadeOut("slow");
 
         });
 
@@ -455,8 +689,49 @@
             modifyReplies();
             alert("수정되었습니다.");
         });
+        
+        var bno = ${vo.bno};
+        var template = Handlebars.compile($("#templateAttach").html());
+        
+        $.getJSON("/board/getAttach/"+bno, function(list){
+        	$(list).each(function(){
+        		
+        		
+        		
+        		var fileInfo = getFileInfo(this);
+        		
+        		var html = template(fileInfo);
+        		console.log("fileInfo......",fileInfo)
+        		$(".uploadedList").append(html);
+        	});
+        });
+        
+        $(".uploadedList").on("click",".mailbox-attachment-info a", function(e){
+        	/* e.stopPropagation(); */
+        	
+        	console.log("1111111111111111");
+        	var fileLink = $(this).attr("href");
+        	
+        	if(checkImageType(fileLink)){
+        	e.preventDefault();
 
+        	var imgTag = $("#popup_img");
+        	imgTag.attr("src",fileLink);
+        	
+        	console.log(imgTag.attr("src"));
+        	
+        	$(".popup").show('slow');
+        	imgTag.addClass("show");
+        	}
+        });
+        	
+       $("#popup_img").on("click", function(){
+    	  
+    	   $(".popup").hide('slow');
+       });
 
+        
+      
 
     });
 
@@ -464,6 +739,7 @@
 
 <script type="text/javascript" src="/resources/js/pageMaker.js"></script>	
 
+<script type="text/javascript" src="/resources/js/upload.js?ver=3"></script>	
 
 	<!-- Footer -->
 	<footer id="footer">

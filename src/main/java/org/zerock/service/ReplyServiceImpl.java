@@ -27,7 +27,9 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		boardMapper.updateReplyCnt(vo.getBno(), 1);
 		
-		return replyMapper.create(vo);
+		replyMapper.create(vo);
+		 
+		return replyMapper.updateup(vo);
 	}
 
 	@Override
@@ -60,5 +62,27 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		return dto;
 	}
+
+	@Override
+	@Transactional
+	public int rereply(ReplyVO vo) {
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
+		
+		return replyMapper.rereply(vo);
+	}
+
+	@Override
+	public int haveChild(Integer rno) {
+		
+		return replyMapper.haveChild(rno);
+	}
+
+	@Override
+	public int deleteParentReply(Integer rno) {
+		// TODO Auto-generated method stub
+		return replyMapper.deleteParentRply(rno);
+	}
+
+	
 
 }

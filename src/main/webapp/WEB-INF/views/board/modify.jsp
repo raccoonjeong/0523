@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/resources/css/main.css" />
 <style>
+
 .contentbox {
 	min-height: 500px;
 }
@@ -35,9 +36,68 @@
 	background-color: #ffffff;
 	background-color: rgba(255, 255, 255, 0.6);
 }
+.fileDrop
+{
+	width: 96.8%;
+    height: 100px;
+    padding: 20px;
+    border: 3px solid #ccc;
+    border-style: dashed;
+    background: rgba(144, 144, 144, 0.075);
+    margin: 0px 0px 0px 0px; 
+    float:right;
+    font-size:1.8em;
+    text-align: center;
+
+            }
+.uploadedList
+{
+	display:block;
+	width: 96.8%;
+    min-height: 220px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    
+    margin: 30px 0px 0px 0px; 
+    float:right;
+    list-style: none;
+
+
+
+}
+.uploadedList li{
+	display: inline-block;
+	border: 1px solid #ccc;
+	width: 170px;
+	height: 170px;
+	float:left; 
+	margin:0px 10px 10px 10px;
+	
+}
+.uploadedList img{
+width: 170px;
+    height: 130px;
+text-align: center;
+}
+.uploadedList li div{
+ background: rgba(144, 144, 144, 0.075);
+ height: 30px;
+
+ bottom:0;
+}
+
+.mailbox-attachment-name{
+
+        text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 149px;
+    overflow: hidden;
+    display: inline-block;
+
+}
 </style>
 </head>
-
 <body class="subpage">
 
 	<!-- Header -->
@@ -45,21 +105,24 @@
 		<div class="logo">
 			<a href="/board/list">Hielo <span>by TEMPLATED</span></a>
 		</div>
-			<li><a href="/board/list">Home</a></li>
-			<li><a href="/up/ajax">Image gallery</a></li>
+		<a href="#menu">Menu</a>
 	</header>
+
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
+			<li><a href="/up/ajax">Image gallery</a></li>
 		</ul>
 	</nav>
+
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Sed amet nulla</p>
-				<h2>Candy</h2>
+				<h1>select</h1>
+				<P></P>
+				<h2>select</h2>
 			</header>
 		</div>
 	</section>
@@ -70,7 +133,7 @@
 
 			<div class="mytable">
 				<h3>Modify</h3>
-				<form method="post" action="modify">
+				<form method="post" action="modify" id="registerForm">
 					<div class="row uniform">
 						<div class="6u 12u$(xsmall)">
 							<input type="text" name="title" id="title" id="name" value="${vo.title}" />
@@ -83,7 +146,13 @@
 							<textarea name="content" id="message"
 								placeholder="Enter your message" rows="20">${vo.content}</textarea>
 						</div>
-
+						<h3>File Upload</h3>
+						<div class="fileDrop">
+						
+						Drag&Drop file here.
+						</div>
+					<div class="uploadedList">
+					</div>
 						<div class="12u$">
 							<ul class="actions">
 								<li><input type="button" class="special list" value="Cancel"></li>
@@ -106,6 +175,18 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script id="template" type="text/x-handlebars-template">
+<li><span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"><span>
+<div class="mailbox-attachment-info">
+<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a></div>
+</li>
+</script>		
+		
+		
+		
 	<script>
 	
 		$(document).ready(function() {
@@ -115,8 +196,96 @@
 			});
 		});
 		
-	</script>
+		var template = Handlebars.compile($("#template").html());
+		$(".fileDrop").on("dragenter dragover", function(e){
+				e.preventDefault();		
+		});
 
+		$(".fileDrop").on("drop", function(e){
+			e.preventDefault();
+			
+			var files = e.originalEvent.dataTransfer.files;
+			
+			var file = files[0];
+			
+			var formData = new FormData();
+			
+			formData.append("file" , file);
+			
+			
+			$.ajax({
+				url: '/ex/uploadAjax',
+				data:formData,
+				dataType: 'text',
+				processData:false,
+				contentType:false,
+				type: 'POST',
+				success: function(data){
+
+			
+					console.log("data.....",data);
+		     	   
+					var fileInfo = getFileInfo(data);
+		     	   
+		     	   console.log("FileInfo....",fileInfo);
+		     	   
+		       	   var html = template(fileInfo);
+		       	   
+		       	   console.log("html....", html);
+		       	   
+					$(".uploadedList").append(html);
+				
+				}
+			});
+			
+			console.log(file);
+		});
+	       $("#registerForm").submit(function(e){
+	    	   
+	    	   e.preventDefault();
+	    	   var that =$(this);
+	    	   console.log("that..1",that);
+	    	   var str="";
+	    	   $(".uploadedList .delbtn").each(function(index){
+	     		  str+="<input type='hidden' name ='files["+index+"]' value='"+$(this).attr("href")+"'>";
+	     		  alert(index);
+	     		  });
+	    	   
+	    	   	 console.log("that..2",that.get(0));
+	    	   
+	      		 that.append(str);
+	     	 	 that.get(0).submit();
+	     	 	 
+	      	 });
+	       
+	   	$(".uploadedList").on("click",".delbtn",function(e){
+	   		e.preventDefault();
+			e.stopPropagation();
+	   		console.log("click remove....");
+			var that = $(this);
+			
+			$.ajax({
+				url: '/ex/deleteFile',
+				type: 'POST',
+				data:{fileName:$(this).attr("href")},
+				dataType: 'text',
+				success:function(result){
+					if(result =='deleted'){
+						that.parent("div").parent("span").parent("span").parent("li").remove();
+						alert("deleted");
+						console.dir(that);
+						console.log(that.parent("div").parent("span").parent("span").parent("li"));
+					}
+				}
+				
+				
+			});
+			
+	   	});
+	       
+		
+	</script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>	
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="container">

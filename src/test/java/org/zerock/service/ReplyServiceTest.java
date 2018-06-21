@@ -24,7 +24,10 @@ public class ReplyServiceTest {
 	private ReplyService service;
 	
 
-
+	@Test
+	public void havekid() {
+		log.info(service.haveChild(4));
+	}
 	
 	@Test
 	public void getList() {
@@ -40,6 +43,9 @@ public class ReplyServiceTest {
 		vo.setBno(1507455);
 		vo.setRcontent("현재까지 출간된 스프링관련 많은 서적들은 주로 스프링의 내부 구조나 원리 등 이론적인 배경에 초점을 두었지만, 이 책은 실제 개발 현장에서 사용하는 도구로서 스프링을 취급합니다.");
 		vo.setReplyer("칙촉");
+		vo.setGno(2);
+		vo.setRno(16);
+		
 		log.info(vo);
 		service.create(vo);
 	}
@@ -67,4 +73,9 @@ public class ReplyServiceTest {
 		
 		
 	}
+	
+	
+	
+	
+	
 }

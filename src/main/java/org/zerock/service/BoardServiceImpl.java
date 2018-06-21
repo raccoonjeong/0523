@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
@@ -30,9 +31,18 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int register(BoardVO vo) {
+	@Transactional
+	public void register(BoardVO vo) {
 		
-		return mapper.register(vo);
+		mapper.register(vo);
+
+		String[] files = vo.getFiles();
+		
+		if(files==null) {return ;}
+		
+		for(String fileName :files) {
+			mapper.addAttach(fileName);
+		}
 	}
 
 	@Override
@@ -42,16 +52,27 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	@Transactional
 	public int remove(int bno) {
-		
+		mapper.deleteAttach(bno);
 		return mapper.remove(bno);
 	}
 
 
 	@Override
-	public int modify(BoardVO vo) {
+	@Transactional
+	public void modify(BoardVO vo) {
+		
+		mapper.deleteAttach(vo.getBno());
+		String[] files = vo.getFiles();
+		if(files == null) {return ;}
+		
+		for(String fileName: files) {
+			mapper.replaceAttach(fileName, vo.getBno());
+			
+		}		
 
-		return mapper.modify(vo);
+		mapper.modify(vo);
 	}
 
 	@Override
@@ -61,6 +82,23 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.updateReplyCnt(bno,amount);
 		
 	}
+
+	@Override
+	public void updateViewCnt(Integer bno) {
+		 mapper.updateViewCnt(bno);
+		
+	}
+
+	@Override
+	public List<String> getAttach(Integer bno) {
+
+		return mapper.getAttach(bno);
+	}
+
+
+
+
+	
 
 
 

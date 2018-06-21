@@ -14,7 +14,7 @@ public interface ReplyMapper {
 	
 	public int update(ReplyVO vo);
 	
-	public int delete(Integer rno);
+	
 	
 	public List<ReplyVO> list(
 			@Param("cri") Criteria cri,
@@ -23,4 +23,17 @@ public interface ReplyMapper {
 	public int getTotal(Integer bno);
 	
 	public int getBno(Integer rno);
+
+	public int updateup(ReplyVO vo);
+	
+	public int rereply(ReplyVO vo);
+	
+	
+	public int delete(Integer rno);
+	
+	public int haveChild(Integer rno);
+	
+	public int deleteParentRply(Integer rno); 
+	
+	
 }

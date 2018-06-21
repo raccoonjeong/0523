@@ -35,6 +35,14 @@
 	<context:component-scan base-package="org.zerock.controller" />
 
 
+<beans:bean id="viewInterceptor" class="org.zerock.interceptor.ViewsInterceptor"></beans:bean>
+
+<interceptors>
+<interceptor>
+<mapping path="/board/read"/>
+<beans:ref bean="viewInterceptor"/>
+</interceptor>
+</interceptors>
 
 
 </beans:beans>
