@@ -1634,8 +1634,9 @@
 		}
 
 	body {
-		background-color: #fff;
-		color: #444;
+		background-color:  #f2f2f2;
+	 	color: #444; 
+	
 	}
 
 	body, input, select, textarea {
@@ -2390,7 +2391,7 @@
 
 	ul {
 		list-style: disc;
-		margin: 0 0 2rem 0;
+		margin: 0 0 2rem 0; 
 		padding-left: 1rem;
 	}
 
@@ -2676,7 +2677,7 @@
 /* Wrapper */
 
 	.wrapper {
-	    padding: 0rem 0 4rem 0;
+	    padding: 6rem 0 4rem 0;
 		
 		position: relative;
 		margin: 0;
@@ -2981,7 +2982,7 @@
 				.wrapper.style2 input[type="button"].special,
 				.wrapper.style2 button.special,
 				.wrapper.style2 .button.special {
-					background-color: #8a4680;
+					/* background-color: #8a4680; */
 					color: #ffffff !important;
 				}
 
@@ -3106,9 +3107,9 @@
 		.wrapper.style3 {
 			background-color: #000;
 			color: #bfbfbf;
-			background-image: url(/resources/images/bg.jpg);
+			background-image: url(/resources/images/food4.jpg);
 			background-size: cover;
-			background-attachment: fixed;
+	/* 		background-attachment: fixed; */
 			background-position: center;
 			position: relative;
 		}
@@ -3369,7 +3370,7 @@
 				transition-delay: 1.25s;
 				content: '';
 				display: block;
-				background-color: rgba(0, 0, 0, 0.95);
+				background-color: rgba(0, 0, 0, 0.5);
 				height: 100%;
 				left: 0;
 				opacity: 0.75;

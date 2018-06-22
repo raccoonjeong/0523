@@ -15,6 +15,14 @@
 <link rel="stylesheet" href="/resources/css/main.css?ver=4" />
 </head>
 <style>
+.button special{
+background-color: black;
+}
+.wrapper.style3{
+padding: 6rem 0 15rem 0;}
+.wrapper.style2{
+
+padding: 0rem 0 0 0;}
 .search1 {
 	text-align: center;
 }
@@ -89,18 +97,39 @@ pink
 }
 .categoryList {
 	text-align: center;
-	background-color: salmon;
-	height: 54px;
+	background-color: rgba(252, 205, 0, 0.66);
+	
+
 }
 
 .category1 {
-	width: 200px; color : black;
+  width: 300px;  
+	 color : black;
 	display: inline-block;
-	font-size: 2.2em;
-	border-left: 2px solid red;
-	border-right: 2px solid red;
-	color: black;
+	font-size: 1.8em;
+	    border-bottom: 1.5px solid black;
+/* 	border-left: 2px solid red;
+	border-right: 2px solid red; */
+
+	
+	
 }
+.categoryDiv{
+    width: 100%;
+}
+
+.grid-style p{
+text-align:center;
+font-size: 1.5em;
+}
+ul li {
+			padding-left: 0rem;
+		}
+		ul {
+    list-style: disc;
+    margin: 0 0 2rem 0;
+    padding-left: 0rem}
+
 </style>
 <body>
 
@@ -112,7 +141,7 @@ pink
 	<!-- Header -->
 	<header id="header">
 		<div class="logo">
-			<a href="/board/list">Candy~ <span>almond</span></a>
+			<button>Login</button>
 		</div>
 		<a href="#menu">Menu</a>
 	</header>
@@ -127,8 +156,8 @@ pink
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Sed amet nulla</p>
-				<h2>Elements</h2>
+				<p>What do you want to eat?</p>
+				<h2>FOOD TRUCK</h2>
 			</header>
 		</div>
 	</section>
@@ -184,33 +213,67 @@ pink
 					</div>
 				</article>
 			</section> -->
-
-	<!-- 푸드트럭리스트 -->
-	<section id="one" class="wrapper style2">
-
-		<div class="inner">
+			<div class="categoryDiv">
 			<ul class="categoryList">
 				<li class="category1"><span>Food</span></li>
 				<li class="category1"><span>Beverage</span></li>
 				<li class="category1"><span>Dessert</span></li>
 				<li class="category1"><span>Drink</span></li>
 			</ul>
+			</div>
+	<!-- 푸드트럭리스트 -->
+	<section id="one" class="wrapper style2">
+
+		<div class="inner">
+
 			<div class="grid-style">
 
 				<div>
 					<div class="box">
 						<div class="image fit">
-							<img src="resources/images/foodtruck/kimchi.jpg" alt="" />
+							<img src="resources/images/foodtruck/1991핫도그0.jpg" alt="" />
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>maecenas sapien feugiat ex purus</p>
-								<h2>영업중</h2>
+								<p style="font-size: 1.9em">1991핫도그</p>
+								<h2>OPEN</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>1991핫도그 / 에그스크럼블핫도그 / 치킨어니언핫도그 / 칠리비프핫도그</p>
+							<footer class="align-center">
+								<a href="/view" class="button alt">Read More</a>
+							</footer>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/images/foodtruck/베가스타코0.jpg" alt="" />
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<p style="font-size: 1.9em">베가스타코</p>
+								<h2>Closed</h2>
+							</header>
+							<p>오르차타 / 파히타 스테이크 타코 / 치킨브리또 / 불고기 타코 / 치즈 타코</p>
+							<footer class="align-center">
+								<a href="/view" class="button alt">Read More</a>
+							</footer>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/images/foodtruck/steakout.jpg" alt="" />
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<p>mattis elementum sapien pretium tellus</p>
+								<h2>퇴근</h2>
+							</header>
+							<p>Cras aliquet urna ut sapien tincidunt</p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Learn More</a>
 							</footer>
@@ -228,30 +291,7 @@ pink
 								<p>mattis elementum sapien pretium tellus</p>
 								<h2>퇴근</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
-							<footer class="align-center">
-								<a href="/view" class="button alt">Learn More</a>
-							</footer>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="box">
-						<div class="image fit">
-							<img src="resources/images/foodtruck/steakout.jpg" alt="" />
-						</div>
-						<div class="content">
-							<header class="align-center">
-								<p>mattis elementum sapien pretium tellus</p>
-								<h2>퇴근</h2>
-							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>Cras aliquet urna ut sapien tincidunt</p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Learn More</a>
 							</footer>
@@ -269,10 +309,7 @@ pink
 								<p>mattis elementum sapien pretium tellus</p>
 								<h2>퇴근</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>Cras aliquet urna ut sapien tincidunt</p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Learn More</a>
 							</footer>
@@ -290,10 +327,7 @@ pink
 								<p>mattis elementum sapien pretium tellus</p>
 								<h2>퇴근</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>Cras aliquet urna ut sapien tincidunt</p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Learn More</a>
 							</footer>
@@ -311,10 +345,7 @@ pink
 								<p>mattis elementum sapien pretium tellus</p>
 								<h2>퇴근</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>Cras aliquet urna ut sapien tincidunt</p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Learn More</a>
 							</footer>
@@ -329,15 +360,12 @@ pink
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>mattis elementum sapien pretium tellus</p>
-								<h2>퇴근</h2>
+								<p style="font-size: 1.9em">베가스타코</p>
+								<h2>Closed</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>오르차타 / 파히타 스테이크 타코 / 치킨브리또 / 불고기 타코 / 치즈 타코</p>
 							<footer class="align-center">
-								<a href="/view" class="button alt">Learn More</a>
+								<a href="/view" class="button alt">Read More</a>
 							</footer>
 						</div>
 					</div>
@@ -346,19 +374,16 @@ pink
 				<div>
 					<div class="box">
 						<div class="image fit">
-							<img src="resources/images/foodtruck/steakout.jpg" alt="" />
+							<img src="resources/images/foodtruck/쿡스테이크0.jpg" alt="" />
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>mattis elementum sapien pretium tellus</p>
-								<h2>퇴근</h2>
+								<p style="font-size: 1.9em">쿡스테이크</p>
+								<h2>Open</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p>스테이크 / 감자튀김 / 스테이크꼬치 / 콜라</p>
 							<footer class="align-center">
-								<a href="/view" class="button alt">Learn More</a>
+								<a href="/view" class="button alt">Read More</a>
 							</footer>
 						</div>
 					</div>
@@ -367,40 +392,16 @@ pink
 				<div>
 					<div class="box">
 						<div class="image fit">
-							<img src="resources/images/foodtruck/steakout.jpg" alt="" />
+							<img src="resources/images/foodtruck/허클베리핀0.jpg" alt="" />
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>mattis elementum sapien pretium tellus</p>
-								<h2>퇴근</h2>
+								<p style="font-size: 1.9em">허클베리핀</p>
+								<h2>Closed</h2>
 							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
+							<p> 랍스터쉬림프 / 탄두리쉬림프 </p>
 							<footer class="align-center">
-								<a href="/view" class="button alt">Learn More</a>
-							</footer>
-						</div>
-					</div>
-				</div>
-
-				<div>
-					<div class="box">
-						<div class="image fit">
-							<img src="resources/images/foodtruck/steakout.jpg" alt="" />
-						</div>
-						<div class="content">
-							<header class="align-center">
-								<p>mattis elementum sapien pretium tellus</p>
-								<h2>퇴근</h2>
-							</header>
-							<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-								facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh
-								a libero pharetra elementum. Maecenas feugiat ex purus, quis
-								volutpat lacus placerat malesuada.</p>
-							<footer class="align-center">
-								<a href="/view" class="button alt">Learn More</a>
+								<a href="/view" class="button alt">Read More</a>
 							</footer>
 						</div>
 					</div>
