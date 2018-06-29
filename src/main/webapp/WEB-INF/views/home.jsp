@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="/resources/css/main.css?ver=4" />
 </head>
 <style>
+}
+
 .button special{
 background-color: black;
 }
@@ -130,6 +132,21 @@ ul li {
     margin: 0 0 2rem 0;
     padding-left: 0rem}
 
+.myTruck{
+color:rgba(255, 255, 255, 0.5);
+list-style:none;
+border: 1px solid rgba(255, 255, 255, 0.5);
+text-align: center;
+
+}
+.myTruck button{
+/* border:1px solid #8a4680; */
+margin-top: 5px
+}
+
+
+
+
 </style>
 <body>
 
@@ -149,9 +166,28 @@ ul li {
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="/board/list">Home</a></li>
-			<li><a href="/up/ajax">Image gallery</a></li>
+			<li><a href="/up/ajax">Best Food Truck</a></li>
+			<li><a href="/board/list">Free Board</a></li>
 		</ul>
+		<br><br><br><br><br><br><br><br><br>
+		<ul>
+ 		<li class = "myTruck">
+		<!-- user01님,<br>
+	아직 자신의 푸드트럭을 <br>등록하지 않으셨나요?<br>
+	<button>Register</button>	 -->
+	user01님,<br>
+	방문을 환영합니다.
+	<button>Open</button>
+	<button>Close</button>
+	<button>Modify</button>
+	</li>
+	
+	
+	  	 
+		</ul>
+		
 	</nav>
+	
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
@@ -161,14 +197,7 @@ ul li {
 			</header>
 		</div>
 	</section>
-	<!-- Nav -->
-	<nav id="menu">
-		<ul class="links">
-			<li><a href="/home">Home</a></li>
-			<li><a href="/foodtruck">FoodTruck</a></li>
-			<li><a href="/ranking">Ranking</a></li>
-		</ul>
-	</nav>
+	
 
 	<!-- Banner -->
 	<!-- 	<section class="banner full">
@@ -232,13 +261,19 @@ ul li {
 					<div class="box">
 						<div class="image fit">
 							<img src="resources/images/foodtruck/1991핫도그0.jpg" alt="" />
+							 <div style="text-align:right; margin-top:10px"> <!-- border-top:1px solid #999999 -->
+						<span style="color:black">&nbsp;review&nbsp;&nbsp;3&nbsp;</span>&nbsp;&nbsp;
+							<span style="color:red;">&nbsp;♥&nbsp;&nbsp;&nbsp;10&nbsp;</span>
+							</div>
 						</div>
-						<div class="content">
+						<div class="content" style="margin:-1rem 2rem 0 2rem">
 							<header class="align-center">
-								<p style="font-size: 1.9em">1991핫도그</p>
+								<p style="font-size: 1.9em">1991핫도그 </p>	
 								<h2>OPEN</h2>
 							</header>
-							<p>1991핫도그 / 에그스크럼블핫도그 / 치킨어니언핫도그 / 칠리비프핫도그</p>
+							
+						<p>#1991핫도그#에그스크럼블핫도그#치킨어니언핫도그#칠리비프핫도그</p>
+
 							<footer class="align-center">
 								<a href="/view" class="button alt">Read More</a>
 							</footer>
@@ -393,13 +428,17 @@ ul li {
 					<div class="box">
 						<div class="image fit">
 							<img src="resources/images/foodtruck/허클베리핀0.jpg" alt="" />
+							<div style="text-align:right; margin-top:10px"> <!-- border-top:1px solid #999999 -->
+						<span style="color:black">&nbsp;review&nbsp;&nbsp;0&nbsp;</span>&nbsp;&nbsp;
+							<span style="color:red;">&nbsp;♥&nbsp;&nbsp;&nbsp;2&nbsp;</span>
+							</div>
 						</div>
-						<div class="content">
+						<div class="content" style="margin:-1rem 2rem 0 2rem">
 							<header class="align-center">
 								<p style="font-size: 1.9em">허클베리핀</p>
 								<h2>Closed</h2>
 							</header>
-							<p> 랍스터쉬림프 / 탄두리쉬림프 </p>
+							<p> #랍스터쉬림프#탄두리쉬림프 </p>
 							<footer class="align-center">
 								<a href="/view" class="button alt">Read More</a>
 							</footer>
@@ -480,6 +519,8 @@ ul li {
 	<script src="/resources/js/skel.min.js"></script>
 	<script src="/resources/js/util.js"></script>
 	<script src="/resources/js/main.js"></script>
+	
+	
 
 
 
